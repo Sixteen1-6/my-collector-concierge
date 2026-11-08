@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Collector Concierge</title>
+<meta name="description" content="Send us the box. We inventory, pregrade, grade, vault and sell trading cards, card by card, with a collector portal over your whole collection.">
+<meta name="theme-color" content="#0B1F17">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="My Collector Concierge">
+<meta property="og:description" content="Send us the box. We inventory, pregrade, grade, vault and sell trading cards, card by card, with a collector portal over your whole collection.">
+<meta property="og:url" content="https://sixteen1-6.github.io/my-collector-concierge/">
+<meta property="og:image" content="https://sixteen1-6.github.io/my-collector-concierge/img/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sixteen1-6.github.io/my-collector-concierge/img/og.jpg">
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Geist:wght@400..600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an auction-house catalogue for one real collection. Photographic plates, numbered lots, a velvet display case of JB's actual cards, a published fee schedule, and a working portal over the full 7,964-card ledger. Green velvet and brass, paper and ink. One deliberate look, light paper with velvet bands, in every theme. */
+:root{
+  --night:#0B1F17;
+  --bottle:#13392A;
+  --velvet:#0F2C20;
+  --paper:#F3EEE4;
+  --sheet:#FAF7F1;
+  --card:#FFFFFF;
+  --ink:#1B1D19;
+  --ink-2:#3B3E37;
+  --soft:#5E625A;
+  --brass:#A9853F;
+  --brass-l:#D8BE84;
+  --brass-h:#E6CF9A;
+  --rule:#D8CFBD;
+  --rule-d:rgba(243,238,228,.16);
+  --mist:#A3B2AA;
+  --paper-a:rgba(243,238,228,.78);
+  --shade:rgba(8,22,16,.88);
+  --ok:#2F7A54;--info:#3C6A8E;--warn:#A86E14;--crit:#AC3F35;
+  --ok-bg:#E1EDE5;--info-bg:#DFE8F1;--warn-bg:#F6EBD6;--gold-bg:#F1E8D4;--gray-bg:#ECE8E1;
+  --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Geist","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --g:clamp(20px,5vw,64px);
+  --max:1280px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%;background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.55;font-optical-sizing:auto;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:350;margin:0;line-height:1.02;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+button{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(var(--g),env(safe-area-inset-left,0px));padding-right:max(var(--g),env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums lining-nums}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.sans{font-family:var(--sans)}
+.eyebrow{font:500 12.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass)}
+.dark .eyebrow{color:var(--brass-l)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:500 15px/1 var(--sans);padding:16px 24px;border-radius:2px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
+.btn-brass{background:var(--brass-l);color:var(--night)}
+.btn-brass:hover{background:var(--brass-h)}
+.btn-ink,.btn-dark{background:var(--night);color:var(--paper)}
+.btn-ink:hover,.btn-dark:hover{background:var(--bottle)}
+.btn-line{border-color:var(--ink);color:var(--ink);background:none}.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-ghost{border-color:rgba(243,238,228,.4);color:var(--paper);background:none}.btn-ghost:hover{border-color:var(--paper);background:rgba(243,238,228,.08)}
+.btn-sm{padding:10px 14px;font-size:13.5px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.textlink{font:500 15px var(--sans);color:inherit;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.textlink:hover{text-decoration-color:var(--brass-l)}
+
+/* masthead */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--night)}
+.mast{position:fixed;inset:0 0 auto;top:env(safe-area-inset-top,0px);z-index:40;color:var(--paper);transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.mast.solid{background:rgba(11,31,23,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--rule-d)}
+.mast-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px;gap:20px}
+.mast nav{display:flex;gap:24px;font:400 14.5px var(--sans)}
+.mast nav a{text-decoration:none;opacity:.8}
+.mast nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
+.word{text-decoration:none;text-align:center;line-height:1;display:flex;align-items:center;gap:12px;justify-content:center}
+.word .monogram{width:38px;height:38px;font-size:17px;color:var(--brass-l);border-color:var(--brass-l)}
+.word .monogram::after{border-color:rgba(216,190,132,.35)}
+.word span{text-align:left}
+.word b{display:block;font:400 21px var(--serif);letter-spacing:.01em}
+.word small{display:block;font:italic 400 12.5px var(--serif);opacity:.7;margin-top:4px}
+.mast-end{display:flex;justify-content:flex-end;gap:22px;align-items:center}
+.mast-end .btn{padding:11px 16px;font-size:14px}
+.menu{display:none;background:none;border:0;color:inherit;font:500 14.5px var(--sans);cursor:pointer;padding:8px 0;justify-self:start}
+.drawer{display:none}
+@media (max-width:1060px){
+  .mast-row{grid-template-columns:auto 1fr auto}
+  .mast nav,.mast-end .textlink{display:none}
+  .menu{display:block}
+  .word{justify-content:flex-start}
+  .drawer{position:fixed;inset:72px 0 auto;top:calc(72px + env(safe-area-inset-top,0px));background:var(--night);padding:8px max(var(--g),env(safe-area-inset-right,0px)) 28px max(var(--g),env(safe-area-inset-left,0px));border-bottom:1px solid var(--rule-d);flex-direction:column}
+  .drawer.open{display:flex}
+  .drawer a{font:400 30px/1.35 var(--serif);text-decoration:none;color:var(--paper)}
+}
+@media (max-width:560px){.mast-end .btn{display:none}.word small{display:none}.word .monogram{display:none}}
+
+/* photo plates */
+.slot{position:relative;overflow:hidden;background:linear-gradient(160deg,#1B4A37,#0B261B);aspect-ratio:var(--ar,1);max-width:100%}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
+figure{margin:0}
+figcaption{font:italic 400 15px/1.45 var(--serif);color:var(--soft);margin-top:12px;max-width:52ch}
+figcaption b{font:500 12.5px var(--sans);font-style:normal;color:var(--brass);margin-right:8px}
+.dark figcaption{color:var(--mist)}
+.dark figcaption b{color:var(--brass-l)}
+
+/* hero */
+.hero{position:relative;min-height:clamp(620px,88svh,880px);color:var(--paper);display:flex;align-items:flex-end;background:var(--night);overflow:hidden}
+.hero .slot{position:absolute;inset:0;aspect-ratio:auto}
+.hero .slot img{animation:settle 2.4s cubic-bezier(.2,.7,.2,1) both;transform-origin:72% 55%}
+@keyframes settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,22,16,.9) 0%,rgba(8,22,16,.62) 34%,rgba(8,22,16,0) 58%),linear-gradient(0deg,rgba(8,22,16,.75) 0%,rgba(8,22,16,0) 38%);pointer-events:none}
+.hero-text{position:relative;z-index:2;padding-bottom:clamp(48px,8vh,96px);padding-top:120px;width:100%}
+.hero h1{font-size:clamp(3.3rem,7.4vw,7rem);font-weight:300;line-height:.95;letter-spacing:-.03em;max-width:9.5ch}
+.hero h1 em{color:var(--brass-l);font-weight:300}
+.hero-sub{display:flex;gap:clamp(24px,5vw,72px);align-items:flex-end;flex-wrap:wrap;margin-top:34px}
+.hero-sub p{font-size:20px;max-width:34ch;color:var(--paper-a);font-weight:350}
+.hero-sub .acts{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.hero .plate-cap{position:absolute;z-index:2;right:max(var(--g),env(safe-area-inset-right,0px));bottom:26px;font:italic 400 14px var(--serif);color:rgba(243,238,228,.72);max-width:40ch;text-align:right}
+.hero .plate-cap b{font:500 12px var(--sans);font-style:normal;color:var(--brass-l);margin-right:8px}
+@media (max-width:760px){
+  .hero{min-height:0;flex-direction:column;align-items:stretch}
+  .hero .slot{position:relative;inset:auto;aspect-ratio:4/3;margin-top:calc(72px + env(safe-area-inset-top,0px));--pos:78% 50%}
+  .hero::after{display:none}
+  .hero-text{padding-top:28px}
+  .hero .plate-cap{position:static;text-align:left;padding:0 max(var(--g),env(safe-area-inset-right,0px)) 28px max(var(--g),env(safe-area-inset-left,0px))}
+}
+
+/* on file strip */
+.onfile{background:var(--velvet);color:var(--paper);border-top:1px solid var(--rule-d)}
+.onfile .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) repeat(4,minmax(0,1fr));gap:0;padding-block:28px}
+.onfile .lead{font:italic 400 18px/1.35 var(--serif);color:var(--mist);padding-right:24px;align-self:center}
+.onfile .lead b{display:block;font:500 12.5px var(--sans);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-l);margin-bottom:6px}
+.fig{padding:4px 22px;border-left:1px solid var(--rule-d)}
+.fig strong{display:block;font:300 clamp(30px,3.2vw,44px)/1 var(--serif);letter-spacing:-.02em}
+.fig span{display:block;font:400 13.5px/1.4 var(--sans);color:var(--mist);margin-top:8px}
+@media (max-width:980px){.onfile .wrap{grid-template-columns:1fr 1fr;row-gap:22px}.onfile .lead{grid-column:1/-1;padding:0}.fig:nth-child(2n){border-left:0;padding-left:0}}
+
+/* letter */
+.letter{padding-block:clamp(96px,13vw,170px)}
+.letter-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(28px,6vw,96px)}
+.letter aside{font:italic 400 18px/1.4 var(--serif);color:var(--soft);padding-top:12px;border-top:1px solid var(--ink);align-self:start;max-width:22ch}
+.letter .body{max-width:34em}
+.letter .body p{font-size:clamp(21px,2vw,25px);line-height:1.5;font-weight:350}
+.letter .body p+p{margin-top:1em}
+.letter .body p:first-child::first-letter{float:left;font:300 5.4em/.8 var(--serif);margin:.06em .1em 0 -.03em;color:var(--bottle)}
+.letter .sign{margin-top:40px;display:flex;gap:16px;align-items:center;font:italic 400 20px var(--serif)}
+.monogram{width:44px;height:44px;border:1px solid var(--brass);display:grid;place-items:center;font:400 20px/1 var(--serif);color:var(--brass);position:relative;flex-shrink:0}
+.monogram::after{content:"";position:absolute;inset:4px;border:1px solid rgba(169,133,63,.4)}
+@media (max-width:820px){.letter-grid{grid-template-columns:1fr}}
+
+/* section titles */
+.title{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:clamp(40px,6vw,80px)}
+.title h2{font-size:clamp(2.8rem,6vw,5.4rem);font-weight:300;letter-spacing:-.025em}
+.title p{color:var(--soft);max-width:40ch;font-size:19px}
+.dark .title p{color:var(--mist)}
+@media (max-width:820px){.title{grid-template-columns:1fr}}
+
+/* chain of custody */
+.custody{background:var(--night);color:var(--paper);padding-block:clamp(96px,12vw,160px)}
+.ledger{width:100%;border-collapse:collapse}
+.ledger th{font:500 12.5px var(--sans);color:var(--mist);text-align:left;padding:0 24px 14px 0;border-bottom:1px solid var(--paper)}
+.ledger td{vertical-align:top;padding:30px 24px 32px 0;border-bottom:1px solid var(--rule-d)}
+.ledger td:first-child{width:22%}
+.ledger td:nth-child(2){width:46%}
+.ledger .stage{font:italic 300 clamp(30px,3.4vw,44px)/1 var(--serif);color:var(--brass-l)}
+.ledger .stage small{display:block;font:500 12.5px var(--sans);font-style:normal;color:var(--mist);margin-bottom:12px}
+.ledger h3{font-size:clamp(24px,2.4vw,30px);font-weight:400;margin-bottom:10px}
+.ledger p{color:var(--paper-a);font-size:18px;max-width:40ch}
+.ledger .get{font-size:18px;color:var(--paper);max-width:28ch}
+.ledger .get::before{content:"You receive";display:block;font:500 12.5px var(--sans);color:var(--mist);margin-bottom:8px}
+@media (max-width:820px){
+  .ledger thead{display:none}
+  .ledger tr{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--rule-d);padding:28px 0}
+  .ledger td{border:0;padding:0 0 14px;width:auto!important}
+}
+
+/* catalogue */
+.catalogue{padding-block:clamp(96px,12vw,160px) clamp(60px,8vw,100px)}
+.lot{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0 clamp(20px,3vw,40px);align-items:center;padding-block:clamp(40px,6vw,72px);border-top:1px solid var(--rule)}
+.lot .media{grid-column:1/6;min-width:0}
+.lot .copy{grid-column:7/13;min-width:0}
+.lot.flip .media{grid-column:8/13;order:2}
+.lot.flip .copy{grid-column:1/7;order:1}
+.lotno{font:500 12.5px var(--sans);color:var(--brass);display:flex;gap:12px;align-items:baseline;margin-bottom:16px}
+.lotno i{font:italic 300 46px/1 var(--serif);color:var(--ink)}
+.lot h3{font-size:clamp(2.2rem,3.6vw,3.4rem);font-weight:300;margin-bottom:18px}
+.lot .desc{font-size:19.5px;color:var(--ink-2);max-width:38ch}
+.terms{margin:28px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);max-width:36em}
+.terms dt{font:500 12.5px/1.9 var(--sans);color:var(--soft);padding:12px 28px 12px 0;border-top:1px solid var(--rule)}
+.terms dd{margin:0;padding:10px 0;border-top:1px solid var(--rule);font-size:17.5px;min-width:0}
+.terms dd strong{font-weight:500;font-size:22px}
+.bands{width:100%;border-collapse:collapse;font-size:17.5px;margin-top:28px;max-width:36em}
+.bands th{font:500 12.5px var(--sans);color:var(--soft);text-align:left;padding:0 0 10px;border-bottom:1px solid var(--ink)}
+.bands th:last-child,.bands td:last-child{text-align:right}
+.bands td{padding:11px 0;border-bottom:1px solid var(--rule)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);padding-block:clamp(40px,6vw,72px);border-top:1px solid var(--rule)}
+.pair .lot{display:block;padding:0;border:0}
+.pair .media{margin-bottom:26px}
+@media (max-width:860px){
+  .lot{display:block}
+  .lot .media{margin-bottom:28px}
+  .pair{grid-template-columns:1fr}
+}
+.handles{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-top:20px;margin-top:20px}
+.handles span{font:500 12.5px var(--sans);color:var(--soft)}
+.handles p{font:italic 300 clamp(26px,3vw,38px)/1.1 var(--serif)}
+
+/* scan sheet (lot 1) and slab pair (lot 3) */
+.scans{background:var(--velvet);padding:clamp(16px,2.4vw,26px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,22px)}
+.scan{display:grid;gap:8px;background:none;border:0;padding:0;cursor:pointer;text-align:left;color:var(--paper)}
+.scan .im{aspect-ratio:5/7;background:rgba(0,0,0,.25);display:grid;place-items:center;overflow:hidden}
+.scan img{width:100%;height:100%;object-fit:contain;transition:transform .35s}
+.scan:hover img{transform:scale(1.04)}
+.scan small{font:400 12px/1.35 var(--sans);color:var(--mist);display:flex;justify-content:space-between;gap:8px}
+.scan small b{font-weight:500;color:var(--brass-l)}
+.slabs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,20px)}
+.slabs .slot{--ar:3/5}
+
+/* the case */
+.case{position:relative;background:radial-gradient(90% 70% at 20% 0%,#1D4A37 0%,transparent 60%),radial-gradient(80% 60% at 90% 100%,#06140E 0%,transparent 70%),var(--velvet);color:var(--paper);padding-block:clamp(96px,12vw,150px) clamp(70px,9vw,110px);overflow:hidden}
+.case-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:500 13.5px var(--sans);padding:9px 14px;border:1px solid rgba(216,190,132,.35);background:none;color:var(--paper);cursor:pointer;border-radius:2px}
+.chip:hover{border-color:var(--brass-l)}
+.chip[aria-pressed="true"]{background:var(--brass-l);border-color:var(--brass-l);color:var(--night)}
+.arrows{display:flex;gap:8px}
+.arrow{width:46px;height:46px;border:1px solid rgba(243,238,228,.35);background:none;color:var(--paper);font:400 20px/1 var(--sans);cursor:pointer;border-radius:2px}
+.arrow:hover{border-color:var(--paper)}
+.tray{display:flex;gap:clamp(18px,2.4vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;padding:8px max(var(--g),env(safe-area-inset-right,0px)) 26px max(var(--g),env(safe-area-inset-left,0px));scrollbar-width:thin;scrollbar-color:rgba(216,190,132,.4) transparent;scroll-padding-left:max(var(--g),env(safe-area-inset-left,0px))}
+.wide-tray{max-width:calc(var(--max) + 400px);margin:0 auto}
+.piece{flex:0 0 auto;scroll-snap-align:start;width:clamp(200px,22vw,250px);background:none;border:0;padding:0;cursor:pointer;text-align:left;color:var(--paper);display:grid;gap:14px}
+.piece .stand{height:clamp(270px,30vw,340px);display:grid;place-items:end center;position:relative}
+.piece .stand::after{content:"";position:absolute;left:8%;right:8%;bottom:-6px;height:14px;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.55),transparent 70%)}
+.piece img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;box-shadow:0 18px 30px rgba(0,0,0,.4);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.piece:hover img,.piece:focus-visible img{transform:translateY(-8px)}
+.tag{border-top:1px solid rgba(216,190,132,.45);padding-top:10px;display:grid;gap:3px}
+.tag .row{display:flex;justify-content:space-between;gap:10px;font:500 12px var(--sans);color:var(--brass-l)}
+.tag b{font:400 20px/1.15 var(--serif)}
+.tag span{font:400 13px/1.35 var(--sans);color:var(--mist);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.case-foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;margin-top:18px;font:400 14px var(--sans);color:var(--mist)}
+
+/* promise */
+.promise{background:var(--bottle);color:var(--paper);padding-block:clamp(80px,10vw,140px)}
+.promise p{font:300 clamp(2.2rem,4.8vw,4.4rem)/1.12 var(--serif);letter-spacing:-.02em;max-width:22ch}
+.promise p span{color:var(--brass-l);font-style:italic}
+.promise small{display:block;margin-top:28px;font:400 14px var(--sans);color:var(--mist)}
+
+/* fees */
+.fees{padding-block:clamp(96px,12vw,160px);background:var(--sheet)}
+.sched{width:100%;border-collapse:collapse;font-size:17.5px}
+.sched caption{text-align:left;font:400 clamp(26px,2.6vw,32px) var(--serif);padding-bottom:16px}
+.sched caption small{display:block;font:400 14px var(--sans);color:var(--soft);margin-top:6px}
+.sched th,.sched td{padding:13px 16px 13px 0;border-bottom:1px solid var(--rule);text-align:left;vertical-align:baseline}
+.sched thead th{font:400 22px var(--serif);border-bottom:1px solid var(--ink)}
+.sched tbody th{font:500 13.5px var(--sans);color:var(--soft);width:24%;min-width:120px}
+.sched td.r,.sched th.r{text-align:right;padding-right:0}
+.sched .span{font-style:italic;color:var(--soft)}
+.tables{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:start}
+.scroll-x{overflow-x:auto}
+.scroll-x .sched{min-width:560px}
+@media (max-width:980px){.tables{grid-template-columns:minmax(0,1fr)}}
+
+/* estimate */
+.estimate{margin-top:clamp(80px,10vw,130px);display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+@media (max-width:1000px){.estimate{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.f-row.stack{grid-template-columns:minmax(0,1fr)}.toggle button{padding:10px 12px}}
+.est-h{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:18px}
+.est-h h3{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:300}
+.est-h p{font:400 15px var(--sans);color:var(--soft);max-width:44ch}
+.f-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:center;padding:20px 0;border-bottom:1px solid var(--rule)}
+.f-row .t{font-size:19px}
+.f-row .d{font:400 14px/1.5 var(--sans);color:var(--soft);margin-top:2px}
+.f-row .d s{opacity:.55}
+.f-group{font:500 12.5px var(--sans);color:var(--brass);padding:34px 0 4px;letter-spacing:.06em;text-transform:uppercase}
+.toggle{display:inline-flex;border:1px solid var(--ink)}
+.toggle button{font:500 14px var(--sans);padding:10px 16px;border:0;background:none;cursor:pointer;color:var(--ink)}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.count-in{display:flex;align-items:baseline;gap:10px}
+.count-in input{width:150px;text-align:right;font:300 46px/1 var(--serif);border:0;border-bottom:1px solid var(--ink);background:none;color:var(--ink);padding:0 0 4px;-moz-appearance:textfield}
+.count-in input::-webkit-inner-spin-button{-webkit-appearance:none}
+.count-in span{font:400 14px var(--sans);color:var(--soft)}
+input[type=range].slider{grid-column:1/-1;width:100%;-webkit-appearance:none;appearance:none;height:2px;background:linear-gradient(90deg,var(--ink) var(--p,2%),var(--rule) var(--p,2%));margin:14px 0 4px}
+input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);cursor:pointer}
+input[type=range].slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);cursor:pointer}
+.presets{grid-column:1/-1;display:flex;gap:18px;flex-wrap:wrap;font:400 14px var(--sans)}
+.presets button{background:none;border:0;padding:4px 0;cursor:pointer;color:var(--soft);font:inherit;border-bottom:1px solid transparent}
+.presets button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.tierlist{display:grid;border-top:1px solid var(--rule)}
+.tierrow{display:grid;grid-template-columns:28px 1.1fr 1fr 1fr auto;gap:12px;align-items:baseline;padding:16px 0;border:0;border-bottom:1px solid var(--rule);background:none;text-align:left;cursor:pointer;font:400 15px var(--sans);color:var(--ink)}
+.tierrow .dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);align-self:center}
+.tierrow[aria-pressed="true"] .dot{background:var(--ink);box-shadow:inset 0 0 0 3px var(--sheet)}
+.tierrow .nm{font:400 23px var(--serif)}
+.tierrow .nm em{display:block;font:italic 400 14px var(--serif);color:var(--brass)}
+.tierrow .m{color:var(--soft)}
+.tierrow .you{font:400 20px var(--serif);text-align:right}
+.tierrow .you span{font:400 13px var(--sans);color:var(--soft)}
+.tierrow:hover .nm{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+@media (max-width:600px){.tierrow{grid-template-columns:24px 1fr auto}.tierrow .m{display:none}}
+.step-in{display:inline-flex;align-items:center;border-bottom:1px solid var(--ink)}
+.step-in button{width:34px;height:34px;border:0;background:none;font:300 22px var(--sans);cursor:pointer;color:var(--ink)}
+.step-in button:hover{color:var(--brass)}
+.step-in input{width:54px;border:0;background:none;text-align:center;font:400 20px var(--serif);color:var(--ink);-moz-appearance:textfield}
+.step-in input::-webkit-inner-spin-button{-webkit-appearance:none}
+select.sel{font:400 14.5px var(--sans);padding:8px 2px;border:0;border-bottom:1px solid var(--ink);background:none;color:var(--ink);max-width:100%}
+.slip{position:sticky;top:96px;background:var(--card);padding:34px 30px 30px;box-shadow:0 1px 0 var(--rule),0 24px 50px rgba(27,29,25,.08);
+  -webkit-mask:radial-gradient(circle 6px at 50% 0,transparent 98%,#000) 0 0/16px 100% repeat-x;mask:radial-gradient(circle 6px at 50% 0,transparent 98%,#000) 0 0/16px 100% repeat-x}
+@media (max-width:1000px){.slip{position:static}}
+.slip .k{font:500 12.5px var(--sans);color:var(--brass);letter-spacing:.06em;text-transform:uppercase}
+.slip h4{font-size:30px;font-weight:350;margin:6px 0 4px}
+.slip .big{font:300 54px/1 var(--serif);margin-top:14px}
+.slip .big small{font:400 14px var(--sans);color:var(--soft)}
+.slip .sm{font:400 13.5px var(--sans);color:var(--soft);margin-top:6px}
+.slip table{width:100%;border-collapse:collapse;font:400 14.5px var(--sans);margin-top:20px}
+.slip td{padding:8px 0;border-top:1px dotted var(--rule);vertical-align:top}
+.slip td+td{text-align:right;white-space:nowrap;padding-left:12px}
+.slip .h td{font-weight:500;color:var(--brass);font-size:12.5px;padding-top:20px;border-top:1px solid var(--ink)}
+.slip .muted td{color:var(--soft)}
+.slip .tot td{border-top:1px solid var(--ink);font-weight:500}
+.slip .grand{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--ink);margin-top:18px;padding-top:14px;gap:12px}
+.slip .grand span{font:400 14px var(--sans);color:var(--soft)}
+.slip .grand strong{font:400 36px var(--serif)}
+.slip .btn{width:100%;margin-top:22px;white-space:normal;text-align:center}
+.slip .linkish{background:none;border:0;padding:0;margin-top:14px;font:500 14px var(--sans);color:var(--ink);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.slip .fine{font:400 12.5px/1.55 var(--sans);color:var(--soft);margin-top:16px}
+.r-meter{height:2px;background:var(--rule);margin:2px 0 4px}.r-meter i{display:block;height:100%;background:var(--brass)}
+
+/* portal */
+.portal{background:var(--bottle);color:var(--paper);padding-block:clamp(96px,12vw,160px)}
+.portal .title p{color:var(--paper-a)}
+.demo-note{font:400 14px var(--sans);color:var(--mist);margin-top:12px;display:block}
+.frame{background:var(--paper);color:var(--ink);box-shadow:0 40px 90px rgba(0,0,0,.35)}
+.frame-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);font:400 13px var(--sans);color:var(--soft)}
+.app{display:grid;grid-template-columns:220px minmax(0,1fr);height:760px;font-family:var(--sans);font-size:15px}
+.app-side{background:var(--night);color:var(--paper);padding:20px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.app-side .who{padding:4px 10px 20px;font:italic 400 19px var(--serif)}
+.app-side .who small{display:block;font:400 12.5px var(--sans);font-style:normal;color:var(--mist);margin-top:4px}
+.tab{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;font:400 14.5px var(--sans);padding:10px;border:0;background:none;cursor:pointer;color:rgba(243,238,228,.72);border-left:2px solid transparent}
+.tab:hover{color:var(--paper)}
+.tab[aria-selected="true"]{color:var(--paper);border-left-color:var(--brass-l);background:rgba(243,238,228,.06)}
+.tab .count{font-size:12px;color:var(--mist)}
+.side-foot{margin-top:auto;font-size:12px;color:var(--mist);padding:12px 10px 0;border-top:1px solid var(--rule-d);display:grid;gap:8px}
+.side-foot button{background:none;border:0;padding:0;color:var(--brass-l);font:500 12.5px var(--sans);cursor:pointer;text-align:left;text-decoration:underline}
+.app-main{overflow-y:auto;padding:28px clamp(18px,3vw,36px);min-width:0;background:var(--paper)}
+.vh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.vh h3{font-size:2.4rem;font-weight:350}
+.vh p{color:var(--soft);font-size:14px;margin-top:4px}
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr);height:auto}
+  .app-side{flex-direction:row;overflow-x:auto;padding:8px;align-items:center}
+  .app-side .who,.side-foot{display:none}
+  .tab{white-space:nowrap;flex-shrink:0;border-left:0;border-bottom:2px solid transparent}
+  .tab[aria-selected="true"]{border-bottom-color:var(--brass-l)}
+  .app-main{max-height:760px}
+}
+.ptiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:1px solid var(--rule);margin-bottom:18px}
+.pt{padding:4px 18px 18px 0;min-width:0}
+.pt+.pt{padding-left:18px;border-left:1px solid var(--rule)}
+@media (max-width:1100px){.ptiles{grid-template-columns:1fr 1fr}.pt:nth-child(3){padding-left:0;border-left:0}.pt:nth-child(n+3){padding-top:14px;border-top:1px solid var(--rule)}}
+.pt span{font-size:12.5px;color:var(--soft)}
+.pt strong{display:block;font:300 2.1rem/1.05 var(--serif);margin-top:6px}
+.pt small{font-size:12.5px;color:var(--soft)}
+.next{border-left:3px solid var(--brass);background:var(--sheet);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.next b{display:block;font:400 1.35rem var(--serif)}
+.next span{font-size:14px;color:var(--soft)}
+.two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px}
+@media (max-width:1100px){.two{grid-template-columns:minmax(0,1fr)}}
+.card-p h4{font-size:1.4rem;font-weight:400;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.card-p .lede{font-size:13.5px;color:var(--soft);margin:-2px 0 12px}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:96px minmax(0,1fr) 88px;gap:10px;align-items:center;font-size:13px}
+.bar .tr{display:grid;gap:3px}
+.bar .tr i{display:block;height:7px;background:var(--bottle);min-width:2px}
+.bar .tr i.v{background:var(--brass)}
+.bar .lbl{color:var(--ink)}
+.bar .val{text-align:right;color:var(--soft);font-size:12.5px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--soft);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:7px;margin-right:6px;vertical-align:middle;background:var(--bottle)}
+.legend i.v{background:var(--brass)}
+.feed{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.feed li{display:grid;grid-template-columns:10px minmax(0,1fr);gap:10px;font-size:14px}
+.feed li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass);margin-top:7px}
+.feed time{display:block;font-size:12px;color:var(--soft)}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:3px 9px;border-radius:2px;white-space:nowrap;font-family:var(--sans)}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.s-vault{background:var(--ok-bg);color:#1E5A40}.s-grader{background:var(--info-bg);color:var(--info)}.s-review{background:var(--warn-bg);color:var(--warn)}
+.s-consign{background:var(--gold-bg);color:#7A5E20}.s-returned{background:var(--gray-bg);color:#5E655F}.s-done{background:var(--ok-bg);color:var(--ok)}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end}
+.toolbar .in{flex:1 1 140px;font:400 14px var(--sans);padding:9px 2px;border:0;border-bottom:1px solid var(--ink);background:none;color:var(--ink);min-width:0}
+.toolbar input.in{flex:3 1 220px}
+.toolbar .toggle{flex:0 0 auto}
+.toolbar .toggle button{padding:8px 12px;font-size:13px}
+.result-line{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--soft);margin:4px 0 12px}
+.result-line button{background:none;border:0;padding:0;font:500 13px var(--sans);color:var(--ink);text-decoration:underline;cursor:pointer}
+.tw{overflow-x:auto}
+table.dt{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+table.dt th{text-align:left;font-weight:500;font-size:12.5px;color:var(--soft);padding:10px 12px 10px 0;border-bottom:1px solid var(--ink)}
+table.dt td{padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);vertical-align:middle}
+table.dt tbody tr{cursor:pointer}
+table.dt tbody tr:hover td{background:var(--sheet)}
+table.dt .r{text-align:right}
+.cc{display:flex;gap:12px;align-items:center;min-width:0}
+.cc b{display:block;font-weight:500}.cc small{color:var(--soft);font-size:12.5px;display:block;max-width:44ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th{width:30px;height:42px;flex-shrink:0;display:grid;place-items:center;overflow:hidden;background:var(--velvet);font:500 10px var(--sans);color:var(--brass-l)}
+.th img{width:100%;height:100%;object-fit:cover}
+.grade{font:400 16px var(--serif)}
+.empty{padding:30px;text-align:center;color:var(--soft)}
+.more{display:flex;justify-content:center;padding:18px 0 6px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 18px}
+.gcard{background:none;border:0;padding:0;cursor:pointer;text-align:left;display:grid;gap:8px;color:var(--ink)}
+.gcard .im{aspect-ratio:5/7;background:var(--velvet);display:grid;place-items:center;overflow:hidden;padding:8px}
+.gcard img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .3s}
+.gcard:hover img{transform:scale(1.04)}
+.gcard b{font:400 17px/1.15 var(--serif)}
+.gcard small{font-size:12.5px;color:var(--soft);display:flex;justify-content:space-between;gap:6px}
+.subm{padding:18px 0;border-bottom:1px solid var(--rule)}
+.sub-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.sub-top h4{font-size:1.5rem;font-weight:400}
+.sub-top p{font-size:13.5px;color:var(--soft);margin-top:2px}
+.stg{list-style:none;padding:0;margin:16px 0 4px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.stg li{font-size:12px;color:var(--soft);padding-top:9px;border-top:2px solid var(--rule)}
+.stg li.d{border-color:var(--bottle);color:var(--ink)}
+.stg li.n{border-color:var(--brass);color:var(--ink);font-weight:600}
+@media (max-width:620px){.stg{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:10px}}
+.sub-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:13.5px;color:var(--soft);margin-top:8px}
+.sub-meta button{background:none;border:0;padding:0;font:500 13.5px var(--sans);color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.quote{margin-top:12px;background:var(--sheet);padding:12px 14px;font-size:14px}
+.quote table{width:100%;border-collapse:collapse}.quote td{padding:4px 0}.quote td:last-child{text-align:right;white-space:nowrap;padding-left:12px}
+.quote .tot td{border-top:1px solid var(--rule);font-weight:600;padding-top:8px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 20px;padding-bottom:20px;margin-bottom:16px;border-bottom:1px solid var(--rule)}
+.form label{display:grid;gap:6px;font-size:13px;font-weight:500;color:var(--soft);min-width:0}
+.form .full{grid-column:1/-1}
+.form .in{font:400 15px var(--sans);padding:8px 2px;border:0;border-bottom:1px solid var(--ink);background:none;color:var(--ink);min-width:0;width:100%}
+.form textarea.in{min-height:60px;resize:vertical}
+@media (max-width:620px){.form{grid-template-columns:minmax(0,1fr)}}
+.list{display:grid}
+.item{padding:13px 0;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.item b{display:block;font-weight:500}.item small{color:var(--soft);font-size:12.5px}
+.meter{height:6px;background:var(--rule);overflow:hidden;margin:8px 0 6px}
+.meter i{display:block;height:100%;background:var(--bottle)}
+.pick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:12px 0;border-top:1px solid var(--rule)}
+@media (max-width:700px){.pick{grid-template-columns:1fr 1fr}}
+.pick button{text-align:left;padding:12px 12px 12px 0;border:0;border-bottom:1px solid var(--rule);background:none;cursor:pointer;font:400 13px var(--sans);color:var(--ink)}
+.pick button b{display:block;font:400 1.35rem var(--serif)}
+.pick button[aria-pressed="true"] b{text-decoration:underline;text-underline-offset:5px}
+.pick button.cur::after{content:"Current plan";display:block;font-size:11.5px;font-weight:600;color:var(--brass);margin-top:4px}
+.confirm{background:var(--sheet);padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.confirm span{font-size:14px;color:var(--soft)}
+
+/* card viewer */
+.viewer{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.vw-back{position:absolute;inset:0;background:rgba(6,16,11,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.vw-panel{position:relative;width:min(1040px,100%);max-height:100%;overflow:auto;background:var(--paper);color:var(--ink);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);box-shadow:0 40px 90px rgba(0,0,0,.45)}
+.vw-media{background:radial-gradient(80% 70% at 30% 20%,#1D4A37,transparent 70%),var(--velvet);padding:clamp(20px,3vw,36px);display:grid;gap:16px;align-content:center;justify-items:center;min-height:0}
+.flipwrap{perspective:1600px;width:100%;height:min(62vh,540px)}
+.flipper{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
+.flipper.turned{transform:rotateY(180deg)}
+.flipper img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backface-visibility:hidden;-webkit-backface-visibility:hidden;filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
+.flipper img.bk{transform:rotateY(180deg)}
+.vw-none{height:min(50vh,420px);width:min(300px,100%);border:1px dashed rgba(216,190,132,.45);display:grid;place-items:center;text-align:center;padding:24px;font:italic 400 18px/1.4 var(--serif);color:var(--brass-l)}
+.vw-turn{font:500 13.5px var(--sans);background:none;border:1px solid rgba(243,238,228,.4);color:var(--paper);padding:9px 14px;cursor:pointer;border-radius:2px}
+.vw-turn:hover{border-color:var(--paper)}
+.vw-info{padding:clamp(24px,3.4vw,44px);display:flex;flex-direction:column;min-width:0}
+.vw-x{position:absolute;top:12px;right:12px;z-index:2;font:500 13.5px var(--sans);background:var(--paper);border:1px solid var(--ink);color:var(--ink);padding:8px 12px;cursor:pointer;border-radius:2px}
+.vw-info h3{font-size:clamp(2rem,3.4vw,2.8rem);font-weight:350;margin:10px 0 8px;padding-right:70px}
+.vw-info .set{font-size:17px;color:var(--ink-2)}
+.vw-info .terms{margin-top:20px}
+.vw-info .terms dd{font-size:16px}
+.vw-note{margin-top:16px;background:var(--sheet);border-left:3px solid var(--brass);padding:10px 14px;font:italic 400 16px/1.45 var(--serif);color:var(--ink-2)}
+.vw-note b{display:block;font:500 12px var(--sans);font-style:normal;color:var(--brass);margin-bottom:2px}
+.vw-nav{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:10px;font:400 13px var(--sans);color:var(--soft)}
+@media (max-width:820px){.vw-panel{grid-template-columns:minmax(0,1fr)}.flipwrap{height:min(46vh,420px)}}
+
+/* conditions */
+.conditions{padding-block:clamp(96px,12vw,160px)}
+.clauses{columns:2;column-gap:clamp(32px,6vw,88px);counter-reset:c}
+.clause{break-inside:avoid;margin-bottom:34px;counter-increment:c}
+.clause h3{font-size:24px;font-weight:400;margin-bottom:8px;display:flex;gap:14px}
+.clause h3::before{content:counter(c) ".";font:500 13px/2.1 var(--sans);color:var(--brass);min-width:18px}
+.clause p{color:var(--ink-2);font-size:17.5px;padding-left:32px}
+@media (max-width:820px){.clauses{columns:1}}
+
+/* close */
+.close{background:var(--night);color:var(--paper);padding-block:clamp(100px,14vw,190px) 0;position:relative;overflow:hidden}
+.close h2{font-size:clamp(3.2rem,8vw,7.4rem);font-weight:300;letter-spacing:-.03em;max-width:12ch;line-height:.95}
+.close .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.close .row p{max-width:34ch;color:var(--mist);font-size:19px;margin-bottom:22px}
+.colophon{margin-top:clamp(80px,10vw,140px);border-top:1px solid var(--rule-d);padding:28px 0 calc(40px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:400 13.5px var(--sans);color:var(--mist)}
+.colophon .word{color:var(--paper);justify-content:flex-start}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);background:var(--ink);color:var(--paper);padding:12px 18px;font:500 14.5px var(--sans);opacity:0;pointer-events:none;transition:opacity .2s,transform .25s;z-index:80;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+
+<header class="mast" id="mast">
+  <div class="wrap mast-row">
+    <nav aria-label="Main">
+      <a href="#custody">How it works</a>
+      <a href="#catalogue">Services</a>
+      <a href="#case">The collection</a>
+      <a href="#fees">Fees</a>
+    </nav>
+    <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="drawer">Menu</button>
+    <a class="word" href="#top"><span class="monogram" aria-hidden="true">CC</span><span><b>My Collector Concierge</b><small>Collect, preserve, enjoy</small></span></a>
+    <div class="mast-end">
+      <a class="textlink" href="#portal">Collector portal</a>
+      <a class="btn btn-brass" href="#estimate">Begin a submission</a>
+    </div>
+  </div>
+  <div class="drawer" id="drawer">
+    <a href="#custody">How it works</a><a href="#catalogue">Services</a><a href="#case">The collection</a><a href="#fees">Fees</a><a href="#portal">Collector portal</a><a href="#conditions">Conditions</a><a href="#estimate">Begin a submission</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="slot" style="--pos:68% 50%"><img src="img/hero.webp" alt="Michael Jordan, Tom Brady and Shohei Ohtani cards in riveted aluminum display slabs, set in an open emerald velvet presentation case" fetchpriority="high"></div>
+    <div class="wrap hero-text">
+      <h1 id="hero-h">Your collection, <em>thoughtfully</em> handled.</h1>
+      <div class="hero-sub">
+        <p>Send us the box. We tell you what is in it, card by card, and you decide what happens next.</p>
+        <div class="acts"><a class="btn btn-brass" href="#estimate">Begin a submission</a><a class="textlink" href="#case">See a real collection</a></div>
+      </div>
+    </div>
+    <p class="plate-cap"><b>Plate I</b>Jordan, Brady and Ohtani in silver, emerald and graphite display slabs.</p>
+  </section>
+
+  <section class="onfile" aria-label="One collection on file">
+    <div class="wrap" id="onfile">
+      <p class="lead"><b>On file today</b>JB's collection, as we've logged it.</p>
+      <div class="fig"><strong class="num" data-agg="n">7,964</strong><span>cards inventoried and priced</span></div>
+      <div class="fig"><strong class="num" data-agg="v">$429,970</strong><span>recorded market value</span></div>
+      <div class="fig"><strong class="num" data-agg="grading">335</strong><span>cards at PSA and BGS right now</span></div>
+      <div class="fig"><strong class="num" data-agg="vault">38</strong><span>graded keepers in the vault</span></div>
+    </div>
+  </section>
+
+  <section class="letter" aria-label="A note from us">
+    <div class="wrap letter-grid">
+      <aside>A note before you send anything.</aside>
+      <div class="body">
+        <p>Most collections don't start as collections. They start as a binder from when you were nine, a box from an estate sale, or the cards you always meant to grade and never did.</p>
+        <p>We built My Collector Concierge for that box. You send it to us, and we tell you what's inside, with real market prices. Then you decide what each card deserves. A few go to a grader. A favorite gets a slab for the shelf. Some get sold. Most go home with you, finally sorted.</p>
+        <p>We won't push grading. Of JB's 7,964 cards, fewer than one in twenty has gone to a grader. If a card won't earn back the fee, we'll tell you so.</p>
+        <div class="sign"><span class="monogram">CC</span><span>The collectors behind My Collector Concierge</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="custody dark" id="custody" aria-labelledby="custody-h">
+    <div class="wrap">
+      <div class="title"><h2 id="custody-h">The chain of custody.</h2><p>Where your cards are, who has them, and what you get back at each step. Nothing paid happens until you approve a quote.</p></div>
+      <table class="ledger">
+        <thead><tr><th scope="col">Stage</th><th scope="col">What happens</th><th scope="col">What you receive</th></tr></thead>
+        <tbody>
+          <tr><td><span class="stage"><small>First</small>Shipped</span></td><td><h3>You pack the box and send it.</h3><p>Ship the way you already store them. Bulk is welcome, base cards and all. Every box travels with tracking.</p></td><td><p class="get">A tracking number and a note when we sign for it.</p></td></tr>
+          <tr><td><span class="stage"><small>Second</small>Logged</span></td><td><h3>We open it and take inventory.</h3><p>Base cards and base inserts are set aside. The cards you select are scanned front and back, identified and priced against the market.</p></td><td><p class="get">An inventory with a number, a scan and a value for every card we catalog.</p></td></tr>
+          <tr><td><span class="stage"><small>Third</small>Decided</span></td><td><h3>You choose, one card at a time.</h3><p>Keep it, check it, grade it, slab it, vault it or sell it. We confirm final counts and fees with you before any work starts.</p></td><td><p class="get">A quote to approve. Nothing is charged until you say yes.</p></td></tr>
+          <tr><td><span class="stage"><small>Ongoing</small>Kept</span></td><td><h3>Your cards stay where you can see them.</h3><p>Grading runs, vaulted cards, returns and listings all live in your collector portal, updated as they move.</p></td><td><p class="get">A portal login and a record that stays until a card is sold or deleted.</p></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="catalogue" id="catalogue" aria-labelledby="cat-h">
+    <div class="wrap">
+      <div class="title"><h2 id="cat-h">The catalogue of services.</h2><p>Seven ways to handle a card. Choose any of them, for any card, or none at all.</p></div>
+
+      <article class="lot">
+        <figure class="media"><div class="scans" id="scans"></div><figcaption><b>Plate II</b>Four cards from JB's inventory, as they were scanned and logged. Select one to see both sides.</figcaption></figure>
+        <div class="copy">
+          <div class="lotno"><i>01</i>Lot one</div>
+          <h3>Inventory &amp; Value</h3>
+          <p class="desc">The first thing we do with any box. We separate base cards and inserts, follow your instructions to inventory, return or donate them, and catalog only the cards you pick.</p>
+          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$2</strong> per inventoried card</dd><dt>Includes</dt><dd>Front and back scans, card details, an inventory number and software market pricing</dd><dt>Good to know</dt><dd>Base cards you don't inventory cost nothing to sort</dd></dl>
+        </div>
+      </article>
+
+      <article class="lot flip">
+        <figure class="media"><div class="slot" style="--ar:1/1"><img src="img/pikachu.webp" alt="A gloved hand holding a loupe over a Pikachu card" loading="lazy"></div><figcaption><b>Plate III</b>Centering, corners, edges and surface, under the loupe.</figcaption></figure>
+        <div class="copy">
+          <div class="lotno"><i>02</i>Lot two</div>
+          <h3>Condition check</h3>
+          <p class="desc">Before you spend money on grading, find out what you're likely to get. We review the four things graders look at and give you a grade range with a straight recommendation.</p>
+          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$10</strong> per card</dd><dt>Includes</dt><dd>Notes on centering, corners, edges and surface, plus an estimated grade such as "9 or 10" or "9 at best"</dd><dt>Good to know</dt><dd>Already included when you send a card for grading</dd></dl>
+        </div>
+      </article>
+
+      <article class="lot">
+        <figure class="media"><div class="slabs"><div class="slot"><img src="img/goofy.webp" alt="Goofy 2025 Topps Chrome Disney card in a PSA 10 holder" loading="lazy"></div><div class="slot"><img src="img/ramirez.webp" alt="José Ramírez 2014 Topps Chrome autograph in a PSA 10 holder" loading="lazy"></div></div><figcaption><b>Plate IV</b>Goofy, 2025 Topps Chrome, and José Ramírez, 2014 Topps Chrome autograph. Both came back PSA 10.</figcaption></figure>
+        <div class="copy">
+          <div class="lotno"><i>03</i>Lot three</div>
+          <h3>Professional grading</h3>
+          <p class="desc">You choose PSA, BGS, SGC or CGC. We handle review, non-altering prep, submission and tracking, and the card comes back to your vault or your door.</p>
+          <table class="bands num">
+            <thead><tr><th scope="col">Value agreed at intake</th><th scope="col">My CC fee per card</th></tr></thead>
+            <tbody><tr><td>Up to $1,000</td><td>$25</td></tr><tr><td>$1,000 to $2,500</td><td>$35</td></tr><tr><td>$2,500 to $10,000</td><td>$65</td></tr><tr><td>Over $10,000</td><td>$125</td></tr></tbody>
+          </table>
+          <dl class="terms"><dt>Grader fees</dt><dd>Billed at cost, never marked up</dd><dt>Members</dt><dd>5% to 20% off our fee</dd><dt>Good to know</dt><dd>No gem-mint fee. The band is set by the value agreed at intake.</dd></dl>
+        </div>
+      </article>
+
+      <article class="lot flip">
+        <figure class="media"><div class="slot" style="--ar:1/1"><img src="img/maris.webp" alt="A 1958 Topps Roger Maris card in a graded holder, standing in an emerald-lined locking vault drawer" loading="lazy"></div><figcaption><b>Plate V</b>One card, one space. Toploader, magnetic holder or slab.</figcaption></figure>
+        <div class="copy">
+          <div class="lotno"><i>04</i>Lot four</div>
+          <h3>Vault membership</h3>
+          <p class="desc">For the cards you'd rather not keep in a closet. Every vaulted card stays visible in your portal, and you can ask for a check, grading, a sale or a return whenever you're ready.</p>
+          <dl class="terms"><dt>Fee</dt><dd>From <strong class="num">$29</strong> a month for 200 cards</dd><dt>Plans</dt><dd>Bronze, Silver, Gold and Diamond, up to 4,000 cards</dd><dt>Good to know</dt><dd>Extra space is $30 per 200 cards a month</dd></dl>
+        </div>
+      </article>
+
+      <article class="pair">
+        <div class="lot">
+          <figure class="media"><div class="slot" style="--ar:4/3;--pos:50% 45%"><img src="img/daniels-return.webp" alt="A graded Jayden Daniels autograph packed in a shipping box with tissue" loading="lazy"></div></figure>
+          <div class="lotno"><i>05</i>Lot five</div>
+          <h3>Return to you</h3>
+          <p class="desc">Packed carefully and sent home whenever you ask, in one shipment or several.</p>
+          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$5</strong> a shipment, plus $0.25 a card</dd><dt>Not included</dt><dd>Postage and insurance, at cost</dd></dl>
+        </div>
+        <div class="lot">
+          <figure class="media"><div class="slot" style="--ar:4/3;--pos:50% 45%"><img src="img/willits.webp" alt="A graded Eli Willits autograph on a stand beside an auction gavel" loading="lazy"></div></figure>
+          <div class="lotno"><i>06</i>Lot six</div>
+          <h3>Consignment</h3>
+          <p class="desc">We list and sell through eBay or Fanatics Collect, and pass along preferred terms on qualifying Fanatics auction sales.</p>
+          <dl class="terms"><dt>Fee</dt><dd><strong class="num">10%</strong> of the sale, $10 minimum</dd><dt>Charged</dt><dd>Only when the card sells. Payout and costs agreed before listing.</dd></dl>
+        </div>
+      </article>
+
+      <article class="lot">
+        <figure class="media"><div class="slot" style="--ar:3/2"><img src="img/trio.webp" alt="Silver, emerald and graphite riveted aluminum display slabs holding Michael Jordan, Tom Brady and Shohei Ohtani cards" loading="lazy"></div><figcaption><b>Plate VI</b>Engraved aluminum with color-matched rivets.</figcaption></figure>
+        <div class="copy">
+          <div class="lotno"><i>07</i>Lot seven</div>
+          <h3>Collector display slab</h3>
+          <p class="desc">For the card you plan to keep and want to look at. An engraved aluminum slab with matched hardware, made for a shelf or a desk.</p>
+          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$99</strong>, or $74 to $94 for members</dd><dt>Good to know</dt><dd>Display only. It doesn't carry a third-party grade.</dd></dl>
+        </div>
+      </article>
+
+      <div class="handles"><span>Cards we handle</span><p>Sports, Pokémon, Disney and non-sport.</p></div>
+    </div>
+  </section>
+
+  <section class="case dark" id="case" aria-labelledby="case-h">
+    <div class="wrap">
+      <div class="title"><h2 id="case-h">From JB's collection.</h2><p>Real cards from a real submission, scanned at intake. Select any card to turn it over and read its record: pregrade, grading run and recorded value.</p></div>
+      <div class="case-top">
+        <div class="chips" role="group" aria-label="Show cards">
+          <button class="chip" type="button" data-f="top" aria-pressed="true">Highest value</button>
+          <button class="chip" type="button" data-f="vault" aria-pressed="false">In the vault</button>
+          <button class="chip" type="button" data-f="grader" aria-pressed="false">At the grader</button>
+          <button class="chip" type="button" data-f="ns" aria-pressed="false">Disney, Marvel &amp; more</button>
+        </div>
+        <div class="arrows"><button class="arrow" type="button" id="tr-prev" aria-label="Scroll the case left">&larr;</button><button class="arrow" type="button" id="tr-next" aria-label="Scroll the case right">&rarr;</button></div>
+      </div>
+    </div>
+    <div class="wide-tray"><div class="tray" id="tray" tabindex="0" aria-label="Cards in the case"></div></div>
+    <div class="wrap"><div class="case-foot"><span id="tray-note"></span><a class="btn btn-ghost btn-sm" href="#portal" id="tray-all">Search all 7,964 cards in the portal</a></div></div>
+  </section>
+
+  <section class="promise" aria-label="Our promises">
+    <div class="wrap">
+      <p>No submission quotas. No gem-mint fees. <span>Honest recommendations,</span> even when the honest answer is to leave a card in the binder.</p>
+      <small>Three things we won't change.</small>
+    </div>
+  </section>
+
+  <section class="fees" id="fees" aria-labelledby="fees-h">
+    <div class="wrap">
+      <div class="title"><h2 id="fees-h">Schedule of fees.</h2><p>Published in full. Member savings apply to our labor only. Grader fees, postage, insurance and taxes pass through at cost.</p></div>
+      <div class="tables">
+        <div class="scroll-x">
+          <table class="sched num">
+            <caption>Vault memberships<small>Monthly, cancel or change any month</small></caption>
+            <thead><tr><td></td><th scope="col">Bronze</th><th scope="col">Silver</th><th scope="col">Gold</th><th scope="col">Diamond</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Monthly fee</th><td>$29</td><td>$99</td><td>$249</td><td>$499</td></tr>
+              <tr><th scope="row">Cards included</th><td>200</td><td>1,000</td><td>2,000</td><td>4,000</td></tr>
+              <tr><th scope="row">Off My CC labor</th><td>5%</td><td>10%</td><td>15%</td><td>20%</td></tr>
+              <tr><th scope="row">Display slab</th><td>$94</td><td>$89</td><td>$79</td><td>$74</td></tr>
+              <tr><th scope="row">Planning time</th><td>15 min</td><td>45 min</td><td>2 hr</td><td>4 hr</td></tr>
+              <tr><th scope="row">Extra space</th><td colspan="4" class="span">$30 per 200 cards a month, in whole blocks</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="scroll-x">
+          <table class="sched num" style="min-width:420px">
+            <caption>Services<small>Standard price, and the member price range</small></caption>
+            <thead><tr><td></td><th scope="col" class="r">Standard</th><th scope="col" class="r">Members</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Inventory &amp; value</th><td class="r">$2</td><td class="r">$1.60 to $1.90</td></tr>
+              <tr><th scope="row">Condition check</th><td class="r">$10</td><td class="r">$8 to $9.50</td></tr>
+              <tr><th scope="row">Grading, to $1,000</th><td class="r">$25</td><td class="r">$20 to $23.75</td></tr>
+              <tr><th scope="row">Grading, to $2,500</th><td class="r">$35</td><td class="r">$28 to $33.25</td></tr>
+              <tr><th scope="row">Grading, to $10,000</th><td class="r">$65</td><td class="r">$52 to $61.75</td></tr>
+              <tr><th scope="row">Grading, over $10,000</th><td class="r">$125</td><td class="r">$100 to $118.75</td></tr>
+              <tr><th scope="row">Display slab</th><td class="r">$99</td><td class="r">$74 to $94</td></tr>
+              <tr><th scope="row">Return handling</th><td class="r" colspan="2">$5 a shipment plus $0.25 a card</td></tr>
+              <tr><th scope="row">Consignment</th><td class="r" colspan="2">10% of sale, $10 minimum</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="estimate" id="estimate">
+        <div class="est-h"><h3>Prepare an estimate.</h3><p>Set your numbers and the slip updates as you go. It's an estimate only. Nothing is ordered or charged.</p></div>
+        <div>
+          <div class="f-row stack"><div><div class="t">How would you like to start?</div><div class="d">A vault plan, or one-time services at standard prices</div></div>
+            <div class="toggle" role="group" aria-label="Plan type"><button type="button" data-mode="vault" aria-pressed="true">Vault and services</button><button type="button" data-mode="services" aria-pressed="false">Services only</button></div></div>
+          <div id="vault-ui">
+            <div class="f-row stack"><div><div class="t">Cards in your vault</div><div class="d">Each card in a toploader, magnetic holder or slab is one space</div></div>
+              <label class="count-in"><span class="sr">Vault cards</span><input id="v-cards" class="num" type="number" min="0" max="100000" value="200" inputmode="numeric"><span>cards</span></label>
+              <input class="slider" id="v-range" type="range" min="0" max="10000" step="50" value="200" aria-label="Vault cards slider">
+              <div class="presets" id="presets"></div></div>
+            <div class="f-group">Membership</div>
+            <p class="d sans" id="auto-note" style="font-size:14px;color:var(--soft);margin:4px 0 12px"></p>
+            <div class="tierlist" id="tiers" role="group" aria-label="Membership"></div>
+          </div>
+          <div class="f-group">Inventory</div>
+          <div class="f-row"><div><div class="t">Cards to inventory</div><div class="d" id="d-inv"></div></div><div class="step-in" data-k="inv"></div></div>
+          <div class="f-row"><div><div class="t">Base cards and base inserts</div><div class="d">An optional count for a mixed box</div></div><div class="step-in" data-k="base"></div></div>
+          <div class="f-row"><div><div class="t">What should we do with the base cards?</div><div class="d">No inventory fee unless you choose to inventory them</div></div>
+            <select class="sel" id="base-h" aria-label="Base card handling"><option value="return">Return them to me</option><option value="donate">Donate them</option><option value="inventory">Inventory them</option></select></div>
+          <div class="f-group">Condition and grading</div>
+          <div class="f-row"><div><div class="t">Condition checks</div><div class="d" id="d-cond"></div></div><div class="step-in" data-k="cond"></div></div>
+          <div class="f-row"><div><div class="t">Grading, cards valued to $1,000</div><div class="d" id="d-g0"></div></div><div class="step-in" data-k="g0"></div></div>
+          <div class="f-row"><div><div class="t">Grading, $1,000 to $2,500</div><div class="d" id="d-g1"></div></div><div class="step-in" data-k="g1"></div></div>
+          <div class="f-row"><div><div class="t">Grading, $2,500 to $10,000</div><div class="d" id="d-g2"></div></div><div class="step-in" data-k="g2"></div></div>
+          <div class="f-row"><div><div class="t">Grading, over $10,000</div><div class="d" id="d-g3"></div></div><div class="step-in" data-k="g3"></div></div>
+          <div class="f-group">Slabs and returns</div>
+          <div class="f-row"><div><div class="t">Display slabs</div><div class="d" id="d-slab"></div></div><div class="step-in" data-k="slab"></div></div>
+          <div class="f-row"><div><div class="t">Other cards to return</div><div class="d">$5 a shipment plus $0.25 a card</div></div><div class="step-in" data-k="ret"></div></div>
+        </div>
+        <aside class="slip" aria-live="polite" aria-label="Your estimate">
+          <div id="r-top"></div>
+          <table><tbody id="r-lines"></tbody></table>
+          <div class="grand"><span id="r-grand-lbl">First month plus one-time</span><strong class="num" id="r-grand"></strong></div>
+          <button class="btn btn-ink" type="button" id="start-sub">Begin a submission with this estimate</button>
+          <button class="linkish" type="button" id="copy-est">Copy this estimate</button>
+          <p class="fine">Our fees only. Grading-company fees, postage, insurance and taxes are excluded. Final counts and any credits are confirmed at intake.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="portal dark" id="portal" aria-labelledby="portal-h">
+    <div class="wrap">
+      <div class="title"><h2 id="portal-h">Your collection, on the record.</h2><div><p>This is JB's real inventory: every card we logged, its scan, its pregrade and where it is today. Search it, open any card, approve a quote or request a service.</p><span class="demo-note">A working demo. Actions stay in this browser and nothing is processed.</span></div></div>
+      <div class="frame">
+        <div class="frame-top"><span>Collector portal</span><span>JB's collection</span></div>
+        <div class="app">
+          <div class="app-side" role="tablist" aria-label="Portal sections">
+            <div class="who">JB's collection<small id="who-plan">Bronze member</small></div>
+            <button class="tab" type="button" role="tab" id="tab-overview" aria-controls="view" data-tab="overview">Overview</button>
+            <button class="tab" type="button" role="tab" id="tab-collection" aria-controls="view" data-tab="collection">My collection <span class="count num" id="c-cards"></span></button>
+            <button class="tab" type="button" role="tab" id="tab-subs" aria-controls="view" data-tab="subs">Submissions <span class="count num" id="c-subs"></span></button>
+            <button class="tab" type="button" role="tab" id="tab-reqs" aria-controls="view" data-tab="reqs">Service requests <span class="count num" id="c-reqs"></span></button>
+            <button class="tab" type="button" role="tab" id="tab-billing" aria-controls="view" data-tab="billing">Vault &amp; billing</button>
+            <div class="side-foot"><span>Values come from JB's supplied inventory.</span><button type="button" id="reset">Reset demo actions</button></div>
+          </div>
+          <div class="app-main" id="view" role="tabpanel" tabindex="-1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="conditions" id="conditions" aria-labelledby="cond-h">
+    <div class="wrap">
+      <div class="title"><h2 id="cond-h">Conditions, in plain English.</h2><p>The questions collectors ask before they ship. If yours isn't here, your concierge will answer it before anything is charged.</p></div>
+      <div class="clauses">
+        <div class="clause"><h3>You don't have to grade anything.</h3><p>Most cards are simply inventoried and sent home or vaulted. You choose, card by card, what is worth a check, a grader, a slab or a sale.</p></div>
+        <div class="clause"><h3>You're charged only after you approve.</h3><p>Final counts, fees and any credits are confirmed at intake. Estimates never authorize paid work.</p></div>
+        <div class="clause"><h3>Grader fees are passed through at cost.</h3><p>Our fee covers prep, submission and tracking. The grader's own fee is added as charged. No third-party charge gets a member discount.</p></div>
+        <div class="clause"><h3>Grading bands follow value, not grade.</h3><p>The fee band is set by the value agreed at intake. There is no extra charge if a card comes back gem mint.</p></div>
+        <div class="clause"><h3>Vault space is counted per card.</h3><p>One toploader, magnetic holder or slab is one space. Above your plan, extra space is $30 per 200 cards a month, in whole blocks.</p></div>
+        <div class="clause"><h3>Display slabs are display only.</h3><p>A My CC slab is not professional grading or authentication. Member slab pricing is fixed and doesn't stack with service discounts.</p></div>
+        <div class="clause"><h3>Consignment fees come from the sale.</h3><p>10% of the item sale price, $10 minimum per sold card, excluding tax and shipping. Marketplace fees pass through separately.</p></div>
+        <div class="clause"><h3>Your records stay until you say otherwise.</h3><p>A card's digital record stays in your inventory until it is sold or you delete it, even after it goes home.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close dark" aria-labelledby="close-h">
+    <div class="wrap">
+      <div class="row">
+        <h2 id="close-h">Send the box. We'll sort the details.</h2>
+        <div><p>Start with an estimate. You'll see every fee before anything is charged.</p><a class="btn btn-brass" href="#estimate">Begin a submission</a></div>
+      </div>
+      <footer class="colophon">
+        <a class="word" href="#top"><span class="monogram" aria-hidden="true">CC</span><span><b>My Collector Concierge</b><small>Collect, preserve, enjoy</small></span></a>
+        <span>Sports, Pokémon, Disney and non-sport cards.</span>
+        <span>The portal is a demo. Estimates do not authorize paid work.</span>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="vw-h">
+  <div class="vw-back" data-close></div>
+  <div class="vw-panel">
+    <button class="vw-x" type="button" data-close>Close</button>
+    <div class="vw-media">
+      <div class="flipwrap" id="vw-flipwrap"><div class="flipper" id="vw-flip"><img class="fr" id="vw-f" alt=""><img class="bk" id="vw-b" alt=""></div></div>
+      <div class="vw-none" id="vw-none" hidden>No scan of this card in the demo. Its record is complete.</div>
+      <button class="vw-turn" type="button" id="vw-turn">Turn it over</button>
+    </div>
+    <div class="vw-info">
+      <span class="eyebrow" id="vw-k"></span>
+      <h3 id="vw-h"></h3>
+      <p class="set" id="vw-set"></p>
+      <dl class="terms" id="vw-dl"></dl>
+      <div class="vw-note" id="vw-note" hidden></div>
+      <div class="acts"><button class="btn btn-dark btn-sm" type="button" id="vw-req">Request a service for this card</button></div>
+      <div class="vw-nav"><button class="btn btn-line btn-sm" type="button" id="vw-prev">Previous</button><span class="num" id="vw-pos"></span><button class="btn btn-line btn-sm" type="button" id="vw-next">Next</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const CC_PHOTO=[{"i":3,"n":"Chase Burns","y":2026,"s":"2026 Topps Chrome","u":"Chromographs Red Refractors","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"slight edge issue on bottom","in":"6563","ph":1,"bk":1,"sd":"2026-08-20"},{"i":8,"n":"Storm","y":2026,"s":"2026 Topps Mint Marvel","u":"Base Chrome (Encased) SuperFractor","c":"Nonsport","v":2500,"p":"Auth likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"front looks great. Rear has 3 corners/edge wear and a ding","in":"9945","ph":1,"bk":1,"sd":"2026-09-12"},{"i":25,"n":"Albert Pujols","y":2025,"s":"2025 Topps Definitive Collection - Definitive Patch Collection","c":"Baseball","v":600,"p":"Auth","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","nt":"Has stain in back that seems in the card stock","in":"5481","ph":1,"bk":1,"sd":"2026-08-01"},{"i":26,"n":"Munetaka Murakami","y":2026,"s":"2026 Topps Tribute","u":"Tribute Autographs Purple","c":"Baseball","v":707.25,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"slightly soft corner","in":"9940","ph":1,"bk":1,"sd":"2026-09-12"},{"i":32,"n":"Caleb Williams","y":2025,"s":"2025 Topps Chrome","u":"Helix","c":"Football","v":842.22,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"2 small dimples and edge wear","in":"6027","ph":1,"bk":1,"sd":"2026-08-20"},{"i":38,"n":"Shohei Ohtani","y":2025,"s":"2025 Topps MVP Collection","u":"The Game Postseason Triple Memorabilia Relics Gold Foil","c":"Baseball","v":2500,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","in":"9932","ph":1,"bk":1,"sd":"2026-09-12"},{"i":45,"n":"Mickey Mouse","y":2026,"s":"2026 Topps Chrome Disney","u":"Mickey & Friends MLB Home Jersey Black Refractor","c":"Nonsport","v":711.99,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"had heavy print lines I got most out","in":"9943","ph":1,"bk":1,"sd":"2026-09-12"},{"i":50,"n":"Man-Thing","y":2026,"s":"2026 Topps Chrome Marvel Comics","u":"Clawed Chrome Variations SuperFractor","c":"Nonsport","v":900,"p":"gem likely","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","nt":"centering tough to tell on bottom","in":"5845","ph":1,"bk":1,"sd":"2026-08-01"},{"i":51,"n":"Jayden Higgins","y":2025,"s":"2025 Topps Chrome","u":"Tie Dye Geometric Refractor","c":"Football","v":600,"p":"Auth","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","nt":"off both top and sides","in":"5751","ph":1,"bk":1,"sd":"2026-08-01"},{"i":66,"n":"Donald Duck","y":2026,"s":"2026 Topps Chrome Disney Sapphire Edition","u":"Mickey & Friends MLB Home Jersey","c":"Nonsport","v":750,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"slight scuff on helment","in":"6158","ph":1,"bk":1,"sd":"2026-08-20"},{"i":71,"n":"Stephanie Vaquer","y":2026,"s":"2026 Topps Chrome WWE","u":"Marks of Champions Autographs Red Refractor","c":"Wrestling","v":1100,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"faint print line on front","in":"2246","ph":1,"bk":1,"sd":"2026-07-24"},{"i":72,"n":"Patrick Mahomes II","y":2025,"s":"2025 Topps Chrome Cosmic","u":"Planetary Pursuit Mars","c":"Football","v":825,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"slight soft corner on back","in":"3135","ph":1,"bk":1,"sd":"2026-07-24"},{"i":75,"n":"Elly De La Cruz","y":2024,"s":"2024 Topps Chrome Cosmic","u":"Cosmic Chrome Autographs Gold Interstellar Refractors","c":"Baseball","v":825,"p":"9 at best","g":"10","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 at best","in":"1907","ph":1,"bk":1,"sd":"2026-06-21"},{"i":77,"n":"Munetaka Murakami","y":2026,"s":"2026 Finest","u":"Finest Autographs","c":"Baseball","v":650,"p":"10 likely","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","in":"5462","ph":1,"bk":1,"sd":"2026-08-01"},{"i":83,"n":"Mickey Mouse","y":2026,"s":"2026 Topps Chrome Disney","u":"Mickey & Friends Ukiyo-E","c":"Nonsport","v":1050,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"centering is off on back - not sure if enough to not gem","in":"3407","ph":1,"bk":1,"sd":"2026-07-24"},{"i":87,"n":"Miguel Cabrera / Riley Greene / Tarik Skubal / Spencer Torkelson","y":2025,"s":"2025 Topps Definitive Collection - Quad Patch Collection Gold","c":"Baseball","v":800,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"slight edge/corner issues - surface issue in the black around patch","in":"2388","ph":1,"bk":1,"sd":"2026-07-24"},{"i":92,"n":"Seth Hernandez","y":2025,"s":"2025 Bowman Draft Sapphire Edition","u":"Red Sapphire","c":"Baseball","v":1800,"p":"9 or 10","g":"10","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"9 or 10","in":"574","ph":1,"bk":1,"sd":"2026-06-14"},{"i":96,"n":"Matthew Stafford","y":2025,"s":"2025 Topps Chrome Sapphire Edition","u":"Black Sapphire","c":"Football","v":600,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"Slight edge issue - may be the sapphire","in":"3485","ph":1,"bk":1,"sd":"2026-07-24"},{"i":102,"n":"Ken Griffey Jr.","y":2026,"s":"2026 Topps Chrome","u":"Chrome Legends Autographs","c":"Baseball","v":1826,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"scratch through auto","in":"6474","ph":1,"bk":1,"sd":"2026-08-20"},{"i":109,"n":"Dax Kilby","y":2025,"s":"2025 Bowman Draft","u":"Chrome Prospect Autographs Blue Refractor","c":"Baseball","v":800,"p":"Auth likely - small pit","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"Auth likely - small pit","in":"1331","ph":1,"bk":1,"sd":"2026-06-21"},{"i":117,"n":"Kevin McGonigle","y":2026,"s":"2026 Bowman","u":"Chrome Prospect Autographs Gold Refractors","c":"Baseball","v":700,"p":"9 - tiny rear ding could bring down","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"9 - tiny rear ding could bring down","in":"554","ph":1,"sd":"2026-06-14"},{"i":121,"n":"Elsa / Moana / Mirabel","y":2026,"s":"2026 Topps Chrome Disney","u":"Disney Chrome Facsimile Triple Autographs Black Refractor","c":"Nonsport","v":700,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","nt":"Slight edge issue top right","in":"4915","ph":1,"bk":1,"sd":"2026-08-01"},{"i":125,"n":"Tom Hanks / Tim Allen","y":2025,"s":"2025 Topps Crystal Pixar 30 Years of Toy Story","u":"You've Got a Friend in Me Dual Autographs Black Refractor","c":"Nonsport","v":4200,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"soft corner and light spot that continues under sticker","in":"9944","ph":1,"bk":1,"sd":"2026-09-12"},{"i":126,"n":"Aaron Judge","y":2026,"s":"2026 Bowman","u":"Crystallized Orange Refractors","c":"Baseball","v":2801,"p":"8 or 9","g":"Authentic","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"8 or 9","in":"560","ph":1,"bk":1,"sd":"2026-06-14"},{"i":143,"n":"Nick Kurtz","y":2026,"s":"2026 Bowman","u":"Anime","c":"Baseball","v":650,"p":"9 or 10","g":"Authentic","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"9 or 10","in":"565","ph":1,"bk":1,"sd":"2026-06-14"},{"i":151,"n":"Eli Willits","y":2026,"s":"2026 Bowman National Sports Collectors Convention Wrapper Redemption /10","u":"NSCC Black /10","c":"Baseball","v":800,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"slight impression on rear may not get caught","in":"6787","ph":1,"bk":1,"sd":"2026-08-20"},{"i":159,"n":"Mickey Mouse","y":2026,"s":"2026 Topps Chrome Disney","u":"Gold Refractor","c":"Nonsport","v":808,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"small dimple on front","in":"6145","ph":1,"bk":1,"sd":"2026-08-20"},{"i":163,"n":"Kyle Williams","y":2025,"s":"2025 Topps Resurgence","u":"Resurgence Rookie Relic Signatures SuperFractor","c":"Football","v":800,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","in":"7408","ph":1,"bk":1,"sd":"2026-08-20"},{"i":188,"n":"Seth Hernandez","y":2025,"s":"2025 Bowman Draft","u":"Chrome Prospect Autographs Refractor","c":"Baseball","v":650,"p":"Auth Likely - pit and print lines on front","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"Auth Likely - pit and print lines on front","in":"567","ph":1,"bk":1,"sd":"2026-06-14"},{"i":197,"n":"Paul Skenes","y":2026,"s":"2026 Topps","u":"All Aces","c":"Baseball","v":1200,"p":"Auth likely - rear edge damage","g":"Authentic","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"Auth likely - rear edge damage","in":"1892","ph":1,"bk":1,"sd":"2026-06-21"},{"i":215,"n":"Nick Kurtz","y":2025,"s":"2025 Topps Definitive Collection - Autographed First Batting Glove","c":"Baseball","v":950,"p":"9 or 10","g":"Authentic","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"9 or 10","in":"527","ph":1,"bk":1,"sd":"2026-06-14"},{"i":239,"n":"Yoshinobu Yamamoto","y":2026,"s":"2026 Finest","u":"Finest Moments Autographs Orange","c":"Baseball","v":1100,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"centering depends on what they look at may be off","in":"6855","ph":1,"bk":1,"sd":"2026-08-20"},{"i":240,"n":"Sal Stewart","y":2026,"s":"2026 Topps Chrome","u":"Radiating Rookies Autographs","c":"Baseball","v":3000,"p":"auth","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"4 corners on rear rough","in":"6364","ph":1,"bk":1,"sd":"2026-08-20"},{"i":243,"n":"Elly De La Cruz","y":2026,"s":"2026 Topps Chrome","u":"SuperFractors","c":"Baseball","v":2000,"p":"Should gem","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","in":"6363","ph":1,"bk":1,"sd":"2026-08-20"},{"i":245,"n":"Munetaka Murakami","y":2026,"s":"2026 Bowman","u":"Anime","c":"Baseball","v":2400,"p":"Auth Likely - Has small indent in back","g":"Authentic","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"Auth Likely - Has small indent in back","in":"561","ph":1,"bk":1,"sd":"2026-06-14"},{"i":252,"n":"Tarik Skubal","y":2026,"s":"2026 Finest","u":"Finest Moments Autographs Red","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"slight scratches right above auto","in":"7060","ph":1,"bk":1,"sd":"2026-08-20"},{"i":253,"n":"Brandon Compton","y":2025,"s":"2025 Bowman Draft Sapphire Edition","u":"Chrome Prospect Autographs Red","c":"Baseball","v":600,"p":"9 likely","g":"10","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 likely","in":"1436","ph":1,"bk":1,"sd":"2026-06-21"},{"i":261,"n":"Josh Allen","y":2025,"s":"2025 Topps Chrome Cosmic","u":"Planetary Pursuit Earth","c":"Football","v":700,"p":"gem likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","in":"3482","ph":1,"bk":1,"sd":"2026-07-24"},{"i":262,"n":"Nick Kurtz","y":2025,"s":"2025 Topps Definitive Collection - Framed Autograph Collection","c":"Baseball","v":600,"p":"Gem Likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","in":"4035","ph":1,"bk":1,"sd":"2026-07-24"},{"i":269,"n":"Roki Sasaki","y":2026,"s":"2026 Bowman","u":"Patchwork · Superfractor 1/1","c":"Baseball","v":2000,"p":"9 at best","g":"10","gr":"PSA","st":"Vaulted","b":"6 6 26 Express","nt":"Surface issue on raised section","ph":1,"sl":1,"sd":"2026-06-06"},{"i":280,"n":"Shohei Ohtani","y":2026,"s":"2026 Topps Chrome Black","u":"Depth of Darkness","c":"Baseball","v":760,"p":"auth likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"auth likely","in":"2156","ph":1,"bk":1,"sd":"2026-06-21"},{"i":287,"n":"Kevin McGonigle","y":2026,"s":"2026 Bowman Sapphire","u":"2026 Bowman Sapphire Orange Autographs /50","c":"Baseball","v":900,"p":"9 or 10","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 or 10","in":"2033","ph":1,"bk":1,"sd":"2026-06-21"},{"i":291,"n":"Robby Benson","y":2025,"s":"2025 Topps Chrome Sapphire Edition Disney","u":"Sapphire Autographs Padparadscha","c":"Nonsport","v":999.99,"p":"Auth Likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"corner fuzzy rear edge peeling","in":"9936","ph":1,"bk":1,"sd":"2026-09-12"},{"i":296,"n":"Kevin McGonigle","y":2026,"s":"2026 Topps Chrome Sapphire Edition","u":"Red","c":"Baseball","v":1500,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"slight edge wear on top","in":"9938","ph":1,"bk":1,"sd":"2026-09-12"},{"i":322,"n":"Scott Rolen","y":2025,"s":"2025 Topps Definitive Collection - Framed Autograph Patch Collection /1","c":"Baseball","v":800,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"9 likely","in":"2166","ph":1,"bk":1,"sd":"2026-06-21"},{"i":324,"n":"Jayden Daniels","y":2025,"s":"2025 Topps Chrome Cosmic","u":"Cosmic Chrome Autographs Red Flare Refractor","c":"Football","v":2200,"p":"Should Gem","g":"10","gr":"PSA","st":"Vaulted","b":"PSA Sub 8 1 26","nt":"Card looks great","in":"5232","ph":1,"bk":1,"sl":1,"sd":"2026-08-01"},{"i":335,"n":"Kevin McGonigle","y":2025,"s":"2025 Bowman's Best","u":"Prospect Patch Autographs","c":"Baseball","v":600,"p":"auth likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"auth likely","in":"2149","ph":1,"bk":1,"sd":"2026-06-21"},{"i":346,"n":"Caleb Williams","y":2025,"s":"2025 Topps Chrome Black","u":"Nocturnal","c":"Football","v":778,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"edge wear and corner damage on rear","in":"6136","ph":1,"bk":1,"sd":"2026-08-20"},{"i":373,"n":"Ken Griffey Jr.","y":2026,"s":"2026 Topps Chrome","u":"Chromographs Orange Refractors","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"minor print lines through auto","in":"9910","ph":1,"bk":1,"sd":"2026-09-12"},{"i":380,"n":"Juggernaut","y":2026,"s":"2026 Topps Mint Marvel","u":"FoilFractor","c":"Nonsport","v":900,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","in":"9942","ph":1,"bk":1,"sd":"2026-09-12"},{"i":382,"n":"Mike Trout","y":2025,"s":"2025 Topps Dynasty - Dynastic Deed","u":"Dynastic Deed /5","c":"Baseball","v":1100,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","nt":"slightly off top/bottom","in":"5480","ph":1,"bk":1,"sd":"2026-08-01"},{"i":395,"n":"Julio Rodríguez/Aaron Judge/Mike Trout","y":2025,"s":"2025 Topps Transcendent Collection","u":"Transcendent Collection Triple Patches","c":"Baseball","v":900,"p":"Gem likely - crispy","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"Gem likely - crispy","in":"2147","ph":1,"bk":1,"sd":"2026-06-21"},{"i":403,"n":"Trea Turner","y":2026,"s":"2026 Topps Chrome Black","u":"Nocturnal SuperFractors","c":"Baseball","v":800,"p":"9 or 10 - rear surface","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 or 10 - rear surface","in":"1902","ph":1,"bk":1,"sd":"2026-06-21"},{"i":405,"n":"Miguel Cabrera","y":2025,"s":"2025 Topps Transcendent Collection","u":"Transcendent Collection MLB Logo Patches","c":"Baseball","v":1750,"p":"9 at best","g":"10","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 at best","in":"2142","ph":1,"bk":1,"sd":"2026-06-21"},{"i":412,"n":"Shohei Ohtani / Aaron Judge","y":2025,"s":"2025 Topps MVP Collection","u":"Gold Foil","c":"Baseball","v":600,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"had some surface lines on judge that I got out. Still slight","in":"6867","ph":1,"bk":1,"sd":"2026-08-20"},{"i":415,"n":"Roki Sasaki","y":2025,"s":"2025 Topps Definitive Collection - Rookie Patch Autograph Orange","c":"Baseball","v":1100,"p":"Auth likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"2 corner issues","in":"2413","ph":1,"bk":1,"sd":"2026-07-24"},{"i":417,"n":"Colston Loveland","y":2025,"s":"2025 Topps Chrome Cosmic","u":"Constellation Variation","c":"Football","v":650,"p":"gem likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"centering is impossible to figure out on these","in":"3123","ph":1,"bk":1,"sd":"2026-07-24"},{"i":419,"n":"Shohei Ohtani","y":2026,"s":"2026 Topps Chrome Black","u":"Gold Refractors","c":"Baseball","v":1000,"p":"9 likely","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 likely","in":"1603","ph":1,"bk":1,"sd":"2026-06-21"},{"i":431,"n":"Jaxson Dart","y":2025,"s":"2025 Topps Chrome","u":"Chrome Rookie Autographs Green Lava Refractor","c":"Football","v":860,"p":"gem likely","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","in":"5611","ph":1,"bk":1,"sd":"2026-08-01"},{"i":449,"n":"Seojun Moon","y":2026,"s":"2026 Bowman","u":"Chrome Prospect Autographs Black X-Fractors","c":"Baseball","v":600,"p":"Gem Likely","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 14 26","nt":"Gem Likely","in":"541","ph":1,"bk":1,"sd":"2026-06-14"},{"i":452,"n":"Dillon Lewis","y":2026,"s":"2026 Bowman","u":"Chrome Prospect Autographs Orange X-Fractors","c":"Baseball","v":600,"p":"gem likely","g":"9","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"gem likely","in":"1589","ph":1,"bk":1,"sd":"2026-06-21"},{"i":456,"n":"Bobby Witt Jr.","y":2026,"s":"2026 Bowman","u":"Anime","c":"Baseball","v":610,"p":"9 or 10","g":"10","gr":"PSA","st":"Vaulted","b":"PSA 6 21 26","nt":"9 or 10","in":"1584","ph":1,"bk":1,"sd":"2026-06-21"},{"i":460,"n":"Roki Sasaki","y":2025,"s":"2025 Topps Definitive Collection - Rookie Patch Autograph","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"small ding in back","in":"2415","ph":1,"bk":1,"sd":"2026-07-24"},{"i":470,"n":"Shohei Ohtani","y":2026,"s":"2026 Topps Chrome","u":"Gold Wave Refractors","c":"Baseball","v":1100,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"centering slightly off heavy right on the line","in":"7078","ph":1,"bk":1,"sd":"2026-08-20"},{"i":485,"n":"Patton Oswalt","y":2026,"s":"2026 Topps Disney Neon","u":"Chrome Neon Etch Auto Red Lava","c":"Nonsport","v":800,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"small edge issue under the front card stock","in":"6163","ph":1,"bk":1,"sd":"2026-08-20"},{"i":487,"n":"Donald Duck","y":2026,"s":"2026 Topps Chrome Disney","u":"Mickey & Friends MLB Home Jersey Red Refractor","c":"Nonsport","v":2000,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA Sub 8 1 26","nt":"off center big on rear","in":"5834","ph":1,"bk":1,"sd":"2026-08-01"},{"i":493,"n":"Joe Burrow","y":2025,"s":"2025 Topps Chrome Sapphire Edition","u":"Black Sapphire","c":"Football","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"centering off top to bottom","in":"3161","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7767,"n":"Steve Austin","y":2026,"c":"Wrestling","v":0,"p":"Gem Likely","g":"10","gr":"PSA","st":"Vaulted","b":"6 6 26 Max","nt":"Gem Likely","t":"2026 topps chrome wwe stone cold steve austin 7 /2","ph":1,"sl":1,"sd":"2026-06-06"},{"i":7793,"n":"Darth Vader","y":2024,"c":"Nonsport","v":0,"g":"Authentic","gr":"PSA","st":"Vaulted","b":"6 6 26 Plus","t":"2024-2025 Topps Star Wars Sketch Cards Allen Geneta Darth Vader","ph":1,"sl":1,"sd":"2026-06-06"},{"i":7795,"n":"Woody","y":2025,"c":"Nonsport","v":0,"g":"Authentic","gr":"PSA","st":"Vaulted","b":"6 6 26 Plus","t":"2025 topps pixar woody darrin pepe","ph":1,"sl":1,"sd":"2026-06-06"},{"i":7799,"n":"Red Hulk","y":2025,"c":"Nonsport","v":0,"g":"Authentic","gr":"PSA","st":"Vaulted","b":"6 6 26 Plus","t":"2025 topps chrome marvel hulk sktch card duke","ph":1,"sl":1,"sd":"2026-06-06"},{"i":7802,"n":"Shohei Ohtani","y":2025,"s":"2025 Topps MVP Collection","u":"Kanji-Language Rainbow Foil","c":"Baseball","v":955,"p":"8 or 9 - has small surface indent","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"8 or 9 - has small surface indent","in":"2138","ph":1,"bk":1,"sd":"2026-06-21"},{"i":7803,"n":"Hal Newhouser","y":2025,"s":"2025 Topps Transcendent Collection","u":"Cut Signatures","c":"Baseball","v":600,"p":"9 or 10 - pretty crispy","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"9 or 10 - pretty crispy","in":"2141","ph":1,"bk":1,"sd":"2026-06-21"},{"i":7804,"n":"James Wood","y":2025,"s":"2025 Topps Transcendent Collection","u":"Transcendent Collection Gold Framed Autographs Blue","c":"Baseball","v":900,"p":"Gem likely - crispy","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"Gem likely - crispy","in":"2145","ph":1,"bk":1,"sd":"2026-06-21"},{"i":7806,"n":"Miguel Cabrera","y":2025,"s":"2025 Topps Definitive Collection - Definitive Nameplate Collection /1","c":"Baseball","v":600,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"9 likely","in":"2161","ph":1,"bk":1,"sd":"2026-06-21"},{"i":7810,"n":"Ronald Acuña Jr.","y":2025,"s":"2025 Topps Museum Collection","u":"Autographed Jumbo Lumber Bat Relics","c":"Baseball","v":700,"p":"auth likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"auth likely","in":"1755","ph":1,"sd":"2026-06-21"},{"i":7811,"n":"Joe Mauer","y":2025,"s":"2025 Topps Museum Collection","u":"Museum Memorabilia Laundry Tag Relics Parallel","c":"Baseball","v":700,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"9 likely","in":"1756","ph":1,"sd":"2026-06-21"},{"i":7812,"n":"Ken Griffey Jr.","y":2025,"s":"2025 Topps Gilded Collection","u":"Framed Hall of Fame Autographs /15","c":"Baseball","v":800,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"PSA 6 21 26","nt":"9 likely","in":"1760","ph":1,"bk":1,"sd":"2026-06-21"},{"i":7814,"n":"Chandler Simpson","y":2025,"s":"2025 Topps Inception","u":"Autographed Patches MLB Logo","c":"Baseball","v":800,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"slight edge/corner issues","in":"3814","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7815,"n":"Nick Kurtz","y":2025,"s":"2025 Topps Inception","u":"Autographed Milestones First Hit Relic /10","c":"Baseball","v":800,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"corners - slight surface issue in rear","in":"3818","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7816,"n":"Shohei Ohtani","y":2025,"s":"2025 Topps Inception","u":"Pink /35","c":"Baseball","v":775,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"Slight corner wear","in":"3870","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7817,"n":"Paul Skenes","y":2025,"s":"2025 Topps Inception","u":"Inception Signings /25","c":"Baseball","v":630,"p":"9 likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"slight corner and edge wear","in":"3863","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7818,"n":"Tarik Skubal","y":2025,"s":"2025 Topps Dynasty","u":"Dynastic Data Patch Autograph /10","c":"Baseball","v":600,"p":"Gem Likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","in":"3191","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7819,"n":"Bryce Rainer / Kevin McGonigle / Max Clark","y":2025,"s":"2025 Bowman's Best","u":"Triple Autographs Orange Refractors","c":"Baseball","v":900,"p":"gem likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","in":"1859","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7820,"n":"Minnie Mouse","y":2026,"s":"2026 Topps Chrome Disney","u":"Mickey & Friends Ukiyo-E","c":"Nonsport","v":625,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"centering is off on back - just like the mickey","in":"3167","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7821,"n":"Donald Duck","y":2026,"s":"2026 Topps Chrome Disney","u":"Mickey & Friends MLB Home Jersey","c":"Nonsport","v":610,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"slight edge wear and soft corner","in":"3163","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7822,"n":"Max Clark / Kevin McGonigle","y":2025,"s":"2025 Bowman's Best","u":"Dual Autographs Gold Refractors","c":"Baseball","v":575,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"JB PSA 7 24 26","nt":"slight print lines going behind auto sticker","in":"1860","ph":1,"bk":1,"sd":"2026-07-24"},{"i":7830,"n":"Kevin McGonigle","y":2026,"s":"2026 Topps Chrome","u":"Rookie Autographs Gold Geometric Refractors","c":"Baseball","v":950,"p":"Should gem","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","in":"6472","ph":1,"bk":1,"sd":"2026-08-20"},{"i":7835,"n":"Mark McGwire / Reggie Jackson","y":2026,"s":"2026 Topps Dynamic Duals","u":"Dual Autographs Gold","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"some of foil coming up","in":"6869","ph":1,"bk":1,"sd":"2026-08-20"},{"i":7836,"n":"Shohei Ohtani / Mookie Betts","y":2026,"s":"2026 Topps Dynamic Duals","u":"Dual Autographs Red","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"slight lines on mookie got most out - weird speck on back","in":"6874","ph":1,"bk":1,"sd":"2026-08-20"},{"i":7837,"n":"Payton Tolle","y":2026,"s":"2026 Topps Tribute","u":"Tribute Autographs Black","c":"Baseball","v":600,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","nt":"slight scratches on rear - off lr","in":"7102","ph":1,"bk":1,"sd":"2026-08-20"},{"i":7838,"n":"Shohei Ohtani / Aaron Judge","y":2025,"s":"2025 Topps MVP Collection","u":"Kanji-Language Rainbow Foil","c":"Baseball","v":800,"p":"9 or 10","gr":"PSA","st":"Grading in progress","b":"PSA 8 20 26","in":"6866","ph":1,"bk":1,"sd":"2026-08-20"},{"i":7839,"n":"Shohei Ohtani","y":2025,"s":"2025 Topps MVP Collection","u":"The Game Postseason Triple Memorabilia Relics Gold Foil","c":"Baseball","v":2500,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"couple minor blemishes - fixed edge separation if it holds","in":"9933","ph":1,"bk":1,"sd":"2026-09-12"},{"i":7848,"n":"Lindsey Greyling","y":2025,"s":"2025 Topps Chrome Sapphire Edition Disney","u":"Sketch Artists","c":"Nonsport","v":800,"p":"9 at best","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","nt":"fuzzy corner/edge","in":"9934","ph":1,"bk":1,"sd":"2026-09-12"},{"i":7887,"n":"Munetaka Murakami","y":2026,"s":"2026 Topps Tribute","u":"Tribute Autographs Purple","c":"Baseball","v":707.25,"p":"auth likely","gr":"PSA","st":"Grading in progress","b":"JB PSA 9 12 26","in":"9941","ph":1,"bk":1,"sd":"2026-09-12"},{"i":7958,"n":"Corbin Carroll","y":2025,"s":"2025 Topps Definitive Collection - Autograph Patch Book Collection","c":"Baseball","v":600,"p":"Auth","gr":"BGS","st":"Grading in progress","b":"BGS","in":"5953","ph":1,"bk":1,"sd":"2026-09-20"}];
+const CC_AGG={"n":7964,"v":429970.37,"cats":{"Football":{"n":1134,"v":65857},"Baseball":{"n":6471,"v":318075},"Basketball":{"n":171,"v":10559},"Wrestling":{"n":17,"v":3223},"Nonsport":{"n":171,"v":32256}},"stat":{"Ready for decision":{"n":7591,"v":257599},"Grading in progress":{"n":335,"v":132219},"Vaulted":{"n":38,"v":40152}},"bands":[{"lo":0,"hi":10,"n":3477,"v":15317},{"lo":10,"hi":50,"n":2748,"v":60840},{"lo":50,"hi":100,"n":741,"v":51973},{"lo":100,"hi":500,"n":853,"v":168464},{"lo":500,"hi":1000,"n":116,"v":74999},{"lo":1000,"hi":null,"n":29,"v":58377}],"runs":[{"b":"BGS","gr":"BGS","n":69,"v":18664,"done":0,"date":"2026-09-20"},{"b":"JB PSA 9 12 26","gr":"PSA","n":87,"v":41422,"done":0,"date":"2026-09-12"},{"b":"PSA 8 20 26","gr":"PSA","n":33,"v":26739,"done":0,"date":"2026-08-20"},{"b":"PSA Sub 8 1 26","gr":"PSA","n":14,"v":12236,"done":1,"date":"2026-08-01"},{"b":"JB BGS 7 26 26","gr":"BGS","n":5,"v":5600,"done":0,"date":"2026-07-26"},{"b":"JB PSA 7 24 26","gr":"PSA","n":25,"v":17558,"done":0,"date":"2026-07-24"},{"b":"PSA 6 21 26","gr":"PSA","n":34,"v":24216,"done":16,"date":"2026-06-21"},{"b":"PSA 6 14 26","gr":"PSA","n":12,"v":12551,"done":12,"date":"2026-06-14"},{"b":"6 6 26 Express","gr":"PSA","n":5,"v":13150,"done":5,"date":"2026-06-06"},{"b":"6 6 26 Bulk","gr":"PSA","n":52,"v":125,"done":0,"date":"2026-06-06"},{"b":"6 6 26 Plus","gr":"PSA","n":24,"v":110,"done":3,"date":"2026-06-06"},{"b":"6 6 26 Max","gr":"PSA","n":13,"v":0,"done":1,"date":"2026-06-06"}],"withPhoto":96,"pend":[{"i":6305,"n":"Dylan Crews","s":"2025 Topps Chrome Cosmic","u":"Planetary Pursuit Saturn","v":476.49,"c":"Baseball"},{"i":368,"n":"Ike Irish","s":"2025 Bowman Draft","u":"Chrome Prospect Autographs Printing Plates Magenta","v":455,"c":"Baseball"},{"i":435,"n":"Paul Skenes","s":"2025 Topps Definitive Collection - Framed Autograph Collection","v":455,"c":"Baseball"},{"i":428,"n":"Jaxson Dart","s":"2025 Topps Resurgence","u":"Wired","v":450,"c":"Football"},{"i":6306,"n":"Elly De La Cruz","s":"2025 Topps Chrome Cosmic","u":"Extraterrestrial Talent Autographs Gold Interstellar Refractor","v":450,"c":"Baseball"},{"i":7034,"n":"Jaxson Dart","s":"2025 Topps Chrome Cosmic","u":"Cosmic Chrome Autographs","v":450,"c":"Football"},{"i":6836,"n":"Dan Marino","s":"2025 Topps Chrome","u":"Chrome Legends Autographs Black Geometric Refractor","v":427,"c":"Football"},{"i":2721,"n":"Tyler Bremner","s":"2025 Bowman Draft Sapphire Edition","u":"Chrome Prospect Autographs Gold","v":425,"c":"Baseball"},{"i":7035,"n":"Emeka Egbuka","s":"2025 Topps Chrome Cosmic","u":"Equinox Autographs Black Eclipse Refractor","v":425,"c":"Football"},{"i":7036,"n":"Luther Burden III","s":"2025 Topps Chrome Cosmic","u":"Cosmic Chrome Autographs Gold Interstellar Refractor","v":421.65,"c":"Football"},{"i":3093,"n":"Paul Skenes","s":"2025 Topps Pristine","u":"Red Refractors","v":420,"c":"Baseball"},{"i":131,"n":"Tom Brady","s":"2025 Topps Resurgence","u":"String Theory","v":411,"c":"Football"}]};
+</script>
+
+<script>
+/* ===== shared helpers, collection, the case, card viewer ===== */
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const usd=(n,c)=>(+n||0).toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:c?2:0,maximumFractionDigits:c?2:0});
+const usdv=n=>usd(n,Math.round(n*100)%100!==0);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2800);}
+const AGG=window.CC_AGG||CC_AGG,PHOTO=window.CC_PHOTO||CC_PHOTO;
+const byId=new Map(PHOTO.map(r=>[r.i,r]));
+const CATN={Nonsport:"Non-sport"};
+const cat=r=>CATN[r.c]||r.c||"";
+const line=r=>[r.s,r.u].filter(Boolean).join(" · ")||r.t||cat(r);
+const front=r=>`cards/${r.i}.webp`,back=r=>`cards/${r.i}b.webp`;
+function gradeTxt(r){if(r.g)return `${r.gr||"PSA"} ${r.g}`;return "Raw";}
+function statusTxt(r){return r.st==="Grading in progress"?`At ${r.gr||"the grader"}`:r.st==="Ready for decision"?"Needs a decision":r.st||"";}
+function statusCls(r){return r.st==="Vaulted"?"s-vault":r.st==="Grading in progress"?"s-grader":"s-review";}
+const chipFor=r=>`<span class="status ${statusCls(r)}">${esc(statusTxt(r))}</span>`;
+const fmtDate=d=>{if(!d)return "";const [y,m,dd]=d.split("-").map(Number);return new Date(y,m-1,dd).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});};
+
+/* full ledger, loaded alongside the page */
+let ALL=null,loadP=null,loadFailed=false;
+function loadAll(){
+  if(ALL)return Promise.resolve(ALL);
+  if(!loadP)loadP=fetch("data/collection.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json();})
+    .then(a=>{ALL=a;a.forEach(r=>{if(!byId.has(r.i))byId.set(r.i,r);});return a;})
+    .catch(()=>{loadFailed=true;ALL=PHOTO.slice();return ALL;});
+  return loadP;
+}
+window.CC={$,$$,usd,usdv,esc,toast,AGG,PHOTO,byId,cat,line,front,back,gradeTxt,statusTxt,chipFor,fmtDate,loadAll,get ALL(){return ALL},get loadFailed(){return loadFailed},reduce};
+
+/* on-file strip */
+const grading=(AGG.stat["Grading in progress"]||{}).n||0,vault=(AGG.stat["Vaulted"]||{}).n||0;
+const vals={n:AGG.n.toLocaleString(),v:usd(AGG.v),grading:grading.toLocaleString(),vault:vault.toLocaleString()};
+$$("[data-agg]").forEach(el=>{el.textContent=vals[el.dataset.agg];});
+
+/* masthead */
+const mast=$("#mast");const onS=()=>mast.classList.toggle("solid",scrollY>40);addEventListener("scroll",onS,{passive:true});onS();
+const menu=$("#menu"),drawer=$("#drawer");
+menu.addEventListener("click",()=>{const o=drawer.classList.toggle("open");menu.setAttribute("aria-expanded",o);menu.textContent=o?"Close":"Menu";mast.classList.add("solid");});
+drawer.addEventListener("click",e=>{if(e.target.closest("a")){drawer.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.textContent="Menu";}});
+
+/* lot one: four inventory scans */
+const scanPick=PHOTO.filter(r=>!r.sl&&r.bk&&r.in).sort((a,b)=>a.v-b.v).filter((r,i,a)=>i%Math.max(1,Math.floor(a.length/4))===0).slice(0,4);
+$("#scans").innerHTML=scanPick.map((r,i)=>`<button class="scan" type="button" data-i="${i}" aria-label="${esc(r.n)}, inventory number ${esc(r.in)}. Open the card"><span class="im"><img src="${front(r)}" alt="" loading="lazy"></span><small><b class="num">No. ${esc(r.in)}</b><span class="num">${usdv(r.v)}</span></small></button>`).join("");
+$("#scans").addEventListener("click",e=>{const b=e.target.closest(".scan");if(b)openViewer(scanPick,+b.dataset.i);});
+
+/* the case */
+const FILTERS={
+  top:()=>[...PHOTO].sort((a,b)=>b.v-a.v).slice(0,24),
+  vault:()=>PHOTO.filter(r=>r.st==="Vaulted").sort((a,b)=>b.v-a.v),
+  grader:()=>PHOTO.filter(r=>r.st==="Grading in progress").sort((a,b)=>b.v-a.v).slice(0,24),
+  ns:()=>PHOTO.filter(r=>r.c==="Nonsport"||r.c==="Wrestling").sort((a,b)=>b.v-a.v)
+};
+const NOTES={top:"The 24 highest recorded values among the cards scanned for this page.",vault:"Graded and back from the grader, now held in JB's vault.",grader:"Sent out in JB's PSA and BGS runs this summer and fall. Pregrades are ours.",ns:"Disney, Pixar, Marvel, Star Wars and WWE cards from the same box."};
+let trayList=[];
+function renderTray(f){
+  trayList=FILTERS[f]();
+  $$(".chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===f));
+  $("#tray").innerHTML=trayList.map((r,i)=>`<button class="piece" type="button" data-i="${i}" aria-label="${esc(r.n)}, ${esc(line(r))}, ${usdv(r.v)}. Open the card">
+    <span class="stand"><img src="${front(r)}" alt="" loading="lazy"></span>
+    <span class="tag"><span class="row"><span class="num">${r.in?"No. "+esc(r.in):esc(cat(r))}</span><span class="num">${r.v?usdv(r.v):""}</span></span><b>${esc(r.n)}</b><span>${esc(line(r))}</span><span>${esc(r.g?gradeTxt(r):r.p?"Pregrade "+r.p:statusTxt(r))}</span></span></button>`).join("");
+  $("#tray").scrollLeft=0;
+  $("#tray-note").textContent=`${trayList.length} cards. ${NOTES[f]}`;
+}
+$(".chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)renderTray(b.dataset.f);});
+$("#tray").addEventListener("click",e=>{const b=e.target.closest(".piece");if(b)openViewer(trayList,+b.dataset.i);});
+const step=d=>{const t=$("#tray");t.scrollBy({left:d*Math.max(260,t.clientWidth*.8),behavior:reduce?"auto":"smooth"});};
+$("#tr-prev").addEventListener("click",()=>step(-1));$("#tr-next").addEventListener("click",()=>step(1));
+renderTray("top");
+$("#tray-all").textContent=`Search all ${AGG.n.toLocaleString()} cards in the portal`;
+$("#tray-all").addEventListener("click",()=>{if(window.ccPortal)window.ccPortal.show("collection");});
+
+/* card viewer */
+const V={list:[],i:0,turned:false,last:null};
+const vw=$("#viewer"),flip=$("#vw-flip");
+function paint(){
+  const r=V.list[V.i];if(!r)return;
+  const hasImg=!!r.ph;V.turned=false;flip.classList.remove("turned");
+  $("#vw-flipwrap").hidden=!hasImg;$("#vw-none").hidden=hasImg;
+  if(hasImg){$("#vw-f").src=front(r);$("#vw-f").alt=`Front of ${r.n}`;
+    if(r.bk){$("#vw-b").src=back(r);$("#vw-b").alt=`Back of ${r.n}`;}else{$("#vw-b").removeAttribute("src");$("#vw-b").alt="";}}
+  $("#vw-turn").hidden=!(hasImg&&r.bk);$("#vw-turn").textContent="Turn it over";
+  $("#vw-k").textContent=[cat(r),r.y,r.in?"Inventory no. "+r.in:""].filter(Boolean).join(" · ");
+  $("#vw-h").textContent=r.n;
+  $("#vw-set").textContent=line(r);
+  const rows=[["Recorded value",r.v?usdv(r.v):"Not priced"],["Where it is",statusTxt(r)+(r.st==="Vaulted"?", in JB's vault":"")],
+    ["Grade",r.g?gradeTxt(r):"Raw, not yet graded"],r.p?["Our pregrade",r.p]:null,r.b?["Grading run",`${r.b}${r.sd?", sent "+fmtDate(r.sd):""}`]:null].filter(Boolean);
+  $("#vw-dl").innerHTML=rows.map(x=>`<dt>${esc(x[0])}</dt><dd class="num">${esc(x[1])}</dd>`).join("");
+  const n=$("#vw-note");n.hidden=!r.nt;if(r.nt)n.innerHTML=`<b>Concierge note at intake</b>${esc(r.nt)}`;
+  $("#vw-pos").textContent=V.list.length>1?`${V.i+1} of ${V.list.length.toLocaleString()}`:"";
+  $("#vw-prev").disabled=V.i<=0;$("#vw-next").disabled=V.i>=V.list.length-1;
+  $(".vw-panel").scrollTop=0;
+}
+function openViewer(list,i){V.list=list;V.i=i;V.last=document.activeElement;paint();vw.hidden=false;document.documentElement.style.overflow="hidden";$(".vw-x").focus();}
+function closeViewer(){vw.hidden=true;document.documentElement.style.overflow="";if(V.last&&V.last.focus)V.last.focus();}
+window.ccOpenCard=openViewer;
+vw.addEventListener("click",e=>{if(e.target.closest("[data-close]"))closeViewer();});
+$("#vw-turn").addEventListener("click",()=>{V.turned=!V.turned;flip.classList.toggle("turned",V.turned);$("#vw-turn").textContent=V.turned?"Show the front":"Turn it over";});
+$("#vw-prev").addEventListener("click",()=>{if(V.i>0){V.i--;paint();}});
+$("#vw-next").addEventListener("click",()=>{if(V.i<V.list.length-1){V.i++;paint();}});
+$("#vw-req").addEventListener("click",()=>{const r=V.list[V.i];closeViewer();if(window.ccPortal)window.ccPortal.request(r);});
+document.addEventListener("keydown",e=>{
+  if(vw.hidden)return;
+  if(e.key==="Escape"){e.preventDefault();closeViewer();}
+  else if(e.key==="ArrowRight"&&V.i<V.list.length-1){V.i++;paint();}
+  else if(e.key==="ArrowLeft"&&V.i>0){V.i--;paint();}
+  else if(e.key==="Tab"){const f=$$("button:not([disabled]):not([hidden])",vw).filter(b=>b.offsetParent!==null);if(!f.length)return;const a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+});
+
+/* start loading the ledger once the page is idle */
+(window.requestIdleCallback||setTimeout)(()=>loadAll(),1200);
+})();
+</script>
+
+<script>
+/* ===== estimate ===== */
+(function(){
+"use strict";
+const {$,$$,toast}=window.CC;
+const usd=(n,c)=>n.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:c?2:0,maximumFractionDigits:c?2:0});
+const u2=n=>usd(n,true),r2=n=>Math.round(n*100)/100;
+const TIERS=[
+ {id:"bronze",name:"Bronze",price:29,cap:200,disc:.05,slab:94,guide:"15 min"},
+ {id:"silver",name:"Silver",price:99,cap:1000,disc:.10,slab:89,guide:"45 min"},
+ {id:"gold",name:"Gold",price:249,cap:2000,disc:.15,slab:79,guide:"2 hr"},
+ {id:"diamond",name:"Diamond",price:499,cap:4000,disc:.20,slab:74,guide:"4 hr"}];
+window.CC_TIERS=TIERS;
+const BANDS=[25,35,65,125];
+const P={mode:"vault",cards:200,choice:"auto",inv:0,base:0,baseH:"return",cond:0,g0:0,g1:0,g2:0,g3:0,slab:0,ret:0};
+const monthly=(t,c)=>t.price+Math.ceil(Math.max(0,c-t.cap)/200)*30;
+function bestTier(c){let b=TIERS[0],bm=monthly(b,c);TIERS.forEach(t=>{const m=monthly(t,c);if(m<=bm){b=t;bm=m;}});return b;}
+function quote(){
+  const vault=P.mode==="vault";
+  const tier=vault?(P.choice==="auto"?bestTier(P.cards):TIERS.find(t=>t.id===P.choice)):null;
+  const d=tier?tier.disc:0,L=[];
+  const invN=P.inv+(P.baseH==="inventory"?P.base:0);
+  const ip=r2(2*(1-d)),cp=r2(10*(1-d)),gp=BANDS.map(b=>r2(b*(1-d))),sp=tier?tier.slab:99;
+  if(invN)L.push([`Inventory, ${invN} cards`,invN*ip]);
+  if(P.cond)L.push([`Condition checks, ${P.cond}`,P.cond*cp]);
+  ["g0","g1","g2","g3"].forEach((k,i)=>{if(P[k])L.push([`Grading ${["to $1,000","to $2,500","to $10,000","over $10,000"][i]}, ${P[k]}`,P[k]*gp[i]]);});
+  if(P.slab)L.push([`Display slabs, ${P.slab}`,P.slab*sp]);
+  const retN=P.ret+(P.baseH==="return"?P.base:0);
+  if(retN)L.push([`Return handling, ${retN} cards`,5+retN*.25]);
+  const one=r2(L.reduce((a,l)=>a+l[1],0)),mo=tier?monthly(tier,P.cards):0;
+  return {tier,d,L,one,mo,ip,cp,gp,sp,extra:tier?mo-tier.price:0,allow:tier?tier.cap+Math.ceil(Math.max(0,P.cards-tier.cap)/200)*200:0};
+}
+window.ccQuote=()=>({q:quote(),P:{...P}});
+$$(".step-in").forEach(el=>{const k=el.dataset.k;el.innerHTML=`<button type="button" data-d="-1" aria-label="Fewer">&minus;</button><input type="number" min="0" value="0" class="num" id="n-${k}" aria-label="Count"><button type="button" data-d="1" aria-label="More">+</button>`;
+  el.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;P[k]=Math.max(0,(P[k]||0)+(+b.dataset.d));render();});
+  $("input",el).addEventListener("change",e=>{P[k]=Math.max(0,Math.min(100000,Math.round(+e.target.value)||0));render();});});
+$("#base-h").addEventListener("change",e=>{P.baseH=e.target.value;render();});
+$$("[data-mode]").forEach(b=>b.addEventListener("click",()=>{P.mode=b.dataset.mode;render();}));
+const vC=$("#v-cards"),vR=$("#v-range");
+vC.addEventListener("input",()=>{P.cards=Math.max(0,Math.min(100000,Math.round(+vC.value)||0));render(true);});
+vR.addEventListener("input",()=>{P.cards=+vR.value;render();});
+$("#presets").innerHTML=[200,1000,2000,4000,10000].map(n=>`<button type="button" data-n="${n}">${n.toLocaleString()}</button>`).join("");
+$("#presets").addEventListener("click",e=>{const b=e.target.closest("[data-n]");if(b){P.cards=+b.dataset.n;render();}});
+$("#tiers").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(b){P.choice=b.dataset.t===bestTier(P.cards).id?"auto":b.dataset.t;render();}});
+function render(fromInput){
+  const q=quote(),vault=P.mode==="vault",best=bestTier(P.cards);
+  $$("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===P.mode));
+  $("#vault-ui").hidden=!vault;
+  if(!fromInput)vC.value=P.cards;
+  vR.value=Math.min(10000,P.cards);vR.style.setProperty("--p",(Math.min(10000,P.cards)/100)+"%");
+  $$("#presets button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.n===P.cards));
+  $("#tiers").innerHTML=TIERS.map(t=>{const m=monthly(t,P.cards),on=q.tier&&q.tier.id===t.id;return `<button type="button" class="tierrow" data-t="${t.id}" aria-pressed="${on}">
+    <span class="dot" aria-hidden="true"></span><span class="nm">${t.name}${t.id===best.id?"<em>Lowest for your volume</em>":""}</span>
+    <span class="m num">${t.cap.toLocaleString()} cards, ${Math.round(t.disc*100)}% off</span><span class="m num">${usd(t.slab)} slabs, ${t.guide}</span><span class="you num">${usd(m)}<span> /mo</span></span></button>`;}).join("");
+  $("#auto-note").textContent=P.choice==="auto"?"We've picked the lowest monthly price for your volume. Ties go to the plan with more benefits.":"You've picked a plan yourself. Choose the one marked lowest to go back.";
+  const std=(s,m)=>q.d?`<s>${u2(s)}</s> ${u2(m)}`:u2(m);
+  $("#d-inv").innerHTML=`${std(2,q.ip)} a card, with scans and market pricing`;
+  $("#d-cond").innerHTML=`${std(10,q.cp)} a card, with notes and a grade range`;
+  BANDS.forEach((b,i)=>$("#d-g"+i).innerHTML=`${std(b,q.gp[i])} a card, plus the grader's fee`);
+  $("#d-slab").innerHTML=`${q.tier?`<s>$99</s> ${usd(q.sp)}`:"$99"} each, engraved, matched hardware`;
+  $$(".step-in").forEach(el=>{$("input",el).value=P[el.dataset.k];});
+  $("#base-h").value=P.baseH;
+  $("#r-top").innerHTML=vault
+    ?`<span class="k">Draft estimate</span><h4>${q.tier.name} membership</h4><div class="big num">${usd(q.mo)}<small> a month</small></div><p class="sm num">${P.cards.toLocaleString()} vaulted cards, ${Math.round(q.d*100)}% off our labor</p>`
+    :`<span class="k">Draft estimate</span><h4>Services only</h4><div class="big num">${u2(q.one)}</div><p class="sm">Standard prices, no monthly charge</p>`;
+  let h="";
+  if(vault)h+=`<tr><td>Membership</td><td class="num">${usd(q.tier.price)}</td></tr><tr><td>Extra vault space</td><td class="num">${usd(q.extra)}</td></tr><tr><td>Vault allowance</td><td class="num">${q.allow.toLocaleString()} cards</td></tr><tr><td colspan="2" style="border:0;padding:0 0 6px"><div class="r-meter"><i style="width:${q.allow?Math.min(100,P.cards/q.allow*100):0}%"></i></div></td></tr>`;
+  h+=`<tr class="h"><td colspan="2">One-time services</td></tr>`;
+  h+=q.L.length?q.L.map(l=>`<tr><td>${l[0]}</td><td class="num">${u2(l[1])}</td></tr>`).join(""):`<tr class="muted"><td colspan="2">Nothing added yet. Every service is optional.</td></tr>`;
+  h+=`<tr class="tot"><td>One-time total</td><td class="num">${u2(q.one)}</td></tr>`;
+  if(P.g0+P.g1+P.g2+P.g3)h+=`<tr class="muted"><td>Grading-company fees</td><td>At cost</td></tr>`;
+  $("#r-lines").innerHTML=h;
+  $("#r-grand-lbl").textContent=vault?"First month plus one-time":"One-time total";
+  $("#r-grand").textContent=u2(r2(q.one+q.mo));
+}
+render();
+$("#copy-est").addEventListener("click",()=>{const q=quote();
+  const lines=["My Collector Concierge, draft estimate",P.mode==="vault"?`${q.tier.name} membership: ${usd(q.mo)} a month for ${P.cards} cards`:"Services only"].concat(q.L.map(l=>`${l[0]}: ${u2(l[1])}`),[`One-time total: ${u2(q.one)}`,`First month plus one-time: ${u2(q.one+q.mo)}`]);
+  try{navigator.clipboard.writeText(lines.join("\n")).then(()=>toast("Estimate copied"),()=>toast("Copying is blocked here. Select the slip text and copy it."));}catch(_){toast("Copying is blocked here. Select the slip text and copy it.");}});
+})();
+</script>
+
+<script>
+/* ===== collector portal over JB's real inventory ===== */
+(function(){
+"use strict";
+const C=window.CC,{$,$$,usd,usdv,esc,toast,AGG,PHOTO,byId,cat,line,front,gradeTxt,statusTxt,chipFor,fmtDate}=C;
+const TIERS=window.CC_TIERS,tierById=id=>TIERS.find(t=>t.id===id);
+const TODAY="Nov 8, 2026";
+const STAGES=["Label created","Received","Inventoried","Quote approved","At grader","Complete"];
+const VAULTED=(AGG.stat["Vaulted"]||{}).n||0,GRADING=(AGG.stat["Grading in progress"]||{}).n||0,READY=(AGG.stat["Ready for decision"]||{}).n||0;
+const PEND=AGG.pend||[];
+const runsOut=AGG.runs.filter(r=>r.done<r.n);
+function seed(){
+  const top=PHOTO.filter(r=>r.st==="Vaulted").sort((a,b)=>b.v-a.v);
+  const dart=PHOTO.find(r=>/Jaxson Dart/.test(r.n))||PHOTO[0];
+  return {tab:"overview",tier:"bronze",
+    quote:{id:"CC-24130",status:"pending"},
+    subs:[],
+    reqs:[
+      {id:"SR-1056",card:top[2]?top[2].n:"Vaulted card",cid:top[2]&&top[2].i,service:"Return to me",status:"Packing",open:true,date:"Nov 5"},
+      {id:"SR-1051",card:dart.n,cid:dart.i,service:"Consign on eBay",status:"Waiting for review",open:true,date:"Nov 4"}],
+    invoices:[
+      {date:"Nov 1, 2026",what:"Bronze membership",amt:29,status:"Paid"},
+      {date:"Oct 1, 2026",what:"Bronze membership",amt:29,status:"Paid"},
+      {date:"Sep 1, 2026",what:"Bronze membership",amt:29,status:"Paid"},
+      {date:"Aug 1, 2026",what:"Bronze membership",amt:29,status:"Paid"}],
+    activity:[],seq:{sub:24131,req:1057}};
+}
+const KEY="cc-portal-v4";let S;
+try{S=JSON.parse(localStorage.getItem(KEY))||seed();}catch(_){S=seed();}
+if(!S||!S.quote)S=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(_){}};
+const qLines=()=>{const t=tierById(S.tier),p=Math.round(10*(1-t.disc)*100)/100;return [[`Condition checks, ${PEND.length} cards at ${usdv(p)}`,PEND.length*p]];};
+const qTotal=()=>qLines().reduce((a,l)=>a+l[1],0);
+const pendingQuote=()=>S.quote.status==="pending";
+const cls=s=>({"Packing":"s-review","Waiting for review":"s-review","Listed":"s-consign","Completed":"s-done","Paid":"s-done","Cancelled":"s-returned"}[s]||"s-review");
+const chip=s=>`<span class="status ${cls(s)}">${esc(s)}</span>`;
+
+/* activity: actions taken here, then the real run history */
+function activity(){
+  const runAct=AGG.runs.slice(0,6).map(r=>({t:fmtDate(r.date).replace(/, \d{4}$/,""),x:`${r.n} cards sent to ${r.gr} in run ${r.b}${r.done?`. ${r.done} back and vaulted`:""}.`}));
+  return S.activity.concat(pendingQuote()?[{t:"Nov 3",x:`Pregrade review quote ready for ${PEND.length} cards.`}]:[],runAct).slice(0,7);
+}
+
+function bars(rows,lbl){
+  const maxN=Math.max(...rows.map(r=>r.n)),maxV=Math.max(...rows.map(r=>r.v));
+  return `<div class="bars">${rows.map(r=>`<div class="bar"><span class="lbl">${esc(r.l)}</span><span class="tr" aria-hidden="true"><i style="width:${(r.n/maxN*100).toFixed(1)}%"></i><i class="v" style="width:${(r.v/maxV*100).toFixed(1)}%"></i></span><span class="val num">${r.n.toLocaleString()} · ${usd(r.v)}</span></div>`).join("")}</div>
+  <div class="legend"><span><i></i>Cards</span><span><i class="v"></i>Recorded value</span></div>`;
+}
+
+const F={q:"",c:"",st:"",sort:"v-desc",view:"gallery",batch:"",page:1};
+let reqPre=null;
+const V={
+ overview(){
+  const t=tierById(S.tier);
+  const big=AGG.bands.filter(b=>b.lo>=500),bigN=big.reduce((a,b)=>a+b.n,0),bigV=big.reduce((a,b)=>a+b.v,0);
+  const small=AGG.bands[0];
+  const catRows=Object.entries(AGG.cats).map(([k,o])=>({l:CATN(k),n:o.n,v:o.v})).sort((a,b)=>b.v-a.v);
+  const bandRows=AGG.bands.map(b=>({l:b.hi?(b.lo?`${usd(b.lo)} to ${usd(b.hi)}`:`Under ${usd(b.hi)}`):`${usd(b.lo)} and up`,n:b.n,v:b.v}));
+  return `<div class="vh"><div><h3>Welcome back, JB.</h3><p>Here is where your ${AGG.n.toLocaleString()} cards stand today.</p></div><a class="btn btn-dark btn-sm" href="#estimate">New submission</a></div>
+  ${pendingQuote()?`<div class="next"><div><b>Your next move starts here.</b><span>A pregrade review for ${PEND.length} of your best raw cards is ready for approval, ${usdv(qTotal())} total.</span></div><button class="btn btn-dark btn-sm" type="button" data-go="subs">Review the quote</button></div>`:""}
+  <div class="ptiles">
+   <div class="pt"><span>Recorded value</span><strong class="num">${usd(AGG.v)}</strong><small class="num">${AGG.n.toLocaleString()} cards inventoried</small></div>
+   <div class="pt"><span>At the graders</span><strong class="num">${GRADING.toLocaleString()}</strong><small class="num">in ${runsOut.length} open runs with PSA and BGS</small></div>
+   <div class="pt"><span>In your vault</span><strong class="num">${VAULTED} / ${t.cap.toLocaleString()}</strong><small>${t.name} membership, ${usd(t.price)}/mo</small></div>
+   <div class="pt"><span>Waiting on you</span><strong class="num">${READY.toLocaleString()}</strong><small>cards ready for a decision</small></div></div>
+  <div class="two">
+   <div class="card-p"><h4>Where the value sits</h4><p class="lede num">${bigN} cards worth $500 or more hold ${Math.round(bigV/AGG.v*100)}% of the recorded value. The ${small.n.toLocaleString()} cards under $10 hold ${Math.max(1,Math.round(small.v/AGG.v*100))}%.</p>${bars(bandRows)}
+    <h4 style="margin-top:22px">By category</h4>${bars(catRows)}</div>
+   <div class="card-p"><h4>Recent activity</h4><ul class="feed">${activity().map(a=>`<li><div>${esc(a.x)}<time>${esc(a.t)}</time></div></li>`).join("")}</ul>
+    <div class="acts" style="margin-top:18px"><button class="btn btn-line btn-sm" type="button" data-go="collection">Browse the collection</button></div></div></div>`;},
+ collection(){
+  return `<div class="vh"><div><h3>My collection</h3><p>Every card we have logged for you, wherever it is today.</p></div>
+   <div class="toggle" role="group" aria-label="View"><button type="button" data-view="gallery" aria-pressed="${F.view==="gallery"}">Scans</button><button type="button" data-view="ledger" aria-pressed="${F.view==="ledger"}">Full ledger</button></div></div>
+  <div class="toolbar">
+   <label class="sr" for="f-q">Search</label><input class="in" id="f-q" type="search" placeholder="Search player, character, set or inventory no." value="${esc(F.q)}">
+   <label class="sr" for="f-c">Category</label><select class="in" id="f-c"><option value="">All categories</option>${Object.keys(AGG.cats).map(k=>`<option value="${k}" ${F.c===k?"selected":""}>${CATN(k)}</option>`).join("")}</select>
+   <label class="sr" for="f-s">Status</label><select class="in" id="f-s"><option value="">Any status</option>${[["Ready for decision","Needs a decision"],["Grading in progress","At the grader"],["Vaulted","Vaulted"]].map(([v,l])=>`<option value="${v}" ${F.st===v?"selected":""}>${l}</option>`).join("")}</select>
+   <label class="sr" for="f-o">Sort</label><select class="in" id="f-o">${[["v-desc","Highest value"],["v-asc","Lowest value"],["n","Name, A to Z"],["in","Inventory number"]].map(([v,l])=>`<option value="${v}" ${F.sort===v?"selected":""}>${l}</option>`).join("")}</select>
+  </div>
+  <div class="result-line" id="res"></div>
+  <div id="coll"></div>`;},
+ subs(){
+  const quote=pendingQuote()?`<article class="subm"><div class="sub-top"><div><h4>Pregrade review, best raw cards</h4><p class="num">${esc(S.quote.id)}, ${PEND.length} cards, quote ready Nov 3, 2026</p></div>${chip("Needs your approval")}</div>
+   <ol class="stg">${STAGES.map((x,i)=>`<li class="${i<3?"d":i===3?"n":""}">${x}</li>`).join("")}</ol>
+   <p style="font-size:14px;color:var(--soft);margin-top:8px">The ${PEND.length} highest-value cards in your box that haven't had a condition check: ${PEND.slice(0,5).map(p=>esc(p.n)).join(", ")} and ${PEND.length-5} more.</p>
+   <div class="quote"><table>${qLines().map(q=>`<tr><td>${esc(q[0])}</td><td class="num">${usdv(q[1])}</td></tr>`).join("")}<tr class="tot"><td>Quote total</td><td class="num">${usdv(qTotal())}</td></tr></table></div>
+   <div class="acts"><button class="btn btn-dark btn-sm" type="button" data-ok>Approve quote</button><button class="btn btn-line btn-sm" type="button" data-no>Decline</button><button class="btn btn-line btn-sm" type="button" data-pend>See the ${PEND.length} cards</button></div></article>`:
+   S.quote.status==="approved"?`<article class="subm"><div class="sub-top"><div><h4>Pregrade review, best raw cards</h4><p class="num">${esc(S.quote.id)}, ${PEND.length} cards</p></div>${chip("Completed")}</div><p style="font-size:14px;color:var(--soft);margin-top:8px">Quote approved ${esc(S.quote.date||TODAY)}. Condition checks are underway.</p></article>`:"";
+  const own=S.subs.map(s=>`<article class="subm"><div class="sub-top"><div><h4>${esc(s.title)}</h4><p class="num">${esc(s.id)}, ${s.cards.toLocaleString()} cards, started ${esc(s.date)}</p></div><span class="status s-review">${STAGES[s.stage]}</span></div>
+   <ol class="stg">${STAGES.map((x,i)=>`<li class="${i<s.stage?"d":i===s.stage?"n":""}">${x}</li>`).join("")}</ol><p style="font-size:14px;color:var(--soft);margin-top:8px">${esc(s.note)}</p></article>`).join("");
+  const runs=AGG.runs.map(r=>{const stage=r.done>=r.n?5:4,back=r.done;
+   return `<article class="subm"><div class="sub-top"><div><h4>${esc(r.b)}</h4><p class="num">${esc(r.gr)} run, ${r.n} cards, sent ${esc(fmtDate(r.date))}</p></div>${stage===5?`<span class="status s-done">Complete</span>`:`<span class="status s-grader">At ${esc(r.gr)}</span>`}</div>
+    <ol class="stg">${STAGES.map((x,i)=>`<li class="${i<stage||stage===5?"d":i===stage?"n":""}">${x}</li>`).join("")}</ol>
+    <div class="sub-meta num"><span>${usd(r.v)} recorded value</span><span>${back?`${back} of ${r.n} back and vaulted`:"None back yet"}</span><button type="button" data-batch="${esc(r.b)}">See these cards</button></div></article>`;}).join("");
+  return `<div class="vh"><div><h3>Submissions</h3><p>Every box and grading run, from label to finished.</p></div><a class="btn btn-dark btn-sm" href="#estimate">New submission</a></div>${quote}${own}${runs}`;},
+ reqs(){
+  const pre=reqPre;
+  const opts=(pre&&!PHOTO.includes(pre)?[pre]:[]).concat([...PHOTO].sort((a,b)=>a.n.localeCompare(b.n))).filter(r=>r.st!=="Returned");
+  return `<div class="vh"><div><h3>Service requests</h3><p>Ask for anything on a card that is already with us.</p></div></div>
+  <form class="form" id="rf"><label for="rq-c">Card<select class="in" id="rq-c">${opts.map(r=>`<option value="${r.i}" ${pre&&pre.i===r.i?"selected":""}>${esc(r.n)}, ${esc(line(r)).slice(0,70)}</option>`).join("")}</select></label>
+  <label for="rq-s">Service<select class="in" id="rq-s"><option>Condition check</option><option>Professional grading</option><option>Display slab</option><option>Move to my vault</option><option>Return to me</option><option>Consign on eBay</option><option>Consign on Fanatics Collect</option></select></label>
+  <label class="full" for="rq-n">Notes for your concierge (optional)<textarea class="in" id="rq-n" placeholder="For example: list with a $300 floor"></textarea></label>
+  <div class="full"><button class="btn btn-dark btn-sm" type="submit">Send request</button></div></form>
+  <div class="list">${S.reqs.map(r=>`<div class="item"><div><b>${esc(r.service)}: ${esc(r.card)}</b><small class="num">${esc(r.id)}, requested ${esc(r.date)}${r.note?`. "${esc(r.note)}"`:""}</small></div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${chip(r.status)}${r.cid&&byId.has(r.cid)?`<button class="btn btn-line btn-sm" type="button" data-card="${r.cid}">View card</button>`:""}${r.open&&r.status==="Waiting for review"?`<button class="btn btn-line btn-sm" type="button" data-cancel="${r.id}">Cancel request</button>`:""}</div></div>`).join("")}</div>`;},
+ billing(){const t=tierById(S.tier),v=VAULTED;
+  return `<div class="vh"><div><h3>Vault &amp; billing</h3><p>Your plan, your space, and every charge.</p></div></div>
+  <div class="card-p" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center">
+   <div><span style="font-size:13px;color:var(--soft)">Current plan</span><div style="font:400 2.4rem/1 var(--serif)">${t.name}, ${usd(t.price)}/mo</div></div>
+   <div style="flex:1 1 260px;max-width:420px"><span class="num" style="font-size:13.5px">${v} of ${t.cap.toLocaleString()} spaces used</span><div class="meter"><i style="width:${Math.min(100,v/t.cap*100)}%"></i></div><small style="color:var(--soft)">${Math.round(t.disc*100)}% off My CC labor, ${usd(t.slab)} slabs, ${t.guide} planning a month. ${GRADING} cards at the graders come back to the vault as they finish.</small></div></div>
+   <h4 style="margin-top:20px">Change plan</h4><div class="pick" id="pick">${TIERS.map(x=>`<button type="button" data-plan="${x.id}" aria-pressed="false" class="${x.id===S.tier?"cur":""}"><b>${x.name}</b><span class="num">${usd(x.price)}/mo, ${x.cap.toLocaleString()} cards</span></button>`).join("")}</div><div id="pc"></div></div>
+  <div class="tw"><table class="dt" style="min-width:520px"><thead><tr><th>Date</th><th>Charge</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody>${S.invoices.map(i=>`<tr style="cursor:default"><td class="num">${esc(i.date)}</td><td>${esc(i.what)}</td><td class="r num">${usdv(i.amt)}</td><td>${chip(i.status)}</td></tr>`).join("")}</tbody></table></div>`;}
+};
+function CATN(k){return ({Nonsport:"Non-sport"})[k]||k;}
+
+/* collection rendering */
+let current=[];
+function keyOf(r){return r._k||(r._k=[r.n,r.s,r.u,r.t,r.in,r.y].filter(Boolean).join(" ").toLowerCase());}
+function filtered(src){
+  const q=F.q.trim().toLowerCase();const terms=q?q.split(/\s+/):[];
+  let R=src.filter(r=>(!F.c||r.c===F.c)&&(!F.st||r.st===F.st)&&(!F.batch||r.b===F.batch)&&(!terms.length||terms.every(t=>keyOf(r).includes(t))));
+  const s=F.sort;
+  R.sort(s==="v-asc"?(a,b)=>a.v-b.v:s==="n"?(a,b)=>a.n.localeCompare(b.n):s==="in"?(a,b)=>(+a.in||1e9)-(+b.in||1e9):(a,b)=>b.v-a.v);
+  return R;
+}
+function drawColl(){
+  const host=$("#coll");if(!host)return;
+  const res=$("#res");
+  const batchNote=F.batch?` in run ${esc(F.batch)} <button type="button" data-clear-batch>Show all runs</button>`:"";
+  if(F.view==="gallery"){
+    current=filtered(PHOTO);
+    res.innerHTML=`<span class="num">${current.length} of ${PHOTO.length} scanned cards${batchNote}</span><span>Switch to the full ledger to search all ${AGG.n.toLocaleString()}.</span>`;
+    host.innerHTML=current.length?`<div class="gal">${current.map((r,i)=>`<button class="gcard" type="button" data-i="${i}"><span class="im"><img src="${front(r)}" alt="" loading="lazy"></span><b>${esc(r.n)}</b><small><span class="num">${r.in?"No. "+esc(r.in):esc(cat(r))}</span><span class="num">${usdv(r.v)}</span></small>${chipFor(r)}</button>`).join("")}</div>`:`<p class="empty">No scanned cards match. Try the full ledger, or clear the search.</p>`;
+    return;
+  }
+  if(!C.ALL){res.innerHTML=`<span>Loading the full ledger of ${AGG.n.toLocaleString()} cards…</span>`;host.innerHTML="";C.loadAll().then(()=>{if(S.tab==="collection")drawColl();});return;}
+  current=filtered(C.ALL);
+  const shown=current.slice(0,F.page*50);
+  res.innerHTML=`<span class="num">Showing ${shown.length.toLocaleString()} of ${current.length.toLocaleString()} cards${batchNote}</span><span class="num">${usd(current.reduce((a,r)=>a+r.v,0))} recorded value</span>${C.loadFailed?`<span>The full ledger didn't load, so only scanned cards are listed.</span>`:""}`;
+  host.innerHTML=current.length?`<div class="tw"><table class="dt"><thead><tr><th>Card</th><th>No.</th><th>Grade or pregrade</th><th class="r">Recorded value</th><th>Status</th></tr></thead><tbody>${shown.map((r,i)=>`<tr data-i="${i}" tabindex="0"><td><div class="cc"><span class="th" aria-hidden="true">${r.ph?`<img src="${front(r)}" alt="" loading="lazy">`:esc((r.n||"?").slice(0,1))}</span><div style="min-width:0"><b>${esc(r.n)}</b><small>${esc(line(r))}</small></div></div></td><td class="num">${esc(r.in||"")}</td><td class="grade">${esc(r.g?gradeTxt(r):r.p?r.p:"Not checked")}</td><td class="r num">${r.v?usdv(r.v):"—"}</td><td>${chipFor(r)}</td></tr>`).join("")}</tbody></table></div>
+   ${shown.length<current.length?`<div class="more"><button class="btn btn-line btn-sm" type="button" data-more>Show ${Math.min(50,current.length-shown.length)} more</button></div>`:""}`:`<p class="empty">No cards match. Clear the search or choose another status.</p>`;
+}
+function bindColl(){
+  const on=(id,k,ev="input")=>{const el=$("#"+id);el.addEventListener(ev,()=>{F[k]=el.value;F.page=1;drawColl();});};
+  on("f-q","q");on("f-c","c","change");on("f-s","st","change");on("f-o","sort","change");
+  drawColl();
+}
+
+function counts(){$("#who-plan").textContent=tierById(S.tier).name+" member";$("#c-cards").textContent=AGG.n.toLocaleString();
+  $("#c-subs").textContent=runsOut.length+(pendingQuote()?1:0)+S.subs.length;$("#c-reqs").textContent=S.reqs.filter(r=>r.open).length;}
+function show(tab,opts){S.tab=tab;save();counts();
+  $$(".tab").forEach(b=>{const on=b.dataset.tab===tab;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1;});
+  $("#view").setAttribute("aria-labelledby","tab-"+tab);
+  const v=$("#view");v.innerHTML=V[tab]();v.scrollTop=0;
+  if(tab==="collection")bindColl();
+  if(opts&&opts.scroll)$("#portal").scrollIntoView({behavior:C.reduce?"auto":"smooth"});
+}
+window.ccPortal={show:(t)=>show(t),request(r){reqPre=r;show("reqs",{scroll:true});const s=$("#rq-s");if(s)s.focus({preventScroll:true});}};
+
+$(".app-side").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b){if(b.dataset.tab==="collection"){F.batch="";}show(b.dataset.tab);}});
+$(".app-side").addEventListener("keydown",e=>{if(!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key))return;const T=$$(".tab"),i=T.findIndex(t=>t.getAttribute("aria-selected")==="true");const n=T[(i+(e.key==="ArrowDown"||e.key==="ArrowRight"?1:T.length-1))%T.length];e.preventDefault();show(n.dataset.tab);n.focus();});
+let pend=null;
+$("#view").addEventListener("click",e=>{
+ const g=e.target.closest("[data-go]");if(g){show(g.dataset.go);return;}
+ const vb=e.target.closest("[data-view]");if(vb){F.view=vb.dataset.view;F.page=1;$$("[data-view]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.view===F.view));drawColl();return;}
+ const gc=e.target.closest(".gcard");if(gc){window.ccOpenCard(current,+gc.dataset.i);return;}
+ const tr=e.target.closest("tr[data-i]");if(tr){window.ccOpenCard(current,+tr.dataset.i);return;}
+ if(e.target.closest("[data-more]")){F.page++;drawColl();return;}
+ if(e.target.closest("[data-clear-batch]")){F.batch="";F.page=1;drawColl();return;}
+ const bt=e.target.closest("[data-batch]");if(bt){Object.assign(F,{batch:bt.dataset.batch,view:"ledger",q:"",c:"",st:"",page:1});show("collection");return;}
+ if(e.target.closest("[data-pend]")){const list=PEND.map(p=>byId.get(p.i)||Object.assign({st:"Ready for decision"},p));window.ccOpenCard(list,0);return;}
+ const cd=e.target.closest("[data-card]");if(cd){const r=byId.get(+cd.dataset.card);if(r)window.ccOpenCard([r],0);return;}
+ if(e.target.closest("[data-ok]")){S.quote={...S.quote,status:"approved",date:TODAY};S.invoices.unshift({date:TODAY,what:`Pregrade review ${S.quote.id}, ${PEND.length} cards`,amt:qTotal(),status:"Paid"});S.activity.unshift({t:"Today",x:`You approved the pregrade review for ${PEND.length} cards.`});show("subs");toast("Quote approved");return;}
+ if(e.target.closest("[data-no]")){S.quote={...S.quote,status:"declined"};S.activity.unshift({t:"Today",x:`You declined the pregrade review. The ${PEND.length} cards stay as they are.`});show("subs");toast("Quote declined");return;}
+ const cn=e.target.closest("[data-cancel]");if(cn){const r=S.reqs.find(x=>x.id===cn.dataset.cancel);r.open=false;r.status="Cancelled";S.activity.unshift({t:"Today",x:`You cancelled ${r.id}.`});show("reqs");toast("Request cancelled");return;}
+ const pl=e.target.closest("[data-plan]");if(pl){const id=pl.dataset.plan,t=tierById(id),box=$("#pc");$$("#pick button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.plan===id));
+  if(id===S.tier){box.innerHTML=`<p style="font-size:14px;color:var(--soft)">You are already on ${t.name}.</p>`;pend=null;return;}
+  if(VAULTED>t.cap){box.innerHTML=`<p style="font-size:14px;color:var(--crit)">${t.name} holds ${t.cap} cards and you have ${VAULTED} vaulted. Request a return for some cards first.</p>`;pend=null;return;}
+  pend=id;box.innerHTML=`<div class="confirm"><div><b>Switch to ${t.name} for ${usd(t.price)}/mo?</b><br><span>The new price starts with your Dec 1 bill. Member prices change right away.</span></div><button class="btn btn-dark btn-sm" type="button" data-confirm>Switch to ${t.name}</button></div>`;return;}
+ if(e.target.closest("[data-confirm]")&&pend){const t=tierById(pend);S.tier=pend;S.activity.unshift({t:"Today",x:`Vault plan changed to ${t.name}.`});show("billing");toast(`Plan changed to ${t.name}`);}
+});
+$("#view").addEventListener("keydown",e=>{if(e.key!=="Enter")return;const tr=e.target.closest("tr[data-i]");if(tr){e.preventDefault();window.ccOpenCard(current,+tr.dataset.i);}});
+$("#view").addEventListener("submit",e=>{if(e.target.id!=="rf")return;e.preventDefault();
+ const id=+$("#rq-c").value,c=byId.get(id)||reqPre,s=$("#rq-s").value,note=$("#rq-n").value.trim(),rid="SR-"+(S.seq.req++);
+ S.reqs.unshift({id:rid,card:c?c.n:"Card",cid:c&&c.i,service:s,status:"Waiting for review",open:true,date:"Nov 8",note});S.activity.unshift({t:"Today",x:`You requested ${s.toLowerCase()} for ${c?c.n:"a card"}.`});reqPre=null;show("reqs");toast("Request sent");});
+$("#reset").addEventListener("click",()=>{S=seed();save();Object.assign(F,{q:"",c:"",st:"",sort:"v-desc",view:"gallery",batch:"",page:1});show("overview");toast("Demo actions reset");});
+$("#start-sub").addEventListener("click",()=>{const {q,P}=window.ccQuote();const id="CC-"+(S.seq.sub++);
+ const n=Math.max(1,P.inv+P.base+P.cond+P.g0+P.g1+P.g2+P.g3+P.slab+P.ret);
+ S.subs.unshift({id,title:"New submission from your estimate",cards:n,date:TODAY,stage:0,note:`Estimate saved: ${usd(q.one,true)} one-time${q.tier?`, ${q.tier.name} membership at ${usd(q.mo)}/mo`:""}. Ship your box with tracking. We confirm final counts and fees before any paid work.`});
+ S.activity.unshift({t:"Today",x:`You started ${id} from your estimate.`});show("subs",{scroll:true});toast(`Submission ${id} started`);});
+show(V[S.tab]?S.tab:"overview");
+})();
+</script>
+
+</body>
+</html>
