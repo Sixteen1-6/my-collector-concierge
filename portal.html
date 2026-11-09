@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My CC Collector Portal</title>
+<meta name="description" content="From the moment your cards arrive to the day they come home, we help you know what you have and decide what comes next.">
+<meta name="theme-color" content="#0B1F17">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Geist:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="portal-page">
+<div class="login" id="login" hidden>
+  <div class="login-art"><img src="img/maris.webp" alt="" fetchpriority="high">
+    <div class="login-cap"><span class="eyebrow">Collector portal</span><h2>Your collection, on the record.</h2><p>Every card we've logged for you, its scans, its pregrade and where it is today.</p></div></div>
+  <div class="login-panel">
+    <a class="word" href="./"><span class="monogram" aria-hidden="true">CC</span><span><b>My Collector Concierge</b><small>Collect, preserve, enjoy</small></span></a>
+    <h1>Sign in</h1>
+    <p class="lede">See your cards, approve quotes and follow every grading run.</p>
+    <button class="btn btn-ink" type="button" id="demo-in">Continue with the demo account</button>
+    <div class="or">or sign in</div>
+    <form class="lform" id="login-form" novalidate>
+      <label for="l-email">Email<input class="in" id="l-email" type="email" autocomplete="off" placeholder="you@example.com"></label>
+      <label for="l-pass">Password<input class="in" id="l-pass" type="password" autocomplete="off"></label>
+      <p class="lerr" id="l-err" role="alert" hidden></p>
+      <button class="btn btn-line" type="submit">Sign in</button>
+    </form>
+    <div class="hint"><span>Demo account: <b>demo@mycc.example</b>, password <b>collector</b></span><button type="button" id="fill-demo">Fill it in</button></div>
+    <p class="login-fine">This is a demo. Don't use a real email or password. Nothing you do in the portal is processed.</p>
+    <a class="back-link" href="./">Back to the website</a>
+  </div>
+</div>
+
+<div id="app-shell" hidden>
+  <header class="pbar">
+    <a class="word" href="./"><span class="monogram" aria-hidden="true">CC</span><span><b>My Collector Concierge</b></span></a>
+    <span class="pbar-mid"><b>JB's collection</b> · Demo collector account<span class="demo-flag">Demo</span></span>
+    <span class="pbar-end"><a href="./">Back to website</a><button type="button" id="sign-out">Sign out</button></span>
+  </header>
+  <div class="app">
+    <div class="app-side" role="tablist" aria-label="Portal sections">
+      <div class="who">JB's collection<small id="who-plan">Bronze member</small></div>
+      <button class="tab" type="button" role="tab" id="tab-overview" aria-controls="view" data-tab="overview">Overview</button>
+      <button class="tab" type="button" role="tab" id="tab-collection" aria-controls="view" data-tab="collection">My collection <span class="count num" id="c-cards"></span></button>
+      <button class="tab" type="button" role="tab" id="tab-subs" aria-controls="view" data-tab="subs">Submissions <span class="count num" id="c-subs"></span></button>
+      <button class="tab" type="button" role="tab" id="tab-reqs" aria-controls="view" data-tab="reqs">Service requests <span class="count num" id="c-reqs"></span></button>
+      <button class="tab" type="button" role="tab" id="tab-billing" aria-controls="view" data-tab="billing">Vault &amp; billing</button>
+      <div class="side-foot"><span>Concept preview. Card values and grading details come from supplied inventories; service rates follow the pricing menu.</span><button type="button" id="reset">Reset demo actions</button></div>
+    </div>
+    <div class="app-main" id="view" role="tabpanel" tabindex="-1"></div>
+  </div>
+</div>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="vw-h">
+  <div class="vw-back" data-close></div>
+  <div class="vw-panel">
+    <button class="vw-x" type="button" data-close>Close</button>
+    <div class="vw-media">
+      <div class="flipwrap" id="vw-flipwrap"><div class="flipper" id="vw-flip"><img class="fr" id="vw-f" alt=""><img class="bk" id="vw-b" alt=""></div></div>
+      <div class="vw-none" id="vw-none" hidden>No scan of this card in the demo. Its record is complete.</div>
+      <button class="vw-turn" type="button" id="vw-turn">Turn it over</button>
+    </div>
+    <div class="vw-info">
+      <span class="eyebrow" id="vw-k"></span>
+      <h3 id="vw-h"></h3>
+      <p class="set" id="vw-set"></p>
+      <dl class="terms" id="vw-dl"></dl>
+      <div class="vw-note" id="vw-note" hidden></div>
+      <div class="acts"><button class="btn btn-dark btn-sm" type="button" id="vw-req">Request a service for this card</button></div>
+      <div class="vw-nav"><button class="btn btn-line btn-sm" type="button" id="vw-prev">Previous</button><span class="num" id="vw-pos"></span><button class="btn btn-line btn-sm" type="button" id="vw-next">Next</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/data.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/portal.js"></script>
+</body>
+</html>

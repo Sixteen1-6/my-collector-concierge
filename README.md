@@ -5,105 +5,118 @@
 # My Collector Concierge
 
 **Your collection, thoughtfully handled.**<br>
-Send us the box. We inventory it card by card, and you decide what each card deserves.
+From the moment your cards arrive to the day they come home, we help you know what you have and decide what comes next.
 
-[![Live site](https://img.shields.io/badge/live%20site-open-D8BE84?style=for-the-badge&labelColor=0B1F17)](https://sixteen1-6.github.io/my-collector-concierge/)
-[![Collector portal](https://img.shields.io/badge/collector%20portal-try%20it-D8BE84?style=for-the-badge&labelColor=0B1F17)](https://sixteen1-6.github.io/my-collector-concierge/#portal)
-[![Developer brief](https://img.shields.io/badge/developer%20brief-read-D8BE84?style=for-the-badge&labelColor=0B1F17)](docs/BRIEF.md)
+[![Website](https://img.shields.io/badge/website-open-D8BE84?style=for-the-badge&labelColor=0B1F17)](https://sixteen1-6.github.io/my-collector-concierge/)
+[![Collector portal demo](https://img.shields.io/badge/collector%20portal-demo-D8BE84?style=for-the-badge&labelColor=0B1F17)](https://sixteen1-6.github.io/my-collector-concierge/portal.html)
 
 </div>
 
 ---
 
-### On file today
+Two pages, one brand:
 
-| Cards inventoried | Recorded value | At PSA and BGS | In the vault | Grading runs | Scanned for the demo |
-|---:|---:|---:|---:|---:|---:|
-| **7,964** | **$429,970** | **335** | **38** | **12** | **96** fronts, **88** backs |
+- **[The website](https://sixteen1-6.github.io/my-collector-concierge/)**: services, the four-step process, pricing and vault plans, an estimate builder, and a case of real scanned cards.
+- **[The collector portal](https://sixteen1-6.github.io/my-collector-concierge/portal.html)**: a demo sign-in, then a full portal over a real sample collection. Select **Continue with the demo account**.
 
-These are JB's real numbers, taken from the inventory the original site shipped with. The portal searches every one of those cards.
-
----
-
-## What's on the page
+## The website
 
 <table>
 <tr>
-<td width="50%"><a href="docs/screenshots/01-hero.jpg"><img src="docs/screenshots/01-hero.jpg" alt="Hero with the velvet display case"></a></td>
-<td width="50%"><a href="docs/screenshots/02-case.jpg"><img src="docs/screenshots/02-case.jpg" alt="The case: a tray of real scanned cards"></a></td>
+<td width="50%"><a href="docs/screenshots/01-hero.jpg"><img src="docs/screenshots/01-hero.jpg" alt="Home page hero"></a></td>
+<td width="50%"><a href="docs/screenshots/02-process.jpg"><img src="docs/screenshots/02-process.jpg" alt="The four-step process"></a></td>
 </tr>
 <tr>
-<td><b>The plate.</b> Full-bleed studio photography of the riveted display slabs, with the collection's live totals underneath.</td>
-<td><b>The case.</b> A velvet tray of JB's real cards. Filter by highest value, vaulted, at the grader, or Disney, Marvel and more.</td>
+<td><b>Built by collectors.</b> Studio photography of the riveted display slabs, and what My CC promises up front.</td>
+<td><b>From the box to the binder.</b> Send in, inventory, choose, keep close. What happens at each step and what you get back.</td>
 </tr>
 <tr>
-<td><a href="docs/screenshots/03-viewer-front.jpg"><img src="docs/screenshots/03-viewer-front.jpg" alt="Card viewer, front"></a></td>
-<td><a href="docs/screenshots/04-viewer-back.jpg"><img src="docs/screenshots/04-viewer-back.jpg" alt="Card viewer, turned over to the back"></a></td>
+<td><a href="docs/screenshots/04-services.jpg"><img src="docs/screenshots/04-services.jpg" alt="Services catalogue"></a></td>
+<td><a href="docs/screenshots/05-case.jpg"><img src="docs/screenshots/05-case.jpg" alt="From the vault: scanned cards"></a></td>
 </tr>
 <tr>
-<td><b>Turn it over.</b> Every card opens in a viewer with its record: inventory number, recorded value, grade, our pregrade, grading run and intake notes.</td>
-<td><b>Front and back.</b> The card flips in 3D to its back scan. Arrow keys step through the set.</td>
+<td><b>The next chapter for each card.</b> Seven services, each with its fee and the fine print in plain English.</td>
+<td><b>From the vault.</b> Real cards, scanned front and back at intake. Select one to turn it over and read its record.</td>
 </tr>
 <tr>
-<td><a href="docs/screenshots/06-portal-overview.jpg"><img src="docs/screenshots/06-portal-overview.jpg" alt="Collector portal overview"></a></td>
-<td><a href="docs/screenshots/08-portal-ledger.jpg"><img src="docs/screenshots/08-portal-ledger.jpg" alt="Full ledger of 7,964 cards"></a></td>
+<td><a href="docs/screenshots/06-viewer.jpg"><img src="docs/screenshots/06-viewer.jpg" alt="Card viewer showing the back of a card"></a></td>
+<td><a href="docs/screenshots/07-estimate.jpg"><img src="docs/screenshots/07-estimate.jpg" alt="Estimate builder"></a></td>
 </tr>
 <tr>
-<td><b>Collector portal.</b> Where the value sits (145 cards worth $500 or more hold 31% of it), the pending quote, and recent grading-run activity.</td>
-<td><b>The full ledger.</b> Search and sort all 7,964 cards by player, set or inventory number. Filter by category, status or grading run.</td>
+<td><b>Turn it over.</b> Inventory number, recorded value, grade, pregrade, grading run and intake notes.</td>
+<td><b>Build your estimate.</b> Picks the cheapest vault plan for your volume and prices every service. Starting a submission carries it into the portal.</td>
+</tr>
+</table>
+
+## The collector portal
+
+<table>
+<tr>
+<td width="50%"><a href="docs/screenshots/09-login.jpg"><img src="docs/screenshots/09-login.jpg" alt="Portal sign-in"></a></td>
+<td width="50%"><a href="docs/screenshots/10-portal-overview.jpg"><img src="docs/screenshots/10-portal-overview.jpg" alt="Portal overview"></a></td>
 </tr>
 <tr>
-<td><a href="docs/screenshots/09-portal-runs.jpg"><img src="docs/screenshots/09-portal-runs.jpg" alt="Submissions and grading runs"></a></td>
-<td><a href="docs/screenshots/10-estimate.jpg"><img src="docs/screenshots/10-estimate.jpg" alt="Estimate builder"></a></td>
+<td><b>Sign in.</b> One click with the demo account, or type demo@mycc.example / collector.</td>
+<td><b>Overview.</b> Recorded value, cards at the graders, vault space, where the value sits and recent activity.</td>
 </tr>
 <tr>
-<td><b>Submissions.</b> All 12 real PSA and BGS runs with stage tracking, plus a quote to approve or decline.</td>
-<td><b>Estimate builder.</b> Picks the cheapest vault plan for your volume and prices every service. Starting a submission sends it to the portal.</td>
+<td><a href="docs/screenshots/12-portal-ledger.jpg"><img src="docs/screenshots/12-portal-ledger.jpg" alt="Full ledger"></a></td>
+<td><a href="docs/screenshots/13-portal-runs.jpg"><img src="docs/screenshots/13-portal-runs.jpg" alt="Submissions and grading runs"></a></td>
+</tr>
+<tr>
+<td><b>The full ledger.</b> Search 7,964 cards by player, set or inventory number. Filter by category, status or grading run.</td>
+<td><b>Submissions.</b> Twelve real PSA and BGS runs with stage tracking, and a quote to approve or decline.</td>
 </tr>
 </table>
 
 <p align="center">
-<img src="docs/screenshots/11-mobile-hero.jpg" alt="Mobile hero" width="32%">&nbsp;
-<img src="docs/screenshots/12-mobile-case.jpg" alt="Mobile case" width="32%">
+<img src="docs/screenshots/14-mobile-hero.jpg" alt="Website on a phone" width="30%">&nbsp;
+<img src="docs/screenshots/15-mobile-login.jpg" alt="Portal sign-in on a phone" width="30%">&nbsp;
+<img src="docs/screenshots/16-mobile-portal.jpg" alt="Portal on a phone" width="30%">
 </p>
+
+### The sample collection in the portal
+
+| Cards inventoried | Recorded value | At PSA and BGS | Vaulted | Grading runs | Scanned for the demo |
+|---:|---:|---:|---:|---:|---:|
+| **7,964** | **$429,970** | **335** | **38** | **12** | **96** fronts, **88** backs |
 
 ## The services
 
-| Lot | Service | Fee |
+| | Service | Fee |
 |---|---|---|
-| 01 | Inventory and value | $2 per card, front and back scans, market pricing |
-| 02 | Condition check | $10 per card, centering, corners, edges, surface and a grade range |
-| 03 | Professional grading (PSA, BGS, SGC, CGC) | $25 / $35 / $65 / $125 by value band, grader fees at cost, no gem-mint fee |
-| 04 | Vault membership | Bronze $29 (200 cards), Silver $99 (1,000), Gold $249 (2,000), Diamond $499 (4,000) |
-| 05 | Return to you | $5 a shipment plus $0.25 a card |
-| 06 | Consignment on eBay or Fanatics Collect | 10% of the sale, $10 minimum |
-| 07 | Collector display slab | $99, or $74 to $94 for members |
-
-## For development partners
-
-This repository is the approved design and a working front-end prototype. It has no backend yet. We're looking for a team to build the real product: the website, collector portal and iPhone and Android apps on one backend, with Card Ladder, PSA, payments, eBay, Fanatics Collect and shipping integrations.
-
-**Read [the developer brief](docs/BRIEF.md)** and reply to its numbered questions.
+| 01 | Inventory and value | $2 per individually inventoried card, with scans and market pricing |
+| 02 | Condition check | $10 per card; included with grading |
+| 03 | Professional grading (PSA, BGS, SGC, CGC) | $25 / $35 / $65 / $125 by value band, grader fees separate, no gem-mint fee |
+| 04 | Collector display slab | $99, or $74 to $94 for members |
+| 05 | Vault memberships | Bronze $29 (200 cards), Silver $99 (1,000), Gold $249 (2,000), Diamond $499 (4,000) |
+| 06 | Return to you | $5 a shipment plus $0.25 a returned card |
+| 07 | Consignment on eBay or Fanatics Collect | 10% of the sale, $10 minimum per sold card |
 
 ## Run it locally
 
-It's static HTML. Any file server works:
+It's static HTML, CSS and JavaScript with no build step:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open http://localhost:8000. Portal actions (approving a quote, requesting a service, changing plan) are saved in your browser only.
+Open http://localhost:8000 for the website and http://localhost:8000/portal.html for the portal. Portal actions are saved in your browser only.
 
 ## What's in here
 
 ```
-index.html              the whole site: styles, scripts and the 96 showcased cards inline
+index.html              the website
+portal.html             the collector portal (demo sign-in)
+assets/site.css         shared styles
+assets/common.js        shared helpers and the card viewer
+assets/home.js          the estimate builder
+assets/portal.js        the portal app and demo sign-in
+assets/data.js          the 96 showcased cards and collection totals
 data/collection.json    the full 7,964-card ledger, loaded by the portal
-cards/                  front (123.webp) and back (123b.webp) scans, resized for the web
-img/                    studio photography and the social preview image
-docs/BRIEF.md           the developer brief
+cards/                  front (123.webp) and back (123b.webp) scans
+img/                    photography, social preview and favicon
 docs/screenshots/       the images above
 ```
 
-<sub>The portal is a demo. Estimates do not authorize paid work, and nothing in it is processed.</sub>
+<sub>The collector portal is a demo. Estimates do not authorize paid work, and nothing in it is processed.</sub>
