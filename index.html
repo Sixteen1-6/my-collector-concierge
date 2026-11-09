@@ -17,223 +17,148 @@
 <meta name="twitter:image" content="https://sixteen1-6.github.io/my-collector-concierge/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Geist:wght@400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header class="mast" id="mast">
   <div class="wrap mast-row">
+    <a class="brand" href="#top" aria-label="My Collector Concierge, home"><span class="mark" aria-hidden="true"><span>CC</span></span><b>My Collector Concierge</b></a>
     <nav aria-label="Main">
       <a href="#services">Services</a>
-      <a href="#how">Process</a>
-      <a href="#about">About</a>
-      <a href="#pricing">Pricing &amp; vault</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#vault-case">From the vault</a>
     </nav>
-    <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="drawer">Menu</button>
-    <a class="word" href="#top"><span class="monogram" aria-hidden="true">CC</span><span><b>My Collector Concierge</b><small>Collect, preserve, enjoy</small></span></a>
     <div class="mast-end">
-      <a class="textlink" href="#portal">Collector portal</a>
+      <a class="btn btn-line" href="portal.html">Sign in</a>
       <a class="btn btn-brass" href="#estimate">Get started</a>
+      <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="drawer">Menu</button>
     </div>
   </div>
   <div class="drawer" id="drawer">
-    <a href="#services">Services</a><a href="#how">Process</a><a href="#about">About</a><a href="#pricing">Pricing &amp; vault</a><a href="#vault-case">From the vault</a><a href="#portal">Collector portal</a><a href="#estimate">Get started</a>
+    <a href="#services">Services</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#vault-case">From the vault</a><a href="portal.html">Sign in to the portal</a><a href="#estimate">Get started</a>
   </div>
 </header>
 
 <main id="top">
   <section class="hero" aria-labelledby="hero-h">
-    <div class="slot" style="--pos:68% 50%"><img src="img/hero.webp" alt="Michael Jordan, Tom Brady and Shohei Ohtani cards in riveted aluminum display slabs, set in an open emerald velvet presentation case" fetchpriority="high"></div>
-    <div class="wrap hero-text">
-      <p class="eyebrow hero-eyebrow">Built by collectors</p>
-      <h1 id="hero-h">Your collection, <em>thoughtfully</em> handled.</h1>
-      <div class="hero-sub">
-        <p>From the moment your cards arrive to the day they come home, we help you know what you have and decide what comes next.</p>
-        <div class="acts"><a class="btn btn-brass" href="#estimate">Send in your cards</a><a class="textlink" href="#how">See how it works</a></div>
+    <div class="hero-photo"><img src="img/hero.webp" alt="Michael Jordan, Tom Brady and Shohei Ohtani cards in riveted aluminum display slabs, set in an open emerald velvet presentation case" fetchpriority="high"></div>
+    <div class="wrap">
+      <div class="slab">
+        <div class="slab-band"><span>Inventory, pregrade, grading, vault</span><span>PSA&ensp;BGS&ensp;SGC&ensp;CGC</span></div>
+        <div class="slab-body">
+          <h1 id="hero-h">Your collection, thoughtfully handled.</h1>
+          <div class="slab-grade" aria-hidden="true"><b>CC</b><span>Collect, preserve, enjoy</span></div>
+          <p class="slab-sub">From the moment your cards arrive to the day they come home, we help you know what you have and decide what comes next.</p>
+          <div class="slab-acts"><a class="btn btn-brass" href="#estimate">Send in your cards</a><a class="textlink" href="#how">See how it works</a></div>
+        </div>
       </div>
     </div>
-    <p class="plate-cap"><b>Plate I</b>Jordan, Brady and Ohtani in silver, emerald and graphite My CC display slabs.</p>
   </section>
 
-  <section class="onfile" aria-label="What we promise">
+  <section class="statline" aria-label="What each service costs to start">
     <div class="wrap">
-      <p class="lead"><b>Collect · Preserve · Enjoy</b>A collection service built around the way collectors actually collect.</p>
-      <div class="fig"><strong class="num">$2</strong><span>per card inventoried, with scans and market pricing</span></div>
-      <div class="fig"><strong class="num">4</strong><span>graders: PSA, BGS, SGC and CGC</span></div>
-      <div class="fig"><strong class="num">$0</strong><span>gem-mint fees, and no submission quotas</span></div>
-      <div class="fig"><strong class="num">$29</strong><span>a month to vault 200 cards</span></div>
-    </div>
-  </section>
-
-  <section class="custody dark" id="how" aria-labelledby="how-h">
-    <div class="wrap">
-      <div class="title"><h2 id="how-h">From the box to the binder, in four steps.</h2><p>You always know where your cards are, what we're doing with them, and what you'll get back. Nothing paid happens until you approve a quote.</p></div>
-      <table class="ledger">
-        <thead><tr><th scope="col">Step</th><th scope="col">What happens</th><th scope="col">What you receive</th></tr></thead>
-        <tbody>
-          <tr><td><span class="stage"><small>Step one</small>Send in</span></td><td><h3>Send in your cards.</h3><p>Easy intake with tracked shipping and clear next steps. Ship them the way you already store them. Bulk shipments are welcome, base cards and all.</p></td><td><p class="get">A tracking number, and a note the day we sign for your box.</p></td></tr>
-          <tr><td><span class="stage"><small>Step two</small>Inventory</span></td><td><h3>Inventory &amp; estimate.</h3><p>We catalog the cards you select, front and back, with software market pricing included. Base cards and base inserts are set aside and handled the way you ask.</p></td><td><p class="get">An inventory with a number, a scan and a value for every card we catalog.</p></td></tr>
-          <tr><td><span class="stage"><small>Step three</small>Choose</span></td><td><h3>Choose your services.</h3><p>Condition checks, grading, display slabs, consignment, returns or the vault. Choose card by card, or leave a card exactly as it is.</p></td><td><p class="get">A quote to approve. Nothing is charged until you say yes.</p></td></tr>
-          <tr><td><span class="stage"><small>Step four</small>Keep close</span></td><td><h3>Keep your collection close.</h3><p>Follow every grading run, manage vaulted cards and request a service on any card from your collector portal.</p></td><td><p class="get">A portal login, and a record for every card that stays until it's sold or you delete it.</p></td></tr>
-        </tbody>
+      <table class="statrow">
+        <thead><tr><th scope="col">Inventory</th><th scope="col">Condition check</th><th scope="col">Grading</th><th scope="col">Vault</th></tr></thead>
+        <tbody class="num"><tr>
+          <td><strong>$2</strong><span>per card, market pricing included</span></td>
+          <td><strong>$10</strong><span>per card, with an estimated grade</span></td>
+          <td><strong>from $25</strong><span>per card at PSA, BGS, SGC or CGC, plus grader fees</span></td>
+          <td><strong>$29</strong><span>a month for 200 cards</span></td>
+        </tr></tbody>
       </table>
+      <p class="note">No submission quotas. No gem-mint fees. You approve a quote before any paid work begins.</p>
     </div>
   </section>
 
-  <section class="letter" id="about" aria-labelledby="about-h">
-    <div class="wrap letter-grid">
-      <aside><span class="eyebrow">Collection care, on your terms</span><h2 id="about-h" class="about-h">More time for what you love.</h2></aside>
-      <div class="body">
-        <p>Keep the cards you love. Grade the ones that make sense. Give favorites a display slab or a place in the vault. Every card gets its own next step, and you stay in control.</p>
-        <p>Most collections don't start as collections. They start as a binder from when you were nine, a box from an estate sale, or the cards you always meant to grade and never did. We built My Collector Concierge for that box.</p>
-        <p>We won't push grading. If a card won't earn back the fee, we'll tell you so, and it goes home with you, finally sorted.</p>
-        <div class="sign"><span class="monogram">CC</span><span>Built by collectors, for collectors</span></div>
+  <section class="sec" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sec-head stack"><h2 id="how-h">How it works</h2><p>Four steps from your box to your portal.</p></div>
+      <ol class="steps">
+        <li><span class="n" aria-hidden="true">1</span><h3>Send in your cards</h3><p>Easy intake with tracked shipping and clear next steps. Bulk shipments welcome, base cards and all.</p><p class="get"><b>You get</b> a tracking number, and a note the day we sign for your box.</p></li>
+        <li><span class="n" aria-hidden="true">2</span><h3>Inventory and estimate</h3><p>We catalog the cards you select, front and back, with software market pricing included. Base cards are set aside and handled the way you ask.</p><p class="get"><b>You get</b> an inventory with a number, a scan and a value for every card we catalog.</p></li>
+        <li><span class="n" aria-hidden="true">3</span><h3>Choose your services</h3><p>Condition checks, grading, display slabs, consignment, returns or the vault. Choose card by card, or leave a card exactly as it is.</p><p class="get"><b>You get</b> a quote to approve. Nothing is charged until you say yes.</p></li>
+        <li><span class="n" aria-hidden="true">4</span><h3>Keep your collection close</h3><p>Follow your submissions, manage vaulted cards and request a service on any card from your collector portal.</p><p class="get"><b>You get</b> a record for every card that stays until it's sold or you delete it.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec about" id="about" aria-labelledby="about-h">
+    <div class="wrap about-grid">
+      <figure class="about-photo"><img src="img/maris.webp" alt="A 1958 Topps Roger Maris card in a graded holder, standing in an emerald-lined locking vault drawer" loading="lazy"></figure>
+      <div class="about-copy">
+        <h2 id="about-h">More time for what you love.</h2>
+        <p class="lead">Keep the cards you love. Grade the ones that make sense. Give favorites a display slab or a place in the vault. Every card gets its own next step, and you stay in control.</p>
+        <p class="body">Collection care, on your terms, for sports cards, Pokémon, Disney and non-sport. Built by collectors.</p>
+        <p class="promise-line">If grading doesn't make sense for a card, our condition check will say so. You decide what happens next.</p>
       </div>
     </div>
   </section>
 
-  <section class="catalogue" id="services" aria-labelledby="cat-h">
+  <section class="sec" id="services" aria-labelledby="cat-h">
     <div class="wrap">
-      <div class="title"><h2 id="cat-h">Choose the next chapter for each card.</h2><p>Review your inventory, then choose the service that fits each card. You approve quotes before paid work begins.</p></div>
-
-      <article class="lot">
-        <figure class="media"><div class="scans" id="scans"></div><figcaption><b>Plate II</b>Four cards from a sample inventory, as they were scanned and logged. Select one to see both sides.</figcaption></figure>
-        <div class="copy">
-          <div class="lotno"><i>01</i>Lot one</div>
-          <h3>Inventory &amp; Value</h3>
-          <p class="desc">Bulk shipments welcome. We separate base cards and base inserts, follow your instructions to inventory, return or donate them, and catalog only the cards you select.</p>
-          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$2</strong> per individually inventoried card</dd><dt>Includes</dt><dd>Front and back scans, card details, an inventory number and software market pricing</dd><dt>Good to know</dt><dd>Base cards you don't inventory cost nothing to sort</dd></dl>
-        </div>
-      </article>
-
-      <article class="lot flip">
-        <figure class="media"><div class="slot" style="--ar:1/1"><img src="img/pikachu.webp" alt="A gloved hand holding a loupe over a Pikachu card" loading="lazy"></div><figcaption><b>Plate III</b>Centering, corners, edges and surface, under the loupe.</figcaption></figure>
-        <div class="copy">
-          <div class="lotno"><i>02</i>Lot two</div>
-          <h3>Condition check</h3>
-          <p class="desc">We review centering, corners, edges and surface. An estimated grade helps you decide whether professional grading makes sense, before you spend anything on it.</p>
-          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$10</strong> per card</dd><dt>You get</dt><dd>Notes on all four areas and an estimated grade, such as "9 or 10" or "9 at best"</dd><dt>Good to know</dt><dd>Already included when you send a card for grading</dd></dl>
-        </div>
-      </article>
-
-      <article class="lot">
-        <figure class="media"><div class="slabs"><div class="slot"><img src="img/goofy.webp" alt="Goofy 2025 Topps Chrome Disney card in a PSA 10 holder" loading="lazy"></div><div class="slot"><img src="img/ramirez.webp" alt="José Ramírez 2014 Topps Chrome autograph in a PSA 10 holder" loading="lazy"></div></div><figcaption><b>Plate IV</b>Goofy, 2025 Topps Chrome, and José Ramírez, 2014 Topps Chrome autograph. Both came back PSA 10.</figcaption></figure>
-        <div class="copy">
-          <div class="lotno"><i>03</i>Lot three</div>
-          <h3>Professional grading</h3>
-          <p class="desc">Choose PSA, BGS, SGC or CGC. Inventory and condition review are included. We handle non-altering prep, submission and tracking, and the card comes back to your vault or your door.</p>
-          <table class="bands num">
-            <thead><tr><th scope="col">Value agreed at intake</th><th scope="col">My CC concierge fee</th></tr></thead>
-            <tbody><tr><td>Up to $1,000</td><td>$25</td></tr><tr><td>$1,000 to $2,500</td><td>$35</td></tr><tr><td>$2,500 to $10,000</td><td>$65</td></tr><tr><td>Over $10,000</td><td>$125</td></tr></tbody>
-          </table>
-          <dl class="terms"><dt>Grader fees</dt><dd>Separate, billed at cost</dd><dt>Members</dt><dd>Membership labor savings apply</dd><dt>Good to know</dt><dd>No gem-mint fee. The band is set by the value agreed at intake, not the grade.</dd></dl>
-        </div>
-      </article>
-
-      <article class="lot flip">
-        <figure class="media"><div class="slot" style="--ar:3/2"><img src="img/trio.webp" alt="Silver, emerald and graphite riveted aluminum display slabs holding Michael Jordan, Tom Brady and Shohei Ohtani cards" loading="lazy"></div><figcaption><b>Plate V</b>Engraved aluminum with color-matched rivets.</figcaption></figure>
-        <div class="copy">
-          <div class="lotno"><i>04</i>Lot four</div>
-          <h3>Collector display slab</h3>
-          <p class="desc">A sleek aluminum My CC slab with color-matched rivets, for a card you plan to keep and want to look at. Made for a shelf or a desk.</p>
-          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$99</strong> standard, $74 to $94 for members</dd><dt>Good to know</dt><dd>Display only. No third-party grade is assigned.</dd></dl>
-        </div>
-      </article>
-
-      <article class="lot">
-        <figure class="media"><div class="slot" style="--ar:1/1"><img src="img/maris.webp" alt="A 1958 Topps Roger Maris card in a graded holder, standing in an emerald-lined locking vault drawer" loading="lazy"></div><figcaption><b>Plate VI</b>One card, one space. Toploader, magnetic holder or slab.</figcaption></figure>
-        <div class="copy">
-          <div class="lotno"><i>05</i>Lot five</div>
-          <h3>Vault memberships</h3>
-          <p class="desc">Choose Bronze, Silver, Gold or Diamond, with clear capacity and member service savings. Every vaulted card stays visible in your portal. Request a condition check, grading or consignment whenever you're ready.</p>
-          <dl class="terms"><dt>Fee</dt><dd>From <strong class="num">$29</strong> a month, including 200 cards</dd><dt>Plans</dt><dd>Up to 4,000 cards, with 5% to 20% off My CC labor</dd><dt>Good to know</dt><dd>Extra space is $30 per 200 cards a month. Vault capacity is not insurance coverage.</dd></dl>
-        </div>
-      </article>
-
-      <article class="pair">
-        <div class="lot">
-          <figure class="media"><div class="slot" style="--ar:4/3;--pos:50% 45%"><img src="img/daniels-return.webp" alt="A graded Jayden Daniels autograph packed in a shipping box with tissue" loading="lazy"></div></figure>
-          <div class="lotno"><i>06</i>Lot six</div>
-          <h3>Return to you</h3>
-          <p class="desc">Packed carefully and sent home whenever you ask, in one shipment or several. Digital records stay in your inventory until a card is sold or you delete it.</p>
-          <dl class="terms"><dt>Fee</dt><dd><strong class="num">$5</strong> a shipment, plus $0.25 a returned card</dd><dt>Separate</dt><dd>Postage and shipping insurance</dd></dl>
-        </div>
-        <div class="lot">
-          <figure class="media"><div class="slot" style="--ar:4/3;--pos:50% 45%"><img src="img/willits.webp" alt="A graded Eli Willits autograph on a stand beside an auction gavel" loading="lazy"></div></figure>
-          <div class="lotno"><i>07</i>Lot seven</div>
-          <h3>Consignment</h3>
-          <p class="desc">We help you sell through eBay or Fanatics Collect, and share the benefit of preferred terms on qualifying Fanatics auction sales. Your payout and any additional costs are agreed on before listing.</p>
-          <dl class="terms"><dt>Fee</dt><dd><strong class="num">10%</strong> of the item sale price, $10 minimum per sold card</dd><dt>Separate</dt><dd>Actual marketplace fees or credits</dd></dl>
-        </div>
-      </article>
-
-      <div class="handles"><span>Cards we handle</span><p>Sports cards · Pokémon · Disney · Non-sport</p></div>
+      <div class="sec-head"><h2 id="cat-h">Choose the next chapter for each card</h2><p>Review your inventory, then choose the service that fits each card: sports cards, Pokémon, Disney and non-sport.</p></div>
+      <div class="tw-x">
+        <table class="cardback">
+          <thead><tr><th scope="col">Service</th><th scope="col">What you get</th><th scope="col">Price</th><th scope="col">Members</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Inventory &amp; value</th><td>We separate base cards and base inserts, follow your instructions to inventory, return or donate them, and catalog only the cards you select. Bulk shipments welcome.</td><td class="fee num">$2<small>per individually inventoried card</small></td><td class="mem num">$1.60 to $1.90</td></tr>
+            <tr><th scope="row">Condition check</th><td>Centering, corners, edges and surface reviewed. An estimated grade helps you decide whether professional grading makes sense.</td><td class="fee num">$10<small>per card, included with grading</small></td><td class="mem num">$8 to $9.50</td></tr>
+            <tr><th scope="row">Professional grading</th><td>Choose PSA, BGS, SGC or CGC. Inventory and condition review are included. We prep, submit and track it, and it comes back to your vault or your door.</td><td class="fee num">from $25<small>$25 to $1,000 value, $35 to $2,500, $65 to $10,000, $125 above. Grader fees separate.</small></td><td class="mem num">5% to 20% off</td></tr>
+            <tr><th scope="row">Display slab</th><td>A sleek aluminum My CC slab with color-matched rivets, for a card you plan to keep. No third-party grade is assigned.</td><td class="fee num">$99</td><td class="mem num">$74 to $94</td></tr>
+            <tr><th scope="row">Vault membership</th><td>Bronze, Silver, Gold or Diamond, with clear capacity and member service savings. Request a check, grading or consignment whenever you're ready.</td><td class="fee num">from $29<small>a month, including 200 cards</small></td><td class="mem">Up to 20% off My CC labor</td></tr>
+            <tr><th scope="row">Return to you</th><td>Packed carefully and sent home whenever you ask. Digital records stay in your inventory until a card is sold or you delete it.</td><td class="fee num">$5<small>a shipment, plus $0.25 a card. Postage and insurance separate.</small></td><td class="mem">No member discount</td></tr>
+            <tr><th scope="row">Consignment</th><td>We help you sell through eBay or Fanatics Collect and share the benefit of preferred terms on qualifying Fanatics auction sales. Payout and costs are agreed before listing.</td><td class="fee num">10%<small>of the sale, $10 minimum per sold card</small></td><td class="mem">No member discount</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="photos">
+        <figure class="wide"><img src="img/trio.webp" alt="Silver, emerald and graphite riveted aluminum display slabs holding Michael Jordan, Tom Brady and Shohei Ohtani cards" loading="lazy"><figcaption><b>Display slabs.</b> Engraved aluminum with color-matched rivets.</figcaption></figure>
+        <figure><img src="img/pikachu.webp" alt="A gloved hand holding a loupe over a Pikachu card" loading="lazy"><figcaption><b>Condition check.</b> Every corner, under the loupe.</figcaption></figure>
+        <figure class="pairfig"><div class="pairimg"><img src="img/goofy.webp" alt="Goofy 2025 Topps Chrome Disney card in a PSA 10 holder" loading="lazy"><img src="img/ramirez.webp" alt="José Ramírez 2014 Topps Chrome autograph in a PSA 10 holder" loading="lazy"></div><figcaption><b>Grading.</b> Goofy and José Ramírez, both back as PSA 10.</figcaption></figure>
+        <figure><img src="img/daniels-return.webp" alt="A graded Jayden Daniels autograph packed in a shipping box with tissue" loading="lazy"><figcaption><b>Return to you.</b> Packed by hand, shipped with tracking.</figcaption></figure>
+        <figure><img src="img/willits.webp" alt="A graded Eli Willits autograph on a stand beside an auction gavel" loading="lazy"><figcaption><b>Consignment.</b> Listed on eBay or Fanatics Collect.</figcaption></figure>
+      </div>
     </div>
   </section>
 
   <section class="case dark" id="vault-case" aria-labelledby="case-h">
     <div class="wrap">
-      <div class="title"><h2 id="case-h">From the vault.</h2><p>Real cards from a sample collection, scanned front and back at intake. Select any card to turn it over and read its record: pregrade, grading run and recorded value.</p></div>
+      <div class="sec-head"><h2 id="case-h">From the vault</h2><p>Real cards from a sample collection, scanned front and back at intake. Select a card to turn it over and read its record.</p></div>
       <div class="case-top">
         <div class="chips" role="group" aria-label="Show cards">
           <button class="chip" type="button" data-f="top" aria-pressed="true">Highest value</button>
           <button class="chip" type="button" data-f="vault" aria-pressed="false">In the vault</button>
           <button class="chip" type="button" data-f="grader" aria-pressed="false">At the grader</button>
-          <button class="chip" type="button" data-f="ns" aria-pressed="false">Disney, Marvel &amp; more</button>
+          <button class="chip" type="button" data-f="ns" aria-pressed="false">Non-sport</button>
         </div>
         <div class="arrows"><button class="arrow" type="button" id="tr-prev" aria-label="Scroll the case left">&larr;</button><button class="arrow" type="button" id="tr-next" aria-label="Scroll the case right">&rarr;</button></div>
       </div>
     </div>
-    <div class="wide-tray"><div class="tray" id="tray" tabindex="0" aria-label="Cards in the case"></div></div>
-    <div class="wrap"><div class="case-foot"><span id="tray-note"></span><a class="btn btn-ghost btn-sm" href="portal.html" id="tray-all">See the full collection in the demo portal</a></div></div>
+    <div class="tray" id="tray" tabindex="0" aria-label="Cards in the case"></div>
+    <div class="wrap"><div class="case-foot"><span id="tray-note"></span><a class="btn btn-ghost btn-sm" href="portal.html" id="tray-all">See the whole collection in the demo portal</a></div></div>
   </section>
 
-<section class="promise" aria-label="Our promises">
+  <section class="sec pricing" id="pricing" aria-labelledby="fees-h">
     <div class="wrap">
-      <p>No submission quotas. No gem-mint fees. <span>Honest recommendations,</span> even when the honest answer is to leave a card in the binder.</p>
-      <small>Three things we won't change.</small>
-    </div>
-  </section>
-
-  <section class="fees" id="pricing" aria-labelledby="fees-h">
-    <div class="wrap">
-      <div class="title"><h2 id="fees-h">Pricing &amp; vault.</h2><p>Published in full. Membership discounts apply only to eligible My CC labor, and slabs use fixed member prices. Grading-company fees, postage, shipping insurance and taxes are separate.</p></div>
-      <div class="tables">
-        <div class="scroll-x">
-          <table class="sched num">
-            <caption>Vault memberships<small>Monthly, cancel or change any month</small></caption>
-            <thead><tr><td></td><th scope="col">Bronze</th><th scope="col">Silver</th><th scope="col">Gold</th><th scope="col">Diamond</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Monthly fee</th><td>$29</td><td>$99</td><td>$249</td><td>$499</td></tr>
-              <tr><th scope="row">Cards included</th><td>200</td><td>1,000</td><td>2,000</td><td>4,000</td></tr>
-              <tr><th scope="row">Off My CC labor</th><td>5%</td><td>10%</td><td>15%</td><td>20%</td></tr>
-              <tr><th scope="row">Display slab</th><td>$94</td><td>$89</td><td>$79</td><td>$74</td></tr>
-              <tr><th scope="row">Planning time</th><td>15 min</td><td>45 min</td><td>2 hr</td><td>4 hr</td></tr>
-              <tr><th scope="row">Extra space</th><td colspan="4" class="span">$30 per 200 cards a month, in whole blocks</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="scroll-x">
-          <table class="sched num" style="min-width:420px">
-            <caption>Services<small>Standard price, and the member price range</small></caption>
-            <thead><tr><td></td><th scope="col" class="r">Standard</th><th scope="col" class="r">Members</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Inventory &amp; value</th><td class="r">$2</td><td class="r">$1.60 to $1.90</td></tr>
-              <tr><th scope="row">Condition check</th><td class="r">$10</td><td class="r">$8 to $9.50</td></tr>
-              <tr><th scope="row">Grading, to $1,000</th><td class="r">$25</td><td class="r">$20 to $23.75</td></tr>
-              <tr><th scope="row">Grading, to $2,500</th><td class="r">$35</td><td class="r">$28 to $33.25</td></tr>
-              <tr><th scope="row">Grading, to $10,000</th><td class="r">$65</td><td class="r">$52 to $61.75</td></tr>
-              <tr><th scope="row">Grading, over $10,000</th><td class="r">$125</td><td class="r">$100 to $118.75</td></tr>
-              <tr><th scope="row">Display slab</th><td class="r">$99</td><td class="r">$74 to $94</td></tr>
-              <tr><th scope="row">Return handling</th><td class="r" colspan="2">$5 a shipment plus $0.25 a card</td></tr>
-              <tr><th scope="row">Consignment</th><td class="r" colspan="2">10% of sale, $10 minimum</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="sec-head stack"><h2 id="fees-h">Pricing and vault plans</h2></div>
+      <div class="tw-x">
+        <table class="cardback plans">
+          <thead><tr><th scope="col">Plan</th><th scope="col">Month</th><th scope="col">Cards</th><th scope="col">Labor off</th><th scope="col">Slab</th><th scope="col">Planning time</th></tr></thead>
+          <tbody class="num">
+            <tr><th scope="row">Bronze</th><td>$29</td><td>200</td><td>5%</td><td>$94</td><td>15 min</td></tr>
+            <tr><th scope="row">Silver</th><td>$99</td><td>1,000</td><td>10%</td><td>$89</td><td>45 min</td></tr>
+            <tr><th scope="row">Gold</th><td>$249</td><td>2,000</td><td>15%</td><td>$79</td><td>2 hr</td></tr>
+            <tr><th scope="row">Diamond</th><td>$499</td><td>4,000</td><td>20%</td><td>$74</td><td>4 hr</td></tr>
+            <tr class="extra"><th scope="row">Extra space</th><td colspan="5">$30 per 200 cards a month, in whole blocks. Change or cancel any month.</td></tr>
+          </tbody>
+        </table>
       </div>
+      <p class="fine-print">Planning time is monthly time with us for collection discussions and account guidance. Unused time does not roll over. Member discounts apply only to My CC labor, and slabs have fixed member prices. Grader fees, postage, shipping insurance and taxes are separate. Vault capacity is not insurance coverage.</p>
 
-      <div class="estimate" id="estimate">
-        <div class="est-h"><h3>Build your estimate.</h3><p>Set your numbers and the slip updates as you go. Your selections carry into your submission for review. Nothing is ordered or charged.</p></div>
+<div class="estimate" id="estimate">
+        <div class="est-h"><h3>Build your estimate</h3><p>Set your numbers and the slip updates as you go. Your selections carry into your submission for review. Nothing is ordered or charged.</p></div>
         <div>
           <div class="f-row stack"><div><div class="t">How would you like to start?</div><div class="d">A vault plan, or one-time services at standard prices</div></div>
             <div class="toggle" role="group" aria-label="Plan type"><button type="button" data-mode="vault" aria-pressed="true">Vault and services</button><button type="button" data-mode="services" aria-pressed="false">Services only</button></div></div>
@@ -259,68 +184,60 @@
           <div class="f-row"><div><div class="t">Grading, over $10,000</div><div class="d" id="d-g3"></div></div><div class="step-in" data-k="g3"></div></div>
           <div class="f-group">Slabs and returns</div>
           <div class="f-row"><div><div class="t">Display slabs</div><div class="d" id="d-slab"></div></div><div class="step-in" data-k="slab"></div></div>
-          <div class="f-row"><div><div class="t">Other cards to return</div><div class="d">$5 a shipment plus $0.25 a card</div></div><div class="step-in" data-k="ret"></div></div>
+          <div class="f-row"><div><div class="t">Cards to return (not base cards)</div><div class="d">$5 a shipment plus $0.25 a card</div></div><div class="step-in" data-k="ret"></div></div>
         </div>
         <aside class="slip" aria-live="polite" aria-label="Your estimate">
           <div id="r-top"></div>
           <table><tbody id="r-lines"></tbody></table>
-          <div class="grand"><span id="r-grand-lbl">First month plus one-time</span><strong class="num" id="r-grand"></strong></div>
+          <div class="grand"><span id="r-grand-lbl">First month plus one-time services</span><strong class="num" id="r-grand"></strong></div>
           <button class="btn btn-ink" type="button" id="start-sub">Start a submission with this estimate</button>
           <button class="linkish" type="button" id="copy-est">Copy this estimate</button>
           <p class="fine">Excluded: grading-company fees, postage, shipping insurance and any applicable taxes. Final card counts and fees are confirmed before paid work begins. Estimates are not guarantees of card value or grade.</p>
         </aside>
       </div>
+
     </div>
   </section>
 
-  
-  <section class="portal dark" id="portal" aria-labelledby="portal-h">
+  <section class="sec teaser-band dark" id="portal" aria-labelledby="portal-h">
     <div class="wrap teaser">
-      <div class="teaser-copy">
-        <span class="eyebrow">Collector portal</span>
-        <h2 id="portal-h">Your collection, on the record.</h2>
+      <div>
+        <h2 id="portal-h">Your collection, on the record</h2>
         <p>See what you have, where it is and what comes next, from anywhere.</p>
-        <ul class="ticks">
-          <li>Search every card with its scans, value and pregrade</li>
-          <li>Follow each grading run from label to slab</li>
-          <li>Approve quotes before any paid work begins</li>
-          <li>Request a service on any card, and manage your vault plan</li>
-        </ul>
-        <div class="acts"><a class="btn btn-brass" href="portal.html">Open the demo portal</a></div>
+        <p class="teaser-fact">The demo holds a real sample collection: 7,964 cards, 335 of them at PSA and BGS right now, and a pregrade quote for 12 cards waiting for approval.</p>
+        <a class="btn btn-brass" href="portal.html">Open the demo portal</a>
         <span class="demo-note">A demo with a sample collector account. Nothing you do there is processed.</span>
       </div>
       <a class="teaser-shot" href="portal.html" aria-label="Open the demo collector portal"><img src="img/portal-preview.jpg" alt="The collector portal overview: recorded value, cards at the graders, vault space and where the value sits" loading="lazy"></a>
     </div>
   </section>
 
-<section class="conditions" id="conditions" aria-labelledby="cond-h">
+  <section class="sec" id="conditions" aria-labelledby="cond-h">
     <div class="wrap">
-      <div class="title"><h2 id="cond-h">Conditions, in plain English.</h2><p>The questions collectors ask before they ship. If yours isn't here, your concierge will answer it before anything is charged.</p></div>
-      <div class="clauses">
-        <div class="clause"><h3>You don't have to grade anything.</h3><p>Most cards are simply inventoried and sent home or vaulted. You choose, card by card, what is worth a check, a grader, a slab or a sale.</p></div>
-        <div class="clause"><h3>You're charged only after you approve.</h3><p>Final counts, fees and any credits are confirmed at intake. Estimates never authorize paid work.</p></div>
-        <div class="clause"><h3>Grader fees are passed through at cost.</h3><p>Our fee covers prep, submission and tracking. The grader's own fee is added as charged. No third-party charge gets a member discount.</p></div>
-        <div class="clause"><h3>Grading bands follow value, not grade.</h3><p>The fee band is set by the value agreed at intake. There is no extra charge if a card comes back gem mint.</p></div>
-        <div class="clause"><h3>Vault space is counted per card.</h3><p>One toploader, magnetic holder or slab is one space. Above your plan, extra space is $30 per 200 cards a month, in whole blocks.</p></div>
-        <div class="clause"><h3>Display slabs are display only.</h3><p>A My CC slab is not professional grading or authentication. Member slab pricing is fixed and doesn't stack with service discounts.</p></div>
-        <div class="clause"><h3>Consignment fees come from the sale.</h3><p>10% of the item sale price, $10 minimum per sold card, excluding tax and shipping. Marketplace fees pass through separately.</p></div>
-        <div class="clause"><h3>The vault is storage, not insurance.</h3><p>Vault capacity is not insurance coverage. Coverage is only as stated in the vault agreement.</p></div>
-        <div class="clause"><h3>Estimates are estimates.</h3><p>An estimate is not a guarantee of card value or grade, and it never authorizes paid work.</p></div>
-        <div class="clause"><h3>Your records stay until you say otherwise.</h3><p>A card's digital record stays in your inventory until it is sold or you delete it, even after it goes home.</p></div>
+      <div class="sec-head stack"><h2 id="cond-h">Before you ship</h2></div>
+      <div class="faq">
+        <div><h3>Do I have to grade anything?</h3><p>No. Most cards are simply inventoried and sent home or vaulted. You choose, card by card, what is worth a check, a grader, a slab or a sale.</p></div>
+        <div><h3>When am I charged?</h3><p>Final counts, fees and any credits are confirmed at intake. An estimate never authorizes paid work.</p></div>
+        <div><h3>Are grader fees marked up?</h3><p>Grader fees are separate from our fee and appear on your quote. Member discounts apply only to My CC labor, never to grader fees.</p></div>
+        <div><h3>Is there a gem-mint fee?</h3><p>No. There are no gem-mint fees and no submission quotas.</p></div>
+        <div><h3>How is vault space counted?</h3><p>One toploader, magnetic holder or slab is one space. Above your plan it's $30 per 200 cards a month. Vault capacity is not insurance coverage.</p></div>
+        <div><h3>Is a display slab a grade?</h3><p>No. A My CC slab is for display, with no third-party grade assigned.</p></div>
+        <div><h3>How does consignment work?</h3><p>We keep 10% of the item sale price, with a $10 minimum per sold card. Marketplace fees or credits are separate, and your payout and any extra costs are agreed before listing.</p></div>
+        <div><h3>What happens to my records?</h3><p>Every card's record stays in your inventory until it is sold or you delete it, even after it goes home.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="close dark" aria-labelledby="close-h">
+  <section class="close" aria-labelledby="close-h">
     <div class="wrap">
       <div class="row">
-        <h2 id="close-h">Send in your cards. We'll handle the details.</h2>
-        <div><p>Start with an estimate. You'll see every fee before anything is charged.</p><a class="btn btn-brass" href="#estimate">Get started</a></div>
+        <h2 id="close-h">Send in your cards.</h2>
+        <div><p>Start with an estimate, then ship your box.</p><a class="btn btn-brass" href="#estimate">Build your estimate</a></div>
       </div>
-      <footer class="colophon">
-        <a class="word" href="#top"><span class="monogram" aria-hidden="true">CC</span><span><b>My Collector Concierge</b><small>Collect, preserve, enjoy</small></span></a>
-        <span>Sports cards · Pokémon · Disney · Non-sport</span>
-        <span>The collector portal is a demo. Estimates do not authorize paid work.</span>
+      <footer class="foot">
+        <a class="brand" href="#top"><span class="mark" aria-hidden="true"><span>CC</span></span><b>My Collector Concierge</b></a>
+        <span>Sports cards, Pokémon, Disney and non-sport</span>
+        <span>The collector portal is a demo.</span>
       </footer>
     </div>
   </section>
@@ -349,7 +266,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script src="assets/data.js"></script>
 <script src="assets/common.js"></script>
 <script src="assets/home.js"></script>

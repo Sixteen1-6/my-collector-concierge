@@ -51,7 +51,7 @@ function render(fromInput){
   $("#d-inv").innerHTML=`${std(2,q.ip)} a card, with scans and market pricing`;
   $("#d-cond").innerHTML=`${std(10,q.cp)} a card, with notes and a grade range`;
   BANDS.forEach((b,i)=>$("#d-g"+i).innerHTML=`${std(b,q.gp[i])} a card, plus the grader's fee`);
-  $("#d-slab").innerHTML=`${q.tier?`<s>$99</s> ${usd(q.sp)}`:"$99"} each, engraved, matched hardware`;
+  $("#d-slab").innerHTML=`${q.tier?`<s>$99</s> ${usd(q.sp)}`:"$99"} each, aluminum with color-matched rivets`;
   $$(".step-in").forEach(el=>{$("input",el).value=P[el.dataset.k];});
   $("#base-h").value=P.baseH;
   $("#r-top").innerHTML=vault
@@ -64,7 +64,7 @@ function render(fromInput){
   h+=`<tr class="tot"><td>One-time total</td><td class="num">${u2(q.one)}</td></tr>`;
   if(P.g0+P.g1+P.g2+P.g3)h+=`<tr class="muted"><td>Grading-company fees</td><td>At cost</td></tr>`;
   $("#r-lines").innerHTML=h;
-  $("#r-grand-lbl").textContent=vault?"First month plus one-time":"One-time total";
+  $("#r-grand-lbl").textContent=vault?"First month plus one-time services":"One-time total";
   $("#r-grand").textContent=u2(r2(q.one+q.mo));
 }
 render();

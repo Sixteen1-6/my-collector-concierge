@@ -17,7 +17,7 @@ const AGG=window.CC_AGG||CC_AGG,PHOTO=window.CC_PHOTO||CC_PHOTO;
 const byId=new Map(PHOTO.map(r=>[r.i,r]));
 const CATN={Nonsport:"Non-sport"};
 const cat=r=>CATN[r.c]||r.c||"";
-const line=r=>[r.s,r.u].filter(Boolean).join(" · ")||r.t||cat(r);
+const line=r=>[r.s,r.u].filter(Boolean).join(", ")||r.t||cat(r);
 const front=r=>`cards/${r.i}.webp`,back=r=>`cards/${r.i}b.webp`;
 function gradeTxt(r){if(r.g)return `${r.gr||"PSA"} ${r.g}`;return "Raw";}
 function statusTxt(r){return r.st==="Grading in progress"?`At ${r.gr||"the grader"}`:r.st==="Ready for decision"?"Needs a decision":r.st||"";}
@@ -59,7 +59,7 @@ if($("#tray")){const FILTERS={
   grader:()=>PHOTO.filter(r=>r.st==="Grading in progress").sort((a,b)=>b.v-a.v).slice(0,24),
   ns:()=>PHOTO.filter(r=>r.c==="Nonsport"||r.c==="Wrestling").sort((a,b)=>b.v-a.v)
 };
-const NOTES={top:"The 24 highest recorded values in the sample collection.",vault:"Graded, back from the grader and now held in the vault.",grader:"Out at PSA and BGS in this summer's and fall's grading runs. The pregrades are ours.",ns:"Disney, Pixar, Marvel, Star Wars and WWE cards from the same box."};
+const NOTES={top:"The 24 highest-value cards in the sample collection.",vault:"Graded, back from the grader and now held in the vault.",grader:"Out at PSA and BGS in this summer's and fall's grading runs. The pregrades are ours.",ns:"Disney, Pixar, Marvel, Star Wars and WWE cards from the same box."};
 let trayList=[];
 function renderTray(f){
   trayList=FILTERS[f]();
@@ -68,7 +68,7 @@ function renderTray(f){
     <span class="stand"><img src="${front(r)}" alt="" loading="lazy"></span>
     <span class="tag"><span class="row"><span class="num">${r.in?"No. "+esc(r.in):esc(cat(r))}</span><span class="num">${r.v?usdv(r.v):""}</span></span><b>${esc(r.n)}</b><span>${esc(line(r))}</span><span>${esc(r.g?gradeTxt(r):r.p?"Pregrade "+r.p:statusTxt(r))}</span></span></button>`).join("");
   $("#tray").scrollLeft=0;
-  $("#tray-note").textContent=`${trayList.length} cards. ${NOTES[f]}`;
+  $("#tray-note").textContent=NOTES[f];
 }
 $(".chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)renderTray(b.dataset.f);});
 $("#tray").addEventListener("click",e=>{const b=e.target.closest(".piece");if(b)openViewer(trayList,+b.dataset.i);});
@@ -88,13 +88,13 @@ function paint(){
   if(hasImg){$("#vw-f").src=front(r);$("#vw-f").alt=`Front of ${r.n}`;
     if(r.bk){$("#vw-b").src=back(r);$("#vw-b").alt=`Back of ${r.n}`;}else{$("#vw-b").removeAttribute("src");$("#vw-b").alt="";}}
   $("#vw-turn").hidden=!(hasImg&&r.bk);$("#vw-turn").textContent="Turn it over";
-  $("#vw-k").textContent=[cat(r),r.y,r.in?"Inventory no. "+r.in:""].filter(Boolean).join(" · ");
+  $("#vw-k").innerHTML=`<span>${r.in?"No. "+esc(r.in):esc(cat(r))}</span><span>${r.v?usdv(r.v):""}</span>`;
   $("#vw-h").textContent=r.n;
   $("#vw-set").textContent=line(r);
-  const rows=[["Recorded value",r.v?usdv(r.v):"Not priced"],["Where it is",statusTxt(r)+(r.st==="Vaulted"?", in the vault":"")],
+  const rows=[["Recorded value",r.v?usdv(r.v):"Not priced"],["Where it is",r.st==="Vaulted"?"In the vault":statusTxt(r)],
     ["Grade",r.g?gradeTxt(r):"Raw, not yet graded"],r.p?["Our pregrade",r.p]:null,r.b?["Grading run",`${r.b}${r.sd?", sent "+fmtDate(r.sd):""}`]:null].filter(Boolean);
   $("#vw-dl").innerHTML=rows.map(x=>`<dt>${esc(x[0])}</dt><dd class="num">${esc(x[1])}</dd>`).join("");
-  const n=$("#vw-note");n.hidden=!r.nt;if(r.nt)n.innerHTML=`<b>Concierge note at intake</b>${esc(r.nt)}`;
+  const n=$("#vw-note");n.hidden=!r.nt||r.nt===r.p;if(r.nt)n.innerHTML=`<b>Concierge note at intake</b>${esc(r.nt)}`;
   $("#vw-pos").textContent=V.list.length>1?`${V.i+1} of ${V.list.length.toLocaleString()}`:"";
   $("#vw-prev").disabled=V.i<=0;$("#vw-next").disabled=V.i>=V.list.length-1;
   $(".vw-panel").scrollTop=0;

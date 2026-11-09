@@ -56,7 +56,7 @@ const V={
   const catRows=Object.entries(AGG.cats).map(([k,o])=>({l:CATN(k),n:o.n,v:o.v})).sort((a,b)=>b.v-a.v);
   const bandRows=AGG.bands.map(b=>({l:b.hi?(b.lo?`${usd(b.lo)} to ${usd(b.hi)}`:`Under ${usd(b.hi)}`):`${usd(b.lo)} and up`,n:b.n,v:b.v}));
   return `<div class="vh"><div><h3>Welcome back, JB.</h3><p>Here is where your ${AGG.n.toLocaleString()} cards stand today.</p></div><a class="btn btn-dark btn-sm" href="#estimate">New submission</a></div>
-  ${pendingQuote()?`<div class="next"><div><b>Your next move starts here.</b><span>A pregrade review for ${PEND.length} of your best raw cards is ready for approval, ${usdv(qTotal())} total.</span></div><button class="btn btn-dark btn-sm" type="button" data-go="subs">Review the quote</button></div>`:""}
+  ${pendingQuote()?`<div class="next"><div><b>Waiting for your approval</b><span>Pregrade review for ${PEND.length} of your best raw cards, ${usdv(qTotal())}.</span></div><button class="btn btn-dark btn-sm" type="button" data-go="subs">Review the quote</button></div>`:""}
   <div class="ptiles">
    <div class="pt"><span>Recorded value</span><strong class="num">${usd(AGG.v)}</strong><small class="num">${AGG.n.toLocaleString()} cards inventoried</small></div>
    <div class="pt"><span>At the graders</span><strong class="num">${GRADING.toLocaleString()}</strong><small class="num">in ${runsOut.length} open runs with PSA and BGS</small></div>

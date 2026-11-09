@@ -27,15 +27,15 @@ Two pages, one brand:
 <td width="50%"><a href="docs/screenshots/02-process.jpg"><img src="docs/screenshots/02-process.jpg" alt="The four-step process"></a></td>
 </tr>
 <tr>
-<td><b>Built by collectors.</b> Studio photography of the riveted display slabs, and what My CC promises up front.</td>
-<td><b>From the box to the binder.</b> Send in, inventory, choose, keep close. What happens at each step and what you get back.</td>
+<td><b>The slab label.</b> The headline sits in a grading-slab label over the velvet case, with starting prices underneath like the back of a card.</td>
+<td><b>How it works.</b> Send in, inventory, choose, keep close. What happens at each step and what you get back.</td>
 </tr>
 <tr>
 <td><a href="docs/screenshots/04-services.jpg"><img src="docs/screenshots/04-services.jpg" alt="Services catalogue"></a></td>
 <td><a href="docs/screenshots/05-case.jpg"><img src="docs/screenshots/05-case.jpg" alt="From the vault: scanned cards"></a></td>
 </tr>
 <tr>
-<td><b>The next chapter for each card.</b> Seven services, each with its fee and the fine print in plain English.</td>
+<td><b>The next chapter for each card.</b> Seven services in a card-back stat table, with member prices.</td>
 <td><b>From the vault.</b> Real cards, scanned front and back at intake. Select one to turn it over and read its record.</td>
 </tr>
 <tr>
@@ -56,7 +56,7 @@ Two pages, one brand:
 <td width="50%"><a href="docs/screenshots/10-portal-overview.jpg"><img src="docs/screenshots/10-portal-overview.jpg" alt="Portal overview"></a></td>
 </tr>
 <tr>
-<td><b>Sign in.</b> One click with the demo account, or type demo@mycc.example / collector.</td>
+<td><b>Sign in.</b> One click with the demo account, or type demo@mycc.example and the password collector.</td>
 <td><b>Overview.</b> Recorded value, cards at the graders, vault space, where the value sits and recent activity.</td>
 </tr>
 <tr>
@@ -92,6 +92,10 @@ Two pages, one brand:
 | 05 | Vault memberships | Bronze $29 (200 cards), Silver $99 (1,000), Gold $249 (2,000), Diamond $499 (4,000) |
 | 06 | Return to you | $5 a shipment plus $0.25 a returned card |
 | 07 | Consignment on eBay or Fanatics Collect | 10% of the sale, $10 minimum per sold card |
+
+## Technology proposal
+
+[docs/PROPOSAL.md](docs/PROPOSAL.md) answers JB's list of topics for building the real product: the website, portal and iPhone and Android apps on AWS in TypeScript, the integrations (Card Ladder, PSA, Stripe, QuickBooks, eBay, Fanatics Collect, EasyPost), hosting, security, traceability, ownership, phases, costs and support.
 
 ## Run it locally
 
