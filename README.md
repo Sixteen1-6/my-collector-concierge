@@ -48,6 +48,12 @@ Two pages, one brand:
 </tr>
 </table>
 
+### Scroll through How it works
+
+<a href="https://sixteen1-6.github.io/my-collector-concierge/#how"><img src="docs/screenshots/17-scroll-scene.jpg" alt="Four frames of the scroll scene: a card arrives in its toploader, is scanned front and back, closes into a display slab, and drops into a vault drawer"></a>
+
+The four steps are told with one real card from the collection, a Seth Hernandez Bowman Draft Sapphire (inventory No. 574). As you scroll it arrives in its toploader, gets scanned front and back, comes out of the toploader into a riveted display slab, and drops into a vault drawer next to two other vaulted cards. Scrolling is smoothed with [Lenis](https://github.com/darkroomengineering/lenis). Visitors with reduced motion turned on, and screens too short for the scene, get the plain four-column steps.
+
 ## The collector portal
 
 <table>
@@ -116,6 +122,8 @@ assets/site.css         shared styles
 assets/common.js        shared helpers and the card viewer
 assets/home.js          the estimate builder
 assets/portal.js        the portal app and demo sign-in
+assets/motion.js        smooth scrolling, reveals and the How it works scroll scene
+assets/lenis.min.js     Lenis 1.3.4 (MIT), self-hosted
 assets/data.js          the 96 showcased cards and collection totals
 data/collection.json    the full 7,964-card ledger, loaded by the portal
 cards/                  front (123.webp) and back (123b.webp) scans
