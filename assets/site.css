@@ -747,3 +747,64 @@ html.lenis,html.lenis body{height:auto}
   .st-tag span{font-size:8.5px;letter-spacing:.04em}.st-tag b{font-size:13px;margin-bottom:2px}
   .st-tag span:nth-of-type(3),.st-tag b:last-child{display:none}
 }
+
+/* ---- phone review fixes ---- */
+/* stacked tables: one rule between rows, none between the cells of a row */
+@media (max-width:760px){
+  .cardback td,.cardback tbody th,.plans .extra td,.plans .extra th{border-top:0}
+  /* vault plans: each plan is a labelled block instead of a table wider than the screen */
+  .plans{min-width:0}
+  .plans tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px}
+  .plans tbody th{grid-column:1/-1;padding:0}
+  .plans td{text-align:left;padding:0}
+  .plans td::before{display:block;font:600 13px/1.3 var(--sans);font-stretch:100%;color:var(--soft);margin-bottom:3px}
+  .plans td:nth-child(2)::before{content:"Month"}
+  .plans td:nth-child(3)::before{content:"Cards"}
+  .plans td:nth-child(4)::before{content:"Labor off"}
+  .plans td:nth-child(5)::before{content:"Slab"}
+  .plans td:nth-child(6)::before{content:"Planning time"}
+  .plans .extra{border-top:2px solid var(--velvet)}
+  .plans .extra td{grid-column:1/-1}
+  .plans .extra td::before{content:none}
+}
+/* card viewer on phones: Close and Previous/Next stay in reach while the record scrolls */
+@media (max-width:820px){
+  .vw-media{grid-row:1;grid-column:1}
+  .vw-info{grid-row:2;grid-column:1;padding-bottom:0}
+  .vw-x{position:sticky;top:12px;right:auto;grid-row:1/3;grid-column:1;align-self:start;justify-self:end;margin:12px 12px 0 0}
+  .vw-nav{position:sticky;bottom:0;margin:18px calc(-1*clamp(24px,3.4vw,44px)) 0;padding:12px clamp(24px,3.4vw,44px);background:var(--paper);border-top:1px solid var(--rule)}
+}
+/* touch: form text at 16px so iOS does not zoom the page, and small links get a taller tap area */
+@media (max-width:860px){
+  select.sel,.toolbar .in,.form .in{font-size:16px}
+  select.sel,.toolbar .in,.form select.in{min-height:44px}
+  .toolbar input.in{text-overflow:ellipsis}
+  .menu,.toggle button{min-height:42px}
+  .step-in input{height:44px}
+  .slab-acts .textlink,.back-link{padding:12px 0}
+  .pbar{row-gap:0}
+  .pbar-end a,.pbar-end button,.sub-meta button,.hint button{padding:11px 0}
+}
+@media (max-width:600px){.f-row.stack .toggle{display:flex}.f-row.stack .toggle button{flex:1}}
+@media (max-width:480px){.f-row:has(select.sel){grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.pick button[aria-pressed="true"] b{text-underline-offset:2px}}
+/* portal on phones: ledger rows stack so value, grade and status show without sideways scrolling */
+.dt.inv{min-width:520px}
+@media (max-width:620px){
+  .dt.inv{min-width:0}
+  .dt.inv td:first-child{white-space:nowrap}
+  .dt.inv th,.dt.inv td{padding-right:8px}
+  .dt.inv th:last-child,.dt.inv td:last-child{padding-right:0}
+  #coll table.dt,#coll table.dt tbody{display:block;min-width:0}
+  #coll table.dt thead{display:none}
+  #coll table.dt tr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 0;align-items:center;padding:11px 0;border-bottom:1px solid var(--rule)}
+  #coll table.dt td{display:block;padding:0;border:0;min-width:0}
+  #coll table.dt td:nth-child(1){grid-column:1/3}
+  #coll table.dt td:nth-child(4){grid-column:3;grid-row:1;padding-left:12px}
+  #coll table.dt td:nth-child(2){grid-column:1;grid-row:2;padding-left:42px;font-size:13px;color:var(--soft)}
+  #coll table.dt td:nth-child(2):not(:empty){padding-right:10px}
+  #coll table.dt td:nth-child(2):not(:empty)::before{content:"No. "}
+  #coll table.dt td:nth-child(3){grid-column:2;grid-row:2;font-size:14px}
+  #coll table.dt td:nth-child(5){grid-column:3;grid-row:2;justify-self:end;padding-left:12px}
+  #coll .cc small{max-width:none}
+}

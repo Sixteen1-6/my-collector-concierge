@@ -55,7 +55,7 @@ const V={
   const small=AGG.bands[0];
   const catRows=Object.entries(AGG.cats).map(([k,o])=>({l:CATN(k),n:o.n,v:o.v})).sort((a,b)=>b.v-a.v);
   const bandRows=AGG.bands.map(b=>({l:b.hi?(b.lo?`${usd(b.lo)} to ${usd(b.hi)}`:`Under ${usd(b.hi)}`):`${usd(b.lo)} and up`,n:b.n,v:b.v}));
-  return `<div class="vh"><div><h3>Welcome back, JB.</h3><p>Here is where your ${AGG.n.toLocaleString()} cards stand today.</p></div><a class="btn btn-dark btn-sm" href="#estimate">New submission</a></div>
+  return `<div class="vh"><div><h3>Welcome back, JB.</h3><p>Here is where your ${AGG.n.toLocaleString()} cards stand today.</p></div><a class="btn btn-dark btn-sm" href="./#estimate">New submission</a></div>
   ${pendingQuote()?`<div class="next"><div><b>Waiting for your approval</b><span>Pregrade review for ${PEND.length} of your best raw cards, ${usdv(qTotal())}.</span></div><button class="btn btn-dark btn-sm" type="button" data-go="subs">Review the quote</button></div>`:""}
   <div class="ptiles">
    <div class="pt"><span>Recorded value</span><strong class="num">${usd(AGG.v)}</strong><small class="num">${AGG.n.toLocaleString()} cards inventoried</small></div>
@@ -85,13 +85,13 @@ const V={
    <div class="quote"><table>${qLines().map(q=>`<tr><td>${esc(q[0])}</td><td class="num">${usdv(q[1])}</td></tr>`).join("")}<tr class="tot"><td>Quote total</td><td class="num">${usdv(qTotal())}</td></tr></table></div>
    <div class="acts"><button class="btn btn-dark btn-sm" type="button" data-ok>Approve quote</button><button class="btn btn-line btn-sm" type="button" data-no>Decline</button><button class="btn btn-line btn-sm" type="button" data-pend>See the ${PEND.length} cards</button></div></article>`:
    S.quote.status==="approved"?`<article class="subm"><div class="sub-top"><div><h4>Pregrade review, best raw cards</h4><p class="num">${esc(S.quote.id)}, ${PEND.length} cards</p></div>${chip("Completed")}</div><p style="font-size:14px;color:var(--soft);margin-top:8px">Quote approved ${esc(S.quote.date||TODAY)}. Condition checks are underway.</p></article>`:"";
-  const own=S.subs.map(s=>`<article class="subm"><div class="sub-top"><div><h4>${esc(s.title)}</h4><p class="num">${esc(s.id)}, ${s.cards.toLocaleString()} cards, started ${esc(s.date)}</p></div><span class="status s-review">${STAGES[s.stage]}</span></div>
+  const own=S.subs.map(s=>`<article class="subm"><div class="sub-top"><div><h4>${esc(s.title)}</h4><p class="num">${esc(s.id)}, ${s.cards.toLocaleString()} card${s.cards===1?"":"s"}, started ${esc(s.date)}</p></div><span class="status s-review">${STAGES[s.stage]}</span></div>
    <ol class="stg">${STAGES.map((x,i)=>`<li class="${i<s.stage?"d":i===s.stage?"n":""}">${x}</li>`).join("")}</ol><p style="font-size:14px;color:var(--soft);margin-top:8px">${esc(s.note)}</p></article>`).join("");
   const runs=AGG.runs.map(r=>{const stage=r.done>=r.n?5:4,back=r.done;
    return `<article class="subm"><div class="sub-top"><div><h4>${esc(r.b)}</h4><p class="num">${esc(r.gr)} run, ${r.n} cards, sent ${esc(fmtDate(r.date))}</p></div>${stage===5?`<span class="status s-done">Complete</span>`:`<span class="status s-grader">At ${esc(r.gr)}</span>`}</div>
     <ol class="stg">${STAGES.map((x,i)=>`<li class="${i<stage||stage===5?"d":i===stage?"n":""}">${x}</li>`).join("")}</ol>
     <div class="sub-meta num"><span>${usd(r.v)} recorded value</span><span>${back?`${back} of ${r.n} back and vaulted`:"None back yet"}</span><button type="button" data-batch="${esc(r.b)}">See these cards</button></div></article>`;}).join("");
-  return `<div class="vh"><div><h3>Submissions</h3><p>Every box and grading run, from label to finished.</p></div><a class="btn btn-dark btn-sm" href="#estimate">New submission</a></div>${own}${quote}${runs}`;},
+  return `<div class="vh"><div><h3>Submissions</h3><p>Every box and grading run, from label to finished.</p></div><a class="btn btn-dark btn-sm" href="./#estimate">New submission</a></div>${own}${quote}${runs}`;},
  reqs(){
   const pre=reqPre;
   const opts=(pre&&!PHOTO.includes(pre)?[pre]:[]).concat([...PHOTO].sort((a,b)=>a.n.localeCompare(b.n))).filter(r=>r.st!=="Returned");
@@ -107,7 +107,7 @@ const V={
    <div><span style="font-size:13px;color:var(--soft)">Current plan</span><div style="font:400 2.4rem/1 var(--serif)">${t.name}, ${usd(t.price)}/mo</div></div>
    <div style="flex:1 1 260px;max-width:420px"><span class="num" style="font-size:13.5px">${v} of ${t.cap.toLocaleString()} spaces used</span><div class="meter"><i style="width:${Math.min(100,v/t.cap*100)}%"></i></div><small style="color:var(--soft)">${Math.round(t.disc*100)}% off My CC labor, ${usd(t.slab)} slabs, ${t.guide} planning a month. ${GRADING} cards at the graders come back to the vault as they finish.</small></div></div>
    <h4 style="margin-top:20px">Change plan</h4><div class="pick" id="pick">${TIERS.map(x=>`<button type="button" data-plan="${x.id}" aria-pressed="false" class="${x.id===S.tier?"cur":""}"><b>${x.name}</b><span class="num">${usd(x.price)}/mo, ${x.cap.toLocaleString()} cards</span></button>`).join("")}</div><div id="pc"></div></div>
-  <div class="tw"><table class="dt" style="min-width:520px"><thead><tr><th>Date</th><th>Charge</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody>${S.invoices.map(i=>`<tr style="cursor:default"><td class="num">${esc(i.date)}</td><td>${esc(i.what)}</td><td class="r num">${usdv(i.amt)}</td><td>${chip(i.status)}</td></tr>`).join("")}</tbody></table></div>`;}
+  <div class="tw"><table class="dt inv"><thead><tr><th>Date</th><th>Charge</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody>${S.invoices.map(i=>`<tr style="cursor:default"><td class="num">${esc(i.date)}</td><td>${esc(i.what)}</td><td class="r num">${usdv(i.amt)}</td><td>${chip(i.status)}</td></tr>`).join("")}</tbody></table></div>`;}
 };
 function CATN(k){return ({Nonsport:"Non-sport"})[k]||k;}
 
@@ -146,11 +146,16 @@ function bindColl(){
 
 function counts(){$("#who-plan").textContent=tierById(S.tier).name+" member";$("#c-cards").textContent=AGG.n.toLocaleString();
   $("#c-subs").textContent=runsOut.length+(pendingQuote()?1:0)+S.subs.length;$("#c-reqs").textContent=S.reqs.filter(r=>r.open).length;}
-function show(tab,opts){S.tab=tab;save();counts();
+function show(tab,opts){const moved=S.tab!==tab;S.tab=tab;save();counts();
   $$(".tab").forEach(b=>{const on=b.dataset.tab===tab;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1;});
   $("#view").setAttribute("aria-labelledby","tab-"+tab);
   const v=$("#view");v.innerHTML=V[tab]();v.scrollTop=0;
   if(tab==="collection")bindColl();
+  /* phones: the tabs are a sideways strip and the page scrolls, so keep the active tab in view and start the new view at its top */
+  const side=$(".app-side"),sel=$("#tab-"+tab);
+  if(side.scrollWidth>side.clientWidth)side.scrollLeft+=sel.getBoundingClientRect().left-side.getBoundingClientRect().left-(side.clientWidth-sel.offsetWidth)/2;
+  const appTop=$(".app").getBoundingClientRect().top+scrollY;
+  if(moved&&scrollY>appTop)scrollTo(0,appTop);
 }
 window.ccPortal={show:(t)=>show(t),request(r){reqPre=r;show("reqs");const s=$("#rq-s");if(s)s.focus({preventScroll:true});}};
 
