@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For JB · My Collector Concierge</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Your 18 topics, answered: the plan to turn the My CC website and portal into the system the business runs on.">
+<meta name="theme-color" content="#082A1F">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="For JB: your 18 topics, answered">
+<meta property="og:description" content="The plan to turn the My CC website and portal into the system the business runs on.">
+<meta property="og:image" content="https://sixteen1-6.github.io/my-collector-concierge/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* A deck in the site's own language: every topic is a grading-slab label on the velvet case,
+   answers read like the stat lines on a card back, and the 18 topics sit in two nine-pocket binder pages. */
+:root{
+  --stock:#F1F3F0; --label:#FFFFFF; --velvet:#0E3D2E; --velvet-d:#082A1F; --text:#102A21;
+  --ink-2:#33473F; --soft:#56685F; --foil:#E1B53C; --foil-h:#EDC757; --brass:#7E6210;
+  --rule:#D5DCD7; --rule-d:rgba(241,243,240,.18); --mist:#A6BAB0; --paper-a:rgba(241,243,240,.84);
+  --sans:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --cond:62%; --semi:80%; --wide:118%;
+  --bar:64px;
+  --gl:max(clamp(16px,4vw,56px),env(safe-area-inset-left,0px));
+  --gr:max(clamp(16px,4vw,56px),env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--velvet-d);color:var(--label);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+a{color:inherit}
+p,h1,h2,h3,dl,dd,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+h1,h2,h3{font-stretch:var(--cond);font-weight:800;line-height:.95;text-wrap:balance}
+button{font-family:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums lining-nums}
+:focus-visible{outline:3px solid var(--foil);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* stage */
+.deck{position:fixed;inset:0 0 calc(var(--bar) + env(safe-area-inset-bottom,0px)) 0;
+  background:radial-gradient(120% 90% at 70% 0%,#12503C 0%,var(--velvet) 38%,var(--velvet-d) 100%)}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;display:flex;flex-direction:column;
+  padding:clamp(16px,3.4vh,40px) var(--gr) clamp(16px,3.4vh,40px) var(--gl);padding-top:max(clamp(16px,3.4vh,40px),env(safe-area-inset-top,0px));
+  visibility:hidden;opacity:0;transform:translateX(34px);
+  transition:opacity .3s ease,transform .5s cubic-bezier(.2,.7,.2,1),visibility 0s linear .5s}
+.slide.on{visibility:visible;opacity:1;transform:none;transition-delay:0s}
+.slide.gone{transform:translateX(-34px)}
+.back .slide{transform:translateX(-34px)}
+.back .slide.on{transform:none}
+.back .slide.gone{transform:translateX(34px)}
+.slide>*{margin:auto;width:min(1140px,100%)}
+@media (prefers-reduced-motion:reduce){.slide{transition:none;transform:none!important}}
+
+/* the slab label */
+.slab{background:var(--label);color:var(--text);border-radius:4px;box-shadow:0 30px 60px rgba(0,0,0,.35),0 0 0 6px rgba(241,243,240,.14)}
+.band{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--velvet);color:var(--label);padding:10px 22px;
+  font:700 12.5px/1.25 var(--sans);font-stretch:var(--wide);letter-spacing:.06em;text-transform:uppercase;border-radius:4px 4px 0 0}
+.band span:last-child{text-align:right;white-space:nowrap}
+.band.foil{background:var(--foil);color:var(--velvet-d)}
+.body{padding:clamp(20px,2.6vw,34px) clamp(18px,2.8vw,36px) clamp(20px,2.6vw,32px)}
+.eyebrow{font:600 15px var(--sans);color:var(--brass)}
+.dark .eyebrow{color:var(--foil)}
+.textlink{font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px;text-decoration-color:var(--foil)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 16px/1 var(--sans);font-stretch:var(--semi);padding:15px 20px;border-radius:3px;border:2px solid transparent;cursor:pointer;text-decoration:none}
+.btn-foil{background:var(--foil);color:var(--velvet-d)}
+.btn-foil:hover{background:var(--foil-h)}
+.btn-ghost{border-color:rgba(241,243,240,.5);color:var(--label);background:none}
+.btn-ghost:hover{border-color:var(--label)}
+.btn-line{border-color:var(--velvet);color:var(--velvet);background:none}
+.btn-line:hover{background:var(--velvet);color:var(--label)}
+
+/* topic slide: label on the left, card back on the right */
+.topic .body{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(20px,3.2vw,48px);align-items:start}
+.q-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:start}
+.q-head h2{font-size:clamp(2rem,3.5vw,3.4rem);color:var(--velvet);margin-top:8px}
+.q-sub{font-size:15.5px;color:var(--soft);margin-top:10px}
+.grade{display:grid;justify-items:center;gap:6px}
+.grade b{width:76px;height:76px;display:grid;place-items:center;border:3px solid var(--velvet);border-radius:3px;font:900 46px/1 var(--sans);font-stretch:var(--cond);color:var(--velvet)}
+.grade span{font:700 11.5px var(--sans);font-stretch:var(--wide);letter-spacing:.06em;color:var(--velvet);text-transform:uppercase}
+.short{font-size:clamp(17.5px,1.5vw,20px);line-height:1.45;color:var(--text);margin-top:18px;max-width:44ch}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px;border-top:3px solid var(--velvet)}
+.stats div{padding:12px 14px 0 0}
+.stats div+div{padding-left:14px;border-left:1px solid var(--rule)}
+.stats strong{display:block;font:800 clamp(21px,2.1vw,30px)/1.05 var(--sans);font-stretch:var(--wide);color:var(--velvet)}
+.stats span{display:block;font-size:13.5px;line-height:1.3;color:var(--soft);margin-top:5px}
+.rows{border-top:3px solid var(--velvet)}
+.rows>div{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:4px 20px;padding:13px 0;border-bottom:1px solid var(--rule)}
+.rows dt{font:700 15.5px/1.3 var(--sans);font-stretch:var(--semi);color:var(--velvet)}
+.rows dd{font-size:16px;line-height:1.45;color:var(--ink-2)}
+.rows dd b{color:var(--text);font-weight:700}
+.more{display:inline-block;margin-top:16px;font-size:15px;color:var(--ink-2)}
+.need{margin-top:14px;font-size:15px;color:var(--ink-2);padding:10px 14px;background:var(--stock);border-left:4px solid var(--foil)}
+.need b{color:var(--text)}
+table.cb{width:100%;border-collapse:collapse;border-top:3px solid var(--velvet);font-size:15.5px}
+table.cb th{font:700 12.5px var(--sans);font-stretch:var(--wide);letter-spacing:.05em;text-transform:uppercase;text-align:left;color:var(--soft);padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)}
+table.cb td{padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);color:var(--ink-2);vertical-align:top}
+table.cb td:first-child{font-weight:700;font-stretch:var(--semi);color:var(--velvet);white-space:nowrap}
+.scroll-x{overflow-x:auto}
+
+.topic.wide .body{grid-template-columns:minmax(0,1fr);gap:22px}
+.topic.wide .body>div:first-child{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(20px,3.2vw,48px);align-items:end}
+.topic.wide .short{margin-top:0;max-width:52ch}
+.topic.wide .phase h3{font-size:26px}
+.topic.wide .phase p{font-size:15.5px}
+
+/* dark, label-free slides */
+.dark h2{font-size:clamp(2.5rem,5.6vw,5rem);color:var(--label)}
+.dark .lede{font-size:clamp(17.5px,1.6vw,21px);color:var(--paper-a);max-width:52ch;margin-top:18px}
+.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.four{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:26px;border-top:1px solid var(--rule-d)}
+.four li{padding:14px 0;border-bottom:1px solid var(--rule-d);font-size:16.5px;color:var(--paper-a)}
+.four b{display:block;font:800 22px/1.05 var(--sans);font-stretch:var(--cond);color:var(--label);margin-bottom:4px}
+.fan{position:relative;height:clamp(300px,47vh,450px);max-width:520px;margin:0 auto;width:100%}
+.fan img{position:absolute;top:5%;left:50%;width:50%;border-radius:8px;box-shadow:0 22px 40px rgba(0,0,0,.45);background:#fff}
+.fan img:nth-child(1){transform:translateX(-112%) rotate(-9deg)}
+.fan img:nth-child(2){transform:translateX(-50%) translateY(-6%);z-index:1}
+.fan img:nth-child(3){transform:translateX(12%) rotate(9deg)}
+.fan figcaption{position:absolute;inset:auto 0 0 0;text-align:center;font-size:13.5px;color:var(--mist)}
+
+/* cover */
+.cover{padding:0!important}
+.cover>*{margin:0;width:100%}
+.cover-photo{position:absolute;inset:0;z-index:0}
+.cover-photo img{width:100%;height:100%;object-fit:cover;object-position:62% 46%}
+.cover-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,24,17,.72),rgba(5,24,17,.1) 62%),linear-gradient(0deg,rgba(5,24,17,.5),rgba(5,24,17,0) 40%)}
+.cover-in{position:relative;z-index:1;margin-top:auto!important;padding:clamp(20px,5vh,56px) var(--gr) clamp(20px,5vh,56px) var(--gl)}
+.cover .slab{max-width:760px}
+.cover h1{font-size:clamp(3.1rem,7.6vw,6.2rem);line-height:.9;color:var(--velvet)}
+.cover .sub{font-size:clamp(17px,1.6vw,19.5px);color:var(--ink-2);max-width:48ch;margin-top:14px}
+.cover .acts{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:20px}
+.cover .stats strong{font-size:clamp(24px,3vw,38px)}
+.cover .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hint{font-size:14px;color:var(--soft)}
+
+/* today */
+.today .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3.2vw,44px);align-items:center}
+.today h2{font-size:clamp(2.2rem,4vw,3.8rem);color:var(--velvet);margin-top:8px}
+.big{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid var(--velvet);margin-top:20px}
+.big div{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule)}
+.big div:nth-child(even){padding-left:16px;border-left:1px solid var(--rule)}
+.big strong{display:block;font:800 clamp(26px,2.9vw,40px)/1 var(--sans);font-stretch:var(--wide);color:var(--velvet)}
+.big span{font-size:14px;color:var(--soft)}
+.shot{border-radius:6px;border:1px solid var(--rule);box-shadow:0 14px 30px rgba(8,42,31,.18)}
+
+/* recommendation */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;border-top:3px solid var(--foil)}
+.three li{padding:18px 24px 6px 0}
+.three li+li{padding-left:24px;border-left:1px solid var(--rule-d)}
+.three b{display:block;font:800 clamp(24px,2.4vw,32px)/1 var(--sans);font-stretch:var(--cond);color:var(--label);margin-bottom:8px}
+.three p{font-size:16.5px;color:var(--paper-a)}
+.flow{display:flex;align-items:stretch;gap:10px;margin-top:30px;flex-wrap:wrap}
+.flow .col{display:grid;gap:8px;flex:1 1 150px;min-width:0}
+.flow .box{border:1px solid var(--rule-d);border-radius:3px;padding:10px 12px;font-size:14.5px;line-height:1.25;color:var(--paper-a);background:rgba(241,243,240,.05)}
+.flow .box b{display:block;color:var(--label);font-stretch:var(--semi)}
+.flow .box.key{border-color:var(--foil);background:rgba(225,181,60,.1)}
+.flow .arrow{align-self:center;color:var(--foil);font-weight:800;font-size:20px}
+
+/* the checklist: two nine-pocket pages */
+.binder h2{font-size:clamp(2.2rem,4.2vw,3.6rem)}
+.binder .lede{margin-top:10px}
+.pages{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,32px);margin-top:22px}
+.page{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px;border-radius:6px;background:rgba(241,243,240,.07);border:1px solid var(--rule-d)}
+.pocket{display:grid;align-content:space-between;gap:10px;text-align:left;min-height:clamp(88px,13.5vh,128px);padding:10px 11px;border-radius:4px;border:0;cursor:pointer;background:var(--label);color:var(--velvet);text-decoration:none;transition:transform .15s}
+.pocket:hover{transform:translateY(-3px)}
+.pocket i{font:900 28px/1 var(--sans);font-stretch:var(--cond);font-style:normal}
+.pocket b{font:700 15px/1.15 var(--sans);font-stretch:var(--semi)}
+.pocket small{font:600 10.5px/1.2 var(--sans);font-stretch:var(--wide);letter-spacing:.04em;text-transform:uppercase;color:var(--soft)}
+
+/* insert: the six-minute trace */
+.code{display:inline-block;font:800 clamp(22px,2.4vw,30px)/1 var(--sans);font-stretch:var(--wide);letter-spacing:.04em;color:var(--velvet);border:3px solid var(--velvet);border-radius:3px;padding:10px 14px;margin-top:18px}
+.mins{border-top:3px solid var(--velvet)}
+.mins li{display:grid;grid-template-columns:54px minmax(0,1fr);gap:14px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:15.5px;color:var(--ink-2)}
+.mins i{font:800 15px/1.4 var(--sans);font-stretch:var(--wide);font-style:normal;color:var(--brass);white-space:nowrap}
+.mins b{color:var(--text)}
+
+/* timeline, drawn to scale: 34 weeks */
+.phases{display:flex;gap:6px;margin-top:6px}
+.phase{min-width:0;display:grid;align-content:start;gap:8px}
+.phase .bar-w{height:38px;background:var(--velvet);color:var(--label);border-radius:3px;display:flex;align-items:center;padding:0 10px;font:700 13px var(--sans);font-stretch:var(--wide);letter-spacing:.04em;white-space:nowrap;overflow:hidden}
+.phase:nth-child(2) .bar-w{background:var(--foil);color:var(--velvet-d)}
+.phase h3{font-size:23px;color:var(--velvet);line-height:1}
+.phase p{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+.phase p b{color:var(--text)}
+.wk{display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft);margin-top:14px;font-stretch:var(--wide)}
+
+/* costs */
+.cost3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:3px solid var(--velvet)}
+.cost3>div{padding:14px 18px 0 0}
+.cost3>div+div{padding-left:18px;border-left:1px solid var(--rule)}
+.cost3 h3{font-size:22px;color:var(--velvet)}
+.cost3 strong{display:block;font:800 clamp(26px,2.6vw,36px)/1 var(--sans);font-stretch:var(--wide);color:var(--velvet);margin:10px 0 4px}
+.cost3 p,.cost3 li{font-size:15px;line-height:1.4;color:var(--ink-2)}
+.cost3 ul{margin-top:8px;display:grid;gap:4px}
+.cost3 li{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--rule);padding-top:4px}
+.cost3 li span:last-child{font-weight:700;color:var(--text);white-space:nowrap}
+
+/* needs list */
+.ticks{border-top:3px solid var(--velvet);columns:2;column-gap:36px}
+.ticks li{break-inside:avoid;display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--rule);font-size:16px;color:var(--ink-2)}
+.ticks li::before{content:"";width:18px;height:18px;border:2px solid var(--velvet);border-radius:2px;margin-top:3px}
+.ticks b{color:var(--text)}
+.wide-head h2{font-size:clamp(2.1rem,3.8vw,3.5rem);color:var(--velvet);margin-top:8px}
+.wide-head p{font-size:17.5px;color:var(--ink-2);max-width:62ch;margin:12px 0 18px}
+
+/* close */
+.close-acts{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.fine{font-size:14px;color:var(--mist);margin-top:22px;max-width:60ch}
+.trio{border-radius:6px;box-shadow:0 24px 50px rgba(0,0,0,.4)}
+
+/* control bar */
+.bar{position:fixed;inset:auto 0 0 0;z-index:5;height:calc(var(--bar) + env(safe-area-inset-bottom,0px));
+  padding:0 var(--gr) env(safe-area-inset-bottom,0px) var(--gl);display:flex;align-items:center;gap:14px;
+  background:#051811;border-top:1px solid var(--rule-d)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--label);flex-shrink:0}
+.brand .mark{width:24px;height:32px;border:2px solid var(--label);border-radius:3px;display:grid;grid-template-rows:9px 1fr;overflow:hidden}
+.brand .mark::before{content:"";background:var(--label)}
+.brand .mark span{display:grid;place-items:center;font:800 9px/1 var(--sans);font-stretch:var(--cond)}
+.brand b{font:800 18px/1 var(--sans);font-stretch:var(--cond)}
+.prog{flex:1;display:flex;gap:3px;align-items:center;min-width:0;height:44px}
+.prog button{flex:1;min-width:0;height:44px;padding:0;border:0;background:none;cursor:pointer;display:flex;align-items:center}
+.prog button::before{content:"";display:block;width:100%;height:4px;border-radius:2px;background:rgba(241,243,240,.2);transition:background .2s,height .2s}
+.prog button.seen::before{background:var(--mist)}
+.prog button.cur::before{background:var(--foil);height:8px}
+.count{font:700 14px var(--sans);font-stretch:var(--wide);color:var(--mist);white-space:nowrap}
+.nav{display:flex;gap:8px;flex-shrink:0}
+.nav button{min-width:46px;height:44px;padding:0 14px;border-radius:3px;border:2px solid rgba(241,243,240,.4);background:none;font:700 15px var(--sans);font-stretch:var(--semi);cursor:pointer;color:var(--label)}
+.nav button:hover{border-color:var(--label)}
+.nav button[disabled]{opacity:.35;pointer-events:none}
+.nav .next{background:var(--foil);border-color:var(--foil);color:var(--velvet-d)}
+.nav .next:hover{background:var(--foil-h);border-color:var(--foil-h)}
+
+/* shorter laptop screens */
+@media (min-width:861px) and (max-height:800px){
+  body{font-size:16px}
+  .q-head h2{font-size:clamp(1.9rem,3vw,2.7rem)}
+  .rows>div{padding:9px 0}.rows dd{font-size:15px}
+  .short{font-size:17px;margin-top:12px}.stats{margin-top:14px}
+  .grade b{width:60px;height:60px;font-size:36px}
+  .dark h2{font-size:clamp(2.3rem,4.6vw,3.9rem)}
+  .mins li{padding:7px 0;font-size:14.5px}
+  .today h2{font-size:clamp(2rem,3.2vw,2.9rem)}
+  .big strong{font-size:clamp(24px,2.5vw,32px)}
+}
+
+/* phones and narrow tablets: one column, the label first */
+@media (max-width:860px){
+  :root{--bar:60px}
+  body{font-size:16px}
+  .slide>*{margin-top:0}
+  .slide.cover>.cover-in{margin-top:auto!important}
+  .topic .body,.today .body,.split,.topic.wide .body>div:first-child{grid-template-columns:minmax(0,1fr)}
+  .topic.wide .short{margin-top:0}
+  .band{padding:9px 16px;font-size:11px}
+  .band span:last-child{white-space:normal}
+  .band .num{white-space:nowrap}
+  .prog{pointer-events:none}
+  .grade{display:none}
+  .q-head{grid-template-columns:minmax(0,1fr)}
+  .rows>div{grid-template-columns:minmax(0,1fr);padding:12px 0}
+  .stats strong{font-size:20px}
+  .stats span{font-size:12.5px}
+  .stats div{padding-right:8px}.stats div+div{padding-left:10px}
+  .cover .stats{grid-template-columns:1fr 1fr}
+  .cover .stats div:nth-child(3){padding-left:0;border-left:0}
+  .cover .stats div:nth-child(n+3){border-top:1px solid var(--rule);margin-top:10px}
+  .four{grid-template-columns:minmax(0,1fr)}
+  .fan{height:min(66vw,310px);order:-1}
+  .fan img{width:43%;top:6%}
+  .three{grid-template-columns:minmax(0,1fr)}
+  .three li{padding:14px 0}
+  .three li+li{padding-left:0;border-left:0;border-top:1px solid var(--rule-d)}
+  .flow{display:grid;grid-template-columns:minmax(0,1fr)}
+  .flow .arrow{justify-self:center;transform:rotate(90deg)}
+  .pages{grid-template-columns:minmax(0,1fr)}
+  .pocket{min-height:92px;padding:9px}
+  .pocket b{font-size:13.5px}
+  .pocket small{display:none}
+  .phases{display:grid;gap:14px}
+  .phase{grid-template-columns:minmax(0,1fr)}
+  .wk{display:none}
+  .cost3{grid-template-columns:minmax(0,1fr)}
+  .cost3>div{padding:14px 0}
+  .cost3>div+div{padding-left:0;border-left:0;border-top:1px solid var(--rule)}
+  .ticks{columns:1}
+  .brand b,.count{display:none}
+  .bar{gap:10px}
+  .prog{gap:2px}
+  .trio{order:-1}
+}
+@media (max-width:400px){.nav button{padding:0 10px}.cover h1{font-size:2.9rem}}
+</style>
+</head>
+<body>
+<main class="deck" id="deck" aria-live="polite"></main>
+
+<div class="bar">
+  <a class="brand" href="#1" aria-label="Back to the first slide"><span class="mark" aria-hidden="true"><span>CC</span></span><b>For JB</b></a>
+  <div class="prog" id="prog" role="group" aria-label="Slides"></div>
+  <span class="count num" id="count" aria-hidden="true"></span>
+  <div class="nav">
+    <button type="button" id="list" aria-label="Open the checklist of all 18 topics">List</button>
+    <button type="button" id="prev" aria-label="Previous slide">&larr;</button>
+    <button type="button" id="next" class="next" aria-label="Next slide">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var REPO="https://github.com/Sixteen1-6/my-collector-concierge/blob/main/docs/PROPOSAL.md";
+var SITE="../", PORTAL="../portal.html";
+var GS=["Website and apps","Integrations","Hosting and ownership","Plan and support"];
+var G=["Website, Portal & Mobile App","Integrations","Hosting, Security & Ownership","Development Plan & Ongoing Support"];
+
+/* JB's 18 topics, in his order and his words. */
+var T=[
+{g:0,q:"Taking over development of the existing website and collector portal",s:"Taking over development",
+ a:"I built the site and portal you approved, so there is no handover to lose. One person owns the whole system, and every account is registered to My CC.",
+ rows:[["Who holds the keys","The repository, AWS, the domain, Stripe and both app store accounts are in My CC's name. You can remove my access at any time and nothing stops working."],
+       ["How you review","A staging site that is always current. Customers only ever get code that was reviewed and tested first."],
+       ["Week one","A written discovery report: every screen, what carries over, what changes with real data, and the decisions I need from you."],
+       ["Following along","A ticket board you can read, release notes in plain English, and a short demo every week."]],
+ stats:[["1","codebase for site, portal, staff tools and apps"],["1","language, start to finish"],["Weekly","demo you can click through"]]},
+{g:0,q:"Preserving the approved branding, design, and functionality",s:"Preserving the approved design",
+ a:"The production site and portal look exactly like what you approved, on a phone, a tablet and a desktop. Nothing gets refreshed without your sign-off.",
+ rows:[["Pixel for pixel","Automated screenshot tests compare every page with the approved prototype at three widths. Any difference fails the build until I fix it or you approve it."],
+       ["Same look in the apps","Your colors, type and spacing live in one place that feeds both the website and the phone apps."],
+       ["Nothing dropped","Every tab and section goes on a checklist. You sign off a side-by-side review before launch."],
+       ["Prices","One price table with history. An owner login changes it without a developer, and a quote a collector already approved never changes."]],
+ stats:[["3","screen widths tested on every change"],["0","design changes without your sign-off"],["1","price table behind every screen"]]},
+{g:0,q:"Completing the backend technology and database",s:"Backend and database",
+ a:"A real backend that holds every customer, card, scan, quote, grading run, vault plan, consignment and invoice, with staff tools so your team runs the business without me.",
+ rows:[["Your data","All 7,964 records imported, with a written report on every record that needed cleaning."],
+       ["Chain of custody","Every change to a card is added to a history nobody can edit: who, what, when, before and after."],
+       ["Staff tools","Receive a box, enter and price cards, upload scans, pregrade, build grading runs, post grades, ship returns and bill."],
+       ["Pregrades","316 notes written 50 different ways become one structured form. The original wording is kept."],
+       ["Recovery","Daily backups, and recovery to any point in time."]],
+ stats:[["7,964","records imported and reconciled"],["13","kinds of record, all connected"],["99","unnumbered cards get inventory numbers"]]},
+{g:0,q:"Developing iPhone and Android apps",s:"iPhone and Android apps",
+ a:"One app for iPhone and one for Android, built once and published under My CC's name. Collectors can do everything the portal does.",
+ rows:[["For collectors","Browse their scans, follow grading stage by stage, approve quotes, request services, pay invoices and get push notifications."],
+       ["For staff","Photograph fronts and backs tied to an inventory number, and scan a QR label to pull up any card."],
+       ["Weak signal","The app shows the last loaded collection with a \"last updated\" time. No error page."],
+       ["Payments","Through Stripe, with no app store commission, because My CC sells physical services and goods."]],
+ stats:[["2","stores, one codebase"],["$99","a year for Apple"],["$25","once for Google Play"]]},
+{g:0,q:"Keeping the website, portal, and mobile app synchronized",s:"Keeping everything in sync",
+ a:"Every screen talks to one system and one database. The website, the staff tools and the phones can never disagree about a card, a quote or a bill.",
+ rows:[["How fresh","A change shows on an open screen within about 30 seconds, and right away on refresh or when a push notification arrives."],
+       ["No duplicates","A double tap or a bad connection never charges twice or repeats work."],
+       ["Two people, one card","The second person sees what changed and when. Nothing is overwritten."],
+       ["Older apps","They keep working, or show a clear \"please update\" screen."]],
+ stats:[["1","source of truth"],["~30 s","to reach an open screen"],["0","double charges from a double tap"]]},
+{g:0,q:"Developing features that distinguish My CC from competing platforms",s:"What sets My CC apart",
+ a:"The big platforms are each built around one grader, one marketplace or one pricing engine. None of them inventories a raw box card by card with the collector approving each step. That is the product.",
+ rows:[["Honest grading calculator","\"If it comes back a 10: about +$X after fees. If a 9: about -$Y.\" The calculator's number is the quote's number."],
+       ["Card timeline","Every step from received to home, for every card, straight from the history."],
+       ["Scans first","The collection opens as a gallery of the collector's own scans. Flip, zoom, filter."],
+       ["Pregrade track record","My CC's estimate next to each actual grade, locked once the grade posts."],
+       ["One tap, QR labels","Request any service from any card. Staff scan a label to answer \"where is card 1907?\" in seconds."]],
+ stats:[["4","graders, not one"],["6","differentiators in the plan"],["35","cards already have a pregrade and a final grade"]]},
+{g:1,q:"Card Ladder pricing and market data",s:"Card Ladder pricing",
+ a:"I found no public Card Ladder API or licensing program. So values come in three ways from the start, and a licensed Card Ladder feed can plug in later without changing the portal.",
+ rows:[["Three ways in","Fast staff entry of Card Ladder values, a file import, or the SportsCardsPro API if you subscribe."],
+       ["Every value","Shows its source, its date and its history. History cannot be overwritten."],
+       ["Put to work","The value picks the grading fee band and fills in declared values for grading and shipping."],
+       ["No guessing","A card the system cannot match with confidence goes to a review queue. It is never priced automatically."]],
+ need:"<b>From you:</b> permission to ask Card Ladder about licensing. I will draft the email.",
+ stats:[["3","pricing sources at launch"],["120%","Fanatics fee line shown to staff"],["0","scraping"]]},
+{g:1,q:"PSA, with future support for other graders",s:"PSA and other graders",
+ a:"The portal manages every grading run from quote to return. PSA's API verifies certs but cannot create submissions, so staff still submit on PSA's site, with a packing list the portal prints to match.",
+ rows:[["What collectors see","Quote approved, prepping, shipped, received, grading, graded, shipped back, then returned or vaulted."],
+       ["Grades filled in","Staff type or scan a cert number and the grade comes from PSA. A mismatch with the card on file is flagged."],
+       ["Other graders","BGS is set up at launch. SGC and CGC are added through settings, with no new code."],
+       ["Settle before launch","PSA's terms say only authorized dealers may submit for others. I need My CC's dealer status confirmed."]],
+ stats:[["373","cards across your 12 runs today"],["261","at PSA right now"],["74","at BGS right now"]]},
+{g:1,q:"Accounting, billing, payments, and collector payouts",s:"Billing, payments, payouts",
+ a:"One rule governs billing: no paid work starts until the collector approves a quote. The database enforces it, so a screen cannot skip it.",
+ rows:[["Quotes and invoices","Every fee on its own line, grader fees at cost. One invoice per approved quote, paid by card or bank transfer."],
+       ["Vault plans","Billed monthly, with extra space and the 5 to 20% labor discount applied automatically."],
+       ["Consignment payouts","A statement shows the sale price, marketplace fees, commission and net. The money goes to the collector's bank."],
+       ["Your books","Automatic QuickBooks Online sync, and a nightly check that Stripe, the ledger and QuickBooks agree."]],
+ stats:[["10%","commission, $10 minimum per card"],["$24","saved on a $1,000 quote paid by bank transfer"],["0","card numbers on My CC's servers"]]},
+{g:1,q:"eBay and Fanatics Collect",s:"eBay and Fanatics Collect",
+ a:"eBay is automated through its official tools. Fanatics Collect has no public seller API, so it gets the same statuses and statements, entered by staff or imported from a report.",
+ rows:[["Listing on eBay","A few clicks. The title, scans, grader, grade and cert all come from the card record."],
+       ["When it sells","The card is marked sold, a label is ready to buy, tracking goes back to eBay, and the fees are matched for the statement."],
+       ["One place at a time","The database allows one active listing per card."],
+       ["The collector decides","They approve the terms first: minimum price, auction or fixed price."]],
+ stats:[["eBay","listing, orders and fees automated"],["Fanatics","staff entry or report import"],["1","active listing per card"]]},
+{g:1,q:"Shipping",qs:"Carrier rates, labels, tracking, trading-card insurance, signature confirmation, return labels, and shipment notifications",s:"Shipping and insurance",
+ full:"Shipping: carrier rates, labels, tracking, trading-card insurance, signature confirmation, return labels, and shipment notifications",
+ a:"Staff compare USPS, UPS and FedEx rates and buy labels inside the portal. Before every label, the system checks the box's value against its coverage and blocks an underinsured shipment.",
+ rows:[["Coverage check","It suggests the fix: add coverage, switch service, split the box, or use Registered Mail."],
+       ["Signatures","Added automatically above a value you set."],
+       ["Notices","Tracking updates by email, and by text if you want, in wording you can edit."],
+       ["Insurance","EasyPost's insurance excludes cosmetic damage to collectibles and items for resale. <b>A transit policy from your broker is needed before launch.</b>"]],
+ stats:[["$15","to return 40 cards ($5 + $0.25 each)"],["3,000","labels a month before any platform fee"],["$50,000","USPS Registered Mail cover"]]},
+{g:2,q:"Hosting, performance, backups, security, and outage support",s:"Hosting, backups, security",
+ a:"Everything runs on AWS, in accounts My CC owns. The records show about $430,000 in cards, so the design starts from protecting that.",
+ rows:[["Uptime","A 99.9% monthly target, measured from outside every 5 minutes. You get a read-only dashboard."],
+       ["Speed","Searching a 10,000-card account, or opening a card with its scans, takes under 2 seconds."],
+       ["Backups","Recovery to within about 5 minutes of a failure. Nobody can delete backups early: not you, not me, not someone with a stolen password."],
+       ["Security","An independent penetration test before the portal opens. Critical and high findings are fixed first."],
+       ["Scans","Originals are kept exactly as captured, as evidence of condition on arrival."]],
+ stats:[["99.9%","monthly uptime target"],["< 2 s","search and card pages"],["~5 min","most data ever at risk"]]},
+{g:2,q:"Customer accounts, secure login, and staff permissions",s:"Logins and staff permissions",
+ a:"Collectors sign in with a passkey or an emailed code. Staff see only the tools for their job, and every action is recorded against their name.",
+ html:'<div class="scroll-x"><table class="cb"><thead><tr><th>Role</th><th>Can do</th><th>Cannot do</th></tr></thead><tbody>'+
+  '<tr><td>Intake</td><td>Log boxes, create cards, upload scans</td><td>Approve quotes, refund, delete cards</td></tr>'+
+  '<tr><td>Grading</td><td>Pregrades, runs, returns, grades</td><td>Change billing or vault plans</td></tr>'+
+  '<tr><td>Vault</td><td>Check cards in and out, prepare shipments</td><td>Change grades, prices or invoices</td></tr>'+
+  '<tr><td>Billing</td><td>Quotes, invoices, payments, refunds</td><td>Move cards, change scans or grades</td></tr>'+
+  '<tr><td>Owner</td><td>Everything, including prices and staff</td><td>Edit or delete history. Nobody can.</td></tr>'+
+  '</tbody></table></div><p class="need"><b>When someone leaves:</b> their access ends on their next click.</p>',
+ stats:[["5","staff roles"],["2-step","sign-in required for all staff"],["0","text-message codes for staff"]]},
+{g:2,q:"My CC ownership of source code, data, domain, and technology accounts",s:"My CC owns everything",
+ a:"My CC owns everything it pays for and everything the business runs on. If we ever stop working together, you or another developer carry on without losing code, data, access or the website.",
+ rows:[["Accounts","Every service is opened under a My CC email. You hold the top admin role and pay each bill directly. I am a named user you can remove."],
+       ["Code","In My CC's GitHub from the first commit. The whole AWS setup is written down in the repository, so another team can rebuild it."],
+       ["Data","An owner-only export at any time: the database, a spreadsheet for every table, and the original scans."],
+       ["If we part ways","Two weeks' notice. Within 30 days: a full export, the final repository, the credentials list, and my access removed."],
+       ["My promise","I will not withhold code, data or access over a billing dispute."]],
+ stats:[["100%","of accounts in My CC's name"],["2 weeks","notice, either side"],["30 days","to a complete handover"]]},
+{g:3,wide:1,q:"Development phases, priorities, and launch timeline",s:"Phases and timeline",
+ a:"A working business system by about week 17. Marketplaces, accounting and the apps come on top. Each phase ends in something you can use.",
+ html:'<div class="phases">'+
+  '<div class="phase" style="flex:6"><div class="bar-w">Weeks 1 to 6</div><h3>1. Foundation</h3><p><b>Launches:</b> the website on AWS under your domain, and a staging portal with your real data.</p></div>'+
+  '<div class="phase" style="flex:11"><div class="bar-w">Weeks 7 to 17</div><h3>2. Operations portal</h3><p><b>Launches:</b> the portal and staff tools, live for collectors and staff. Quotes, vault billing, labels and tracking.</p></div>'+
+  '<div class="phase" style="flex:8"><div class="bar-w">Weeks 18 to 25</div><h3>3. Marketplaces and books</h3><p><b>Launches:</b> eBay, Fanatics tracking, payouts, QuickBooks, PSA cert checks, texts.</p></div>'+
+  '<div class="phase" style="flex:9"><div class="bar-w">Weeks 26 to 34</div><h3>4. Mobile apps</h3><p><b>Launches:</b> iPhone and Android apps in the stores.</p></div>'+
+  '</div><div class="wk num"><span>Week 1</span><span>Week 17: the business runs on it</span><span>Week 34</span></div>'+
+  '<p class="need"><b>What could move the dates:</b> eBay and App Store review times, the D-U-N-S number, PSA dealer status, and the penetration test schedule. The week ranges scale with my weekly hours, which we set at kickoff.</p>',
+ stats:[["4","phases, each one usable"],["Week 17","portal and staff tools live"],["34","weeks to apps in the stores"]]},
+{g:3,wide:1,q:"Upfront development costs and ongoing monthly expenses",s:"Costs: build and monthly",
+ a:"Three separate numbers: what the build takes, what the system costs to run each month, and what each transaction costs. Every outside bill goes straight to My CC. I mark up nothing.",
+ html:'<div class="cost3">'+
+  '<div><h3>The build</h3><strong class="num">1,220 hours</strong><p>Paid on acceptance of each phase.</p><ul><li><span>Phase 1</span><span>210</span></li><li><span>Phase 2</span><span>400</span></li><li><span>Phase 3</span><span>260</span></li><li><span>Phase 4</span><span>240</span></li><li><span>Testing, docs, management</span><span>110</span></li><li><span>Contingency, only if you approve</span><span>up to 180</span></li></ul></div>'+
+  '<div><h3>Each month</h3><strong class="num">~$350</strong><p>AWS at launch.</p><ul><li><span>Production</span><span>~$275</span></li><li><span>Staging</span><span>~$75</span></li><li><span>Error tracking and app builds</span><span>~$30 to $50</span></li><li><span>AWS at 100,000 cards</span><span>~$575</span></li></ul></div>'+
+  '<div><h3>Each transaction</h3><strong class="num">2.9% + 30¢</strong><p>Stripe, by card.</p><ul><li><span>Bank transfer</span><span>0.8%, max $5</span></li><li><span>Silver plan, $99</span><span>$3.86 in fees</span></li><li><span>$900 payout</span><span>$4.50 in fees</span></li><li><span>Postage</span><span>at cost</span></li></ul></div>'+
+  '</div>',
+ stats:[["1,220","hours for all four phases"],["~$350","a month to run at launch"],["0%","markup on outside costs"]]},
+{g:3,q:"Maintenance, updates, and future feature development",s:"Maintenance and new features",
+ a:"A monthly support plan with clear response times. Alarms catch most problems before anyone reports them, and every delivered phase carries a 60-day warranty.",
+ html:'<div class="scroll-x"><table class="cb"><thead><tr><th>If this happens</th><th>First response</th><th>Workaround by</th></tr></thead><tbody>'+
+  '<tr><td>Portal down, payments failing</td><td>1 hour</td><td>4 hours</td></tr>'+
+  '<tr><td>Quote approval or scans broken</td><td>4 business hours</td><td>1 business day</td></tr>'+
+  '<tr><td>A wrong report or filter</td><td>1 business day</td><td>5 business days</td></tr>'+
+  '<tr><td>Wording or cosmetic</td><td>2 business days</td><td>Next release</td></tr>'+
+  '</tbody></table></div>'+
+  '<dl class="rows" style="border-top:0"><div><dt>Every month</dt><dd>Security updates tested on staging first, and a report: uptime, incidents, hours used and the actual AWS bill.</dd></div>'+
+  '<div><dt>New features</dt><dd>A written estimate within 3 business days. Nothing starts until you approve it.</dd></div>'+
+  '<div><dt>Straight talk</dt><dd>One developer cannot promise round-the-clock cover. A named backup developer can cover emergencies if you want that.</dd></div></dl>',
+ stats:[["60 days","warranty on every phase"],["1 hour","first response when it is critical"],["3 days","to a written estimate"]]},
+{g:3,q:"Company experience, client references, and long-term support capacity",s:"Experience and long-term support",
+ a:"You wrote this list for a development company. I am one developer, the one who designed and built the approved site and portal on your real inventory. So the plan is built so My CC never depends on one person, including me.",
+ rows:[["The work so far","The website and the collector portal, running today on all 7,964 of your cards."],
+       ["You own it all","Every account and the code are My CC's. My access can be removed at any time."],
+       ["One common language","Everything is written in TypeScript, so a replacement developer is easy to find."],
+       ["Written down","An architecture overview, the data model, a decision log, and step-by-step guides for common incidents."],
+       ["Anyone can investigate","The card history and reference codes let a new developer find a problem without me."]],
+ stats:[["7,964","of your cards in the working demo"],["0","subcontractors"],["0","places where only I hold the keys"]]}
+];
+
+function slug(t){return t.toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/ /g,"-");}
+function pad(n){return (n<10?"0":"")+n;}
+function stats(a){return '<div class="stats">'+a.map(function(s){return '<div><strong class="num">'+s[0]+'</strong><span>'+s[1]+'</span></div>';}).join("")+'</div>';}
+function rows(a){return '<dl class="rows">'+a.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>';}).join("")+'</dl>';}
+
+function topic(t,i){
+  var n=i+1;
+  return '<section class="slide topic'+(t.wide?' wide':'')+'" data-kind="topic" aria-label="Topic '+n+' of 18"><div class="slab">'+
+    '<div class="band"><span>'+G[t.g]+'</span><span class="num">Topic '+pad(n)+' of 18</span></div>'+
+    '<div class="body"><div>'+
+      '<div class="q-head"><div><p class="eyebrow">You asked about</p><h2>'+t.q+'</h2>'+(t.qs?'<p class="q-sub">'+t.qs+'</p>':'')+'</div>'+
+      '<div class="grade" aria-hidden="true"><b class="num">'+pad(n)+'</b><span>of 18</span></div></div>'+
+      '<p class="short">'+t.a+'</p>'+(t.wide?'':stats(t.stats))+
+    '</div><div>'+(t.html||rows(t.rows))+(t.need?'<p class="need">'+t.need+'</p>':'')+
+      '<a class="more textlink" href="'+REPO+'#'+slug(t.full||t.q)+'" target="_blank" rel="noopener">Read the full answer in the proposal</a>'+
+    '</div></div></div></section>';
+}
+
+var S=[];
+/* 1. cover */
+S.push('<section class="slide cover" aria-label="Cover"><div class="cover-photo"><img src="../img/hero.webp" alt="Cards in riveted aluminum display slabs, in an emerald velvet case"></div>'+
+ '<div class="cover-in"><div class="slab"><div class="band"><span>Prepared for JB</span><span>My Collector Concierge</span></div><div class="body">'+
+ '<h1>Your 18 topics, answered.</h1>'+
+ '<p class="sub">You wrote down what My CC\'s technology has to do. I took every line seriously. This is my answer to each one, from the developer who built the site and portal on your real collection.</p>'+
+ '<div class="acts"><button class="btn btn-foil" type="button" data-go="next">Start</button><span class="hint">Arrow keys, a swipe, or the Next button.</span></div>'+
+ stats([["18","topics from your list"],["4","phases"],["34","weeks to the apps"],["~$350","a month to run"]])+
+ '</div></div></div></section>');
+/* 2. the vision */
+S.push('<section class="slide dark" aria-label="The vision"><div class="split"><div>'+
+ '<p class="eyebrow">The vision, as I understand it</p>'+
+ '<h2>From the moment the cards arrive to the day they come home.</h2>'+
+ '<p class="lede">A collector sends in a box and always knows what they have and what comes next. Four things make that My CC and nobody else:</p>'+
+ '<ul class="four"><li><b>Card by card</b>Raw collections are inventoried one card at a time, with scans.</li>'+
+ '<li><b>Honest pregrades</b>The collector hears the truth before any money is spent.</li>'+
+ '<li><b>Four graders</b>PSA, BGS, SGC and CGC. Whichever is right for the card.</li>'+
+ '<li><b>Approval first</b>No paid work starts until the collector says yes.</li></ul>'+
+ '</div><figure class="fan"><img src="../cards/102.webp" alt="Ken Griffey Jr. autograph card" loading="lazy"><img src="../cards/126.webp" alt="Aaron Judge refractor card" loading="lazy"><img src="../cards/243.webp" alt="Elly De La Cruz SuperFractor card" loading="lazy"><figcaption>Three of your own scans, from the portal.</figcaption></figure></div></section>');
+/* 3. today */
+S.push('<section class="slide today" aria-label="Where it stands today"><div class="slab"><div class="band"><span>Where it stands today</span><span>Live on your real inventory</span></div><div class="body"><div>'+
+ '<p class="eyebrow">Already built</p><h2>The site and portal you approved run on your collection.</h2>'+
+ '<div class="big"><div><strong class="num">7,964</strong><span>cards on record</span></div><div><strong class="num">$429,970</strong><span>recorded value</span></div>'+
+ '<div><strong class="num">335</strong><span>out for grading: 261 at PSA, 74 at BGS</span></div><div><strong class="num">38</strong><span>graded, back and vaulted</span></div></div>'+
+ '<p class="short">Today it is a front end only: the pages and one data file. Everything after this slide is what turns it into the system My CC runs on.</p>'+
+ '<p class="more"><a class="textlink" href="'+SITE+'" target="_blank" rel="noopener">Open the website</a> &ensp; <a class="textlink" href="'+PORTAL+'" target="_blank" rel="noopener">Open the portal demo</a></p>'+
+ '</div><div><img class="shot" src="../img/portal-preview.jpg" alt="The collector portal overview, showing the collection and its value" loading="lazy"></div></div></div></section>');
+/* 4. recommendation */
+S.push('<section class="slide dark" aria-label="My recommendation"><div>'+
+ '<p class="eyebrow">My recommendation, in three sentences</p><h2>Owned by My CC. One language. Every problem traceable.</h2>'+
+ '<ol class="three"><li><b>AWS, in accounts My CC owns</b><p>The whole setup is written down in the repository, so the system can be rebuilt from it.</p></li>'+
+ '<li><b>TypeScript, end to end</b><p>The website, portal, staff tools and phone apps share one language and one set of rules.</p></li>'+
+ '<li><b>Traceable from day one</b><p>When something breaks, a short code on the screen leads straight to the cause.</p></li></ol>'+
+ '<div class="flow" role="img" aria-label="The website, staff tools and phone apps all talk to one system, which is the only thing that reads or writes the database. Slow work goes to background workers that talk to Stripe, QuickBooks, eBay, EasyPost and PSA.">'+
+ '<div class="col"><div class="box"><b>Website and portal</b></div><div class="box"><b>Staff tools</b></div><div class="box"><b>iPhone and Android</b></div></div><span class="arrow" aria-hidden="true">&rarr;</span>'+
+ '<div class="col"><div class="box key"><b>One system</b>Every screen talks to it, so they can never disagree.</div></div><span class="arrow" aria-hidden="true">&rarr;</span>'+
+ '<div class="col"><div class="box key"><b>One database</b>Backed up, with a history nobody can edit.</div></div><span class="arrow" aria-hidden="true">&rarr;</span>'+
+ '<div class="col"><div class="box"><b>Background workers</b>Stripe, QuickBooks, eBay, EasyPost, PSA. If a partner is down, the job waits and retries.</div></div>'+
+ '</div></div></section>');
+/* 5. checklist */
+(function(){
+  function pocket(t,i){return '<a class="pocket" href="#'+(6+i+(i>11?1:0))+'"><i class="num">'+pad(i+1)+'</i><b>'+t.s+'</b><small>'+GS[t.g]+'</small></a>';}
+  var p1=T.slice(0,9).map(pocket).join(""), p2=T.slice(9).map(function(t,i){return pocket(t,i+9);}).join("");
+  S.push('<section class="slide dark binder" id="checklist" aria-label="The checklist"><div><p class="eyebrow">The checklist</p><h2>Your list, all 18.</h2>'+
+   '<p class="lede">Two binder pages, nine pockets each. Pick any topic, or press Next to go through them in your order.</p>'+
+   '<div class="pages"><div class="page">'+p1+'</div><div class="page">'+p2+'</div></div></div></section>');
+})();
+/* 6-17: topics 1-12 */
+T.slice(0,12).forEach(function(t,i){S.push(topic(t,i));});
+/* 18. insert: traceability */
+S.push('<section class="slide topic" aria-label="Insert: traceability"><div class="slab"><div class="band foil"><span>Insert card</span><span>Not on your list. It runs through all 18.</span></div>'+
+ '<div class="body"><div><p class="eyebrow">Traceability</p><div class="q-head"><h2>When something breaks, a short code leads straight to the cause.</h2></div>'+
+ '<p class="short">Any error a collector or staff member sees shows a reference code. They read it to me, and I can see the whole story behind it.</p>'+
+ '<span class="code num">MCC-4KQ7-T2</span>'+
+ '<p class="short">Example: a collector is charged twice for a Silver vault plan. Six minutes later I know the cause, the release that introduced it, and every other customer it touched.</p>'+
+ '</div><div><ol class="mins">'+
+ '<li><i>Min 0</i><span><b>Look up the code.</b> It opens the account, the exact request, the time and the version of the code.</span></li>'+
+ '<li><i>Min 1</i><span><b>Follow the request.</b> Stripe charged the card, then our save timed out. The collector saw an error.</span></li>'+
+ '<li><i>Min 3</i><span><b>Read the logs.</b> A second click 38 seconds later created a second subscription. That is the bug.</span></li>'+
+ '<li><i>Min 4</i><span><b>Check Stripe\'s messages.</b> Two charges, confirmed from the raw records.</span></li>'+
+ '<li><i>Min 5</i><span><b>Check the cards.</b> All 140 cards checked in that afternoon are recorded correctly.</span></li>'+
+ '<li><i>Min 6</i><span><b>Find everyone affected.</b> The release touched 3 accounts. One more duplicate found.</span></li>'+
+ '</ol><p class="need"><b>Then:</b> refund and email each customer, fix the code, add a test so it cannot return, and send you an incident note.</p>'+
+ '<a class="more textlink" href="'+REPO+'#traceability-finding-any-bug-fast" target="_blank" rel="noopener">Read the full answer in the proposal</a></div></div></div></section>');
+/* 19-24: topics 13-18 */
+T.slice(12).forEach(function(t,i){S.push(topic(t,i+12));});
+/* 25. no shortcuts */
+S.push('<section class="slide" aria-label="Where there is no shortcut"><div class="slab"><div class="band"><span>Straight answers</span><span>What I found when I checked</span></div><div class="body wide-head">'+
+ '<p class="eyebrow">Four places with no shortcut today</p><h2>Where a partner does not offer what we would want.</h2>'+
+ '<p>I checked each of these on 8 November 2026. The plan works around every one, and nothing depends on a promise a partner has not made.</p>'+
+ '<dl class="rows"><div><dt>Card Ladder</dt><dd>No public API or licensing program. Values come in by staff entry or file import, and a licensed feed can plug in later.</dd></div>'+
+ '<div><dt>Fanatics Collect</dt><dd>No public seller API. Staff record batches and import report files.</dd></div>'+
+ '<div><dt>PSA submissions</dt><dd>PSA\'s API checks certs but cannot create submissions or read order status. Only authorized dealers may submit for others.</dd></div>'+
+ '<div><dt>Shipping insurance</dt><dd>EasyPost\'s cover excludes cosmetic damage to collectibles and items for resale, and stops at $5,000 a box. The real protection is a transit policy from your broker.</dd></div></dl>'+
+ '</div></div></section>');
+/* 26. next steps */
+S.push('<section class="slide" aria-label="What I need from you to start"><div class="slab"><div class="band"><span>Before kickoff</span><span>Your side of the table</span></div><div class="body wide-head">'+
+ '<p class="eyebrow">What I need from you to start</p><h2>Seven things, then I build.</h2>'+
+ '<p>After that it is about an hour a week from you for the demo, and a sign-off at the end of each phase.</p>'+
+ '<ul class="ticks"><li><span><b>Terms.</b> The rate, payment on acceptance of each phase, and a support plan.</span></li>'+
+ '<li><span><b>A My CC email address</b> that owns every account.</span></li>'+
+ '<li><span><b>One setup session together,</b> where you create the accounts and hold the top admin role.</span></li>'+
+ '<li><span><b>Two hardware security keys</b> for the owner login. One is the backup.</span></li>'+
+ '<li><span><b>A D-U-N-S number request.</b> It is free, and both app stores need it.</span></li>'+
+ '<li><span><b>A password manager</b> for the business.</span></li>'+
+ '<li><span><b>A named contact</b> for approvals and alerts, with a phone number for emergencies.</span></li></ul>'+
+ '<a class="more textlink" href="'+REPO+'#decisions-and-accounts-i-need-from-you" target="_blank" rel="noopener">See the full list, phase by phase</a>'+
+ '</div></div></section>');
+/* 27. close */
+S.push('<section class="slide dark" aria-label="Thank you"><div class="split"><div>'+
+ '<p class="eyebrow">Collect, preserve, enjoy</p><h2>Thank you for the vision. I would like to build it.</h2>'+
+ '<p class="lede">Everything in this deck comes from the full written proposal, with every price and source linked.</p>'+
+ '<div class="close-acts"><a class="btn btn-foil" href="'+REPO+'" target="_blank" rel="noopener">Read the full proposal</a>'+
+ '<a class="btn btn-ghost" href="'+SITE+'" target="_blank" rel="noopener">The website</a>'+
+ '<a class="btn btn-ghost" href="'+PORTAL+'" target="_blank" rel="noopener">The portal demo</a></div>'+
+ '<p class="fine">Every price and fact was checked on 8 November 2026. Providers change their prices often, so I check each one again on the day I start building against it.</p>'+
+ '</div><img class="trio" src="../img/trio.webp" alt="Three cards in display slabs in the velvet case" loading="lazy"></div></section>');
+
+var deck=document.getElementById("deck"), prog=document.getElementById("prog"), count=document.getElementById("count");
+deck.innerHTML=S.join("");
+var slides=[].slice.call(deck.querySelectorAll(".slide")), N=slides.length, cur=-1, CHECK=4;
+prog.innerHTML=slides.map(function(s,i){return '<button type="button" data-i="'+i+'" aria-label="Slide '+(i+1)+': '+s.getAttribute("aria-label")+'"></button>';}).join("");
+var ticks=[].slice.call(prog.children);
+
+function go(i,quiet){
+  i=Math.max(0,Math.min(N-1,i)); if(i===cur) return;
+  deck.classList.toggle("back",i<cur);
+  slides.forEach(function(s,k){s.classList.toggle("on",k===i);s.classList.toggle("gone",k===cur&&k!==i);s.setAttribute("aria-hidden",k===i?"false":"true");if("inert" in s) s.inert=k!==i;});
+  ticks.forEach(function(t,k){t.classList.toggle("cur",k===i);if(k<=i) t.classList.add("seen");t.setAttribute("aria-current",k===i?"true":"false");});
+  slides[i].scrollTop=0; cur=i;
+  count.textContent=pad(i+1)+" / "+N;
+  document.getElementById("prev").disabled=i===0;
+  document.getElementById("next").disabled=i===N-1;
+  if(!quiet){try{history.replaceState(null,"","#"+(i+1));}catch(e){}}
+}
+function fromHash(){var h=location.hash.slice(1),n=h==="checklist"?CHECK+1:parseInt(h,10);go(n>=1&&n<=N?n-1:0,true);}
+
+document.getElementById("next").addEventListener("click",function(){go(cur+1);});
+document.getElementById("prev").addEventListener("click",function(){go(cur-1);});
+document.getElementById("list").addEventListener("click",function(){go(CHECK);});
+prog.addEventListener("click",function(e){var b=e.target.closest("button");if(b) go(+b.dataset.i);});
+deck.addEventListener("click",function(e){
+  if(e.target.closest("[data-go=next]")){go(cur+1);return;}
+  var p=e.target.closest(".pocket");if(p){e.preventDefault();go(parseInt(p.getAttribute("href").slice(1),10)-1);}
+});
+document.querySelector(".brand").addEventListener("click",function(e){e.preventDefault();go(0);});
+window.addEventListener("hashchange",fromHash);
+document.addEventListener("keydown",function(e){
+  if(e.altKey||e.ctrlKey||e.metaKey) return;
+  var k=e.key;
+  if(k==="ArrowRight"||k==="PageDown"){e.preventDefault();go(cur+1);}
+  else if(k==="ArrowLeft"||k==="PageUp"){e.preventDefault();go(cur-1);}
+  else if(k===" "&&!e.target.closest("button,a")){e.preventDefault();go(cur+(e.shiftKey?-1:1));}
+  else if(k==="Home"){e.preventDefault();go(0);}
+  else if(k==="End"){e.preventDefault();go(N-1);}
+  else if(k==="Escape"||k==="l"||k==="L"){go(CHECK);}
+});
+/* swipe: only a clearly sideways drag turns the page, so reading up and down is never hijacked */
+var tx=0,ty=0,tt=0;
+deck.addEventListener("touchstart",function(e){var t=e.changedTouches[0];tx=t.clientX;ty=t.clientY;tt=Date.now();},{passive:true});
+deck.addEventListener("touchend",function(e){
+  var t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;
+  if(e.target.closest(".scroll-x")) return;
+  if(Math.abs(dx)>56&&Math.abs(dx)>Math.abs(dy)*1.8&&Date.now()-tt<700) go(cur+(dx<0?1:-1));
+},{passive:true});
+fromHash();
+})();
+</script>
+<noscript><p style="padding:24px;color:#fff">This presentation needs JavaScript. The full written proposal is at github.com/Sixteen1-6/my-collector-concierge/blob/main/docs/PROPOSAL.md.</p></noscript>
+</body>
+</html>
