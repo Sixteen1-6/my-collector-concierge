@@ -16,7 +16,7 @@ One number is not enough to make a decision about a card. Each card, and the col
 |---|---|---|
 | Recorded | What value does My CC have on file for this card? | The latest value staff entered or imported, with its source and date. A card with no value on file reads "Not priced yet", not $0 |
 | Market now | What is it selling for today, as it is? | The median of recent matching sales, shown with how many sales, their dates and the low to high range. This view needs a licensed feed of individual sales. None of the three pricing sources in the proposal provides one. Choosing and paying for a feed is the owner's decision. Until a feed is signed, the card shows the Recorded value only |
-| If graded | What would it be worth at each grade it could get? | Sales of the graded card at each grade in the pregrade range, each shown minus the full grading cost. No single blended number is shown until enough graded results exist to work out real odds. Today the ledger has 35 cards with both a pregrade and a final grade |
+| If graded | What would it be worth at each grade it could get? | Sales of the graded card at each grade in the pregrade range, each shown minus the full grading cost. No single blended number is shown until enough graded results exist to work out real odds. Today the submission sheets have 59 cards with both a pregrade and a final grade |
 | Net if sold | What would actually reach the collector? | Market now, minus fees and shipping, from the same pricing code the quotes use |
 | Trend | Is it going up or down? | The value history over 7, 30 and 90 days. Each window is shown only when the card has that much dated history |
 
@@ -98,7 +98,7 @@ AWS is not step one. Nothing below needs it.
 
 1. Turn on CI and the AI reviewer in this repo. This pull request does that.
 2. Create the private repo for the product code. For now it sits on the developer's personal GitHub account, and this repo stays the public demo. See "Where the code lives" below for the move to My CC.
-3. Do a dry run on the 96 cards that already have scans in the demo. Build the identification step and the scoring, and get a first accuracy number. The scans are not rig photos, so this proves the code and the scoring, not the final accuracy.
+3. Do a dry run on the cards that already have scans. The inventory spreadsheets link a front and back scan for about 8,000 cards, each with its answer already filled in. Download those scans first, then build the identification step and the scoring, and get a first accuracy number. The scans are not rig photos, so this proves the code and the scoring, not the final accuracy. See "The data we have today" below.
 4. Lock the capture setup, described under "Capture setup" below.
 5. Shoot 300 cards that already have known answers in the ledger. Use 200 for writing prompts and keep 100 hidden for the ship decision.
 6. Run identification on them and measure accuracy. If the score is not good enough, fix it here, where a change costs minutes.
@@ -107,6 +107,30 @@ AWS is not step one. Nothing below needs it.
 The dry run in step 3 can use the developer's existing API key. Before real customer cards are processed, the provider accounts are opened under a My CC email, each with a monthly spending limit.
 
 Then create the AWS accounts. They should be created under a My CC email and billing card, not a personal one. Use AWS Organizations with separate production and staging accounts, as the proposal describes.
+
+## The data we have today
+
+The staff member who keeps the inventory sent the working spreadsheets in November 2026. They replace the single ledger file the demo was built from, and they hold more than it did.
+
+| File | What it holds | Size |
+|---|---|---|
+| Master inventories (baseball, football, Formula 1, non-sport) | Every card on hand, one sheet per product | About 7,700 cards |
+| Next PSA | The working queue for the next grading submission | 89 cards |
+| PSA submissions | One sheet per submission since June 2026 | 18 sheets, about 620 cards |
+
+What these files give the build:
+
+- **The right answer for almost every card.** Each row has year, brand, set, subset, player, card number, attributes and team. The card number was missing from the demo ledger and is here.
+- **Scans.** About 8,100 rows link a front and a back scan. The links point at an outside service, so every scan is downloaded and kept in private storage before anything depends on it.
+- **Grading history.** 419 submitted cards have the four pregrade scores (centering, corners, edges, surface). 143 have a final grade back, and 59 of those also have a pregrade.
+
+What the import has to handle:
+
+- **Rows disappear.** A card's row is removed from the master inventory when it goes to PSA, and cards marked to sell or send back do not return to the list. So the spreadsheets hold no history. The import keeps a dated copy of every file it is given and compares it with the last one. A card that has gone missing becomes a question for staff, not a silent delete.
+- **The inventory number is the key.** It is the `sku` column. About 200 rows have none, and 25 numbers appear twice. Both go on the reconciliation report.
+- **Column names differ between sheets.** Some sheets say `Value` and others `sale_price`. The older submission sheets have their own layouts.
+- **Pregrades and grades are free text.** "9 or 10", "gem likely" and "9 at best" all need one agreed scale, and final grades have spelling variants.
+- **These files are private.** They belong in the private product repo's storage, never in this public demo repo.
 
 ## Where the code lives
 
@@ -265,7 +289,7 @@ An adapter never sends a camera original. A 61-megapixel frame is larger than pr
 
 ### What the test set can score
 
-The ledger gives the right answer for player, year, set and parallel. It has no card number, so staff type the card number for each test card when it is shot. Test cards are picked from the ones that have a set filled in. Where the ledger leaves the parallel blank, staff confirm whether the card is a base card and record that as the answer. The catalog check needs a checklist of real sets and card numbers, and its source has to be named before Milestone 0 starts.
+The inventory spreadsheets give the right answer for year, set, card number, player and parallel on almost every card. A wrong label would count a right answer as a miss, so staff check each test card by hand before the set is trusted. Where a row leaves the subset blank, staff confirm whether the card is a base card and record that as the answer. The catalog check needs a checklist of real sets and card numbers, and its source has to be named before Milestone 0 starts.
 
 ### Library
 
@@ -281,13 +305,13 @@ Amazon Bedrock is added as one of the providers once the AWS accounts exist. It 
 
 The provider models do the work at the start. Our own models are built next to them from the first week, on a separate branch, so My CC ends up with models it owns. They cost almost nothing per card, and they keep working if a provider changes its price or its terms.
 
-Ninety-six scanned cards are enough to test a model and far too few to train one. So the three tracks start at different times:
+The inventory spreadsheets link scans for about 8,000 labeled cards. That is enough to test any model and to start the first two tracks early. Graded results are still few, so the grade model starts last:
 
 | Track | What it is | When it can start | What it needs |
 |---|---|---|---|
 | Look-alike matcher | An open, already-trained image model turns each scan into a fingerprint. A new card is matched to the known card with the closest fingerprint | Milestone 0. It needs no training to begin | A reference picture of each card it should recognize |
-| Trained identifier | A small model trained on My CC's own confirmed cards | Once a few thousand cards are confirmed | Labels, which come free from `model_calls` and the staff corrections |
-| Grade model | Predicts the grade a card is likely to get | Once enough graded cards have come back | Rig photos of each card taken before it goes to the grader, paired with the grade it got |
+| Trained identifier | A small model trained on My CC's own confirmed cards | After the dry run, once the spreadsheet labels have been spot-checked | Labels from the spreadsheets at first, then from `model_calls` and the staff corrections |
+| Grade model | Predicts the grade a card is likely to get | Once enough graded cards have come back. Today 143 have a final grade | Photos of each card taken before it goes to the grader, paired with the grade it got |
 
 Rules for all three:
 
@@ -311,10 +335,12 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(ai): local call log with the same fields as model_calls`
 - `feat(identify): v0 script that returns year, set, number, player, parallel as structured fields`
 - `feat(eval): scoring script with accuracy by field and a list of misses`
-- `docs(eval): dry run report on the 96 cards already scanned`
+- `feat(import): read the inventory and submission spreadsheets, and keep a dated copy of every file received`
+- `feat(import): download every linked scan into private storage, with a list of links that failed`
+- `docs(eval): dry run report on the cards already scanned`
 - `docs(capture): shot list, lighting, camera settings, file formats and file naming`
 - `feat(capture): tethered script that fires the lights in order and names the files`
-- `feat(eval): manifest of 300 labelled cards, 200 for prompt work and 100 held back, with card numbers typed by staff`
+- `feat(eval): manifest of 300 labelled cards checked by staff, 200 for prompt work and 100 held back`
 - `feat(ai): model-sized copy and small-print crops of each flat shot, with a version`
 - `feat(identify): catalog check that rejects set and number pairs that do not exist`
 - `feat(eval): run the same set against any provider, with accuracy next to cost per card and the run-to-run spread`
@@ -336,7 +362,7 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(db): model_calls and model_corrections tables`
 - `feat(db): card_live and account_live tables, with a version on every row and a change counter per account`
 - `feat(db): outbox table, written in the same transaction as every card_live and account_live change`
-- `feat(import): ledger import with a reconciliation report for all 7,964 cards`
+- `feat(import): spreadsheet import into the database, with a reconciliation report and a list of cards that went missing since the last file`
 - `ci: preview deploy per pull request and staging deploy on merge`
 
 ### Milestone 2: one card, end to end
