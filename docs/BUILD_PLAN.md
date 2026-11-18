@@ -391,6 +391,20 @@ How several sources become one good number:
 
 The proposal says "no scraping". This plan narrows that to "no collection that breaks a site's terms", which is a change for the owner to approve.
 
+## Selling channels: more than eBay
+
+A card can be sold wherever it will do best. Every marketplace plugs into one `SalesChannel` interface, the same way pricing sources and AI providers do, so the card record, the timeline and the payout statement look the same whichever one made the sale.
+
+| Kind of channel | How it works | Examples |
+|---|---|---|
+| Connected | The system creates the listing, follows the order and reads the fees by itself | eBay, which has a full connection for sellers |
+| Tracked | Staff list the card on the marketplace. The system records the listing, the sale and the fees from staff entry or an imported report | Fanatics Collect, which has no public connection today. Auction houses and other marketplaces work the same way |
+
+- A tracked channel becomes a connected one by writing one adapter, when a marketplace offers a connection.
+- A card can be listed on only one channel at a time, as the proposal says. The database enforces it.
+- The system suggests the channel for each card from where similar cards have sold best. The collector and staff make the choice.
+- Which marketplaces to add first is the owner's decision. Each one needs its fees and rules read before cards go on it.
+
 ## Listing prices that follow the market
 
 A listing is not priced once and left alone.
@@ -502,6 +516,8 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(portal): add Trend to the card page, each window shown only when the card has that much dated history`
 - `feat(grading): run builder, packing list, cert lookup on return`
 - `feat(grading): log pregrade against the PSA result for the grade model`
+- `feat(listing): SalesChannel interface, with eBay as the first connected channel`
+- `feat(listing): tracked channels, with sales and fees from staff entry or an imported report`
 - `feat(listing): eBay listing drafts from the card record`
 - `feat(listing): auto-publish under a value limit, one tap above it`
 - `feat(pricing): asking prices from eBay's listing search, stored apart from sales`
