@@ -321,6 +321,23 @@ Rules for all three:
 - **Photograph before shipping.** A card that goes to the grader without rig photos gives a grade with nothing to pair it with. Every card is shot on the rig before it leaves.
 - **Training is in Python.** Everything else stays in TypeScript.
 
+## Payments: keeping the fees low
+
+A card payment costs about 3%, and most of that goes to the customer's bank and the card network. That part is hard to avoid. The fees stacked on top of it are not. This is the direction to build toward when the billing work starts.
+
+| How the customer pays | Fee | On a $1,000 invoice |
+|---|---|---|
+| Card, Apple Pay or Google Pay through Stripe | 2.9% + 30 cents | $29.30 |
+| Bank transfer (ACH) through Stripe | 0.8%, capped at $5 | $5.00 |
+
+- **One payment system.** Stripe handles cards, Apple Pay, Google Pay and bank transfers, so customers get every option and the books stay in one place. Apple Pay is still a card payment and costs the same. PayPal costs more than Stripe, so it is left out unless customers ask for it.
+- **Bank transfer is the default for monthly vault plans and larger invoices.** Cards stay available for anyone who prefers them. A bank transfer takes a few days to clear and can bounce, so an invoice is marked paid only when the money lands.
+- **Run the monthly billing ourselves.** The proposal uses Stripe Billing, which adds 0.7% to every plan payment, and Stripe Invoicing, which adds 0.4% to every paid invoice. The alternative is to keep the schedule in our own code and use Stripe only to move the money. That means building what those products do: the monthly charge, plan changes part way through a month, retries when a payment fails, receipts and reminders. The saving grows with the number of members, so price the build against it before starting.
+- **Passing the card fee on is the owner's decision.** A card surcharge or a discount for paying by bank is allowed in most places, with rules that vary by state. Check them first.
+- **eBay sales do not pass through Stripe.** The buyer pays eBay, so only eBay's fees apply to a consignment sale.
+
+Moving off Stripe Billing and Stripe Invoicing changes the proposal, so it goes on the change list with an hours estimate for the owner to approve.
+
 ## Commit plan
 
 Each line is one commit, small enough to review in a few minutes. Commit messages use the form `type(area): what changed`.
@@ -390,6 +407,8 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 
 - `feat(grading): grade-or-sell calculator showing the value at each grade in the pregrade range`
 - `feat(pricing): fee and shipping code shared by quotes, the calculator and Net if sold`
+- `feat(billing): bank transfer as the default for vault plans and larger invoices, marked paid only when the money lands`
+- `docs(billing): cost of running monthly billing ourselves against the Stripe Billing and Invoicing fees, for the owner to decide`
 - `feat(portal): add If graded and Net if sold to the card page`
 - `feat(portal): add Trend to the card page, each window shown only when the card has that much dated history`
 - `feat(grading): run builder, packing list, cert lookup on return`
