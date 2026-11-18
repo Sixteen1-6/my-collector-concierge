@@ -321,6 +321,48 @@ Rules for all three:
 - **Photograph before shipping.** A card that goes to the grader without rig photos gives a grade with nothing to pair it with. Every card is shot on the rig before it leaves.
 - **Training is in Python.** Everything else stays in TypeScript.
 
+## Guesses in the background
+
+What a collector sees is always backed by evidence: a value comes from real sales, and a grade comes from the grader. Behind that, the AI makes its own guess on every card, and every guess is recorded. Nobody sees these guesses. They exist to build data and to show, with numbers, when a model has become good enough to use.
+
+| What is guessed | Guessed from | The real answer it is scored against | When the real answer arrives |
+|---|---|---|---|
+| Which card it is | The photos | The identity staff confirmed | At review |
+| The grade | The photos and the surface map | The grade the grader gave | When the card comes back |
+| The value | The photos, the identity and the grade guess | The value worked out from sales, and the price the card actually sells for | Straight away for the first, at the sale for the second |
+
+How it works:
+
+- **Several models guess the same card.** Provider models and our own models run side by side. Each guess is a row in `model_calls`, marked as a background guess.
+- **A guess is scored when the truth arrives.** The real answer is saved as a new row that points at the guess. Nothing is edited.
+- **A scoreboard per task.** It shows each model's accuracy over time and by type of card, so it is clear which model is winning and where each one is weak.
+- **These pairs are the training data.** Every guess with its real answer is one more example for our own models.
+- **It runs on the cheap path.** Nobody is waiting for a background guess, so it uses batch pricing and stays inside the daily spend limit.
+- **A guess is promoted, not assumed.** A background guess starts being used only under the ship rule. For value and grade, that is also the owner's decision, because those numbers reach collectors.
+
+A value guessed from a picture will probably stay weaker than one backed by sales. It is still useful in two places before it is ever shown: flagging a card whose guess is far from its recorded value so staff take a look, and giving staff a starting point on a card with no recent sales.
+
+## Any picture can come in
+
+The rig gives the best pictures, but it is not the only source. The scans that exist today came from the current inventory tool, staff will take pictures with the phone app, and collectors will send their own. The system takes all of them through one front door.
+
+1. **One intake for every image.** Whatever the source or the file format, the original is stored unchanged and tagged with where it came from, the device, the format, its size and, when known, its pixels per inch and the kind of lighting.
+2. **One standard working copy.** Each image is turned into the same form: the card found, straightened and cropped, in one file format and one color setting. Formats that models and browsers do not read, such as camera raw files and the HEIC files phones make, are converted here. The model-sized copy is made from this.
+3. **Models only see the standard copy.** Adding a new source or format is a change to the intake, never to the models.
+4. **A quality check on the way in.** Sharpness, glare, resolution and whether the whole card is in frame are scored. A poor phone picture is turned back with a clear reason, such as "glare on the top left, please retake".
+5. **Scores are kept by source.** The test set reports accuracy separately for each source. A model can be good enough to use on rig photos and not yet on phone photos.
+
+What each source can support:
+
+| Source | Which card it is | Centering and corners | Surface and grade |
+|---|---|---|---|
+| The rig | Yes | Yes | Yes |
+| Scans from the current inventory tool | Yes | Yes | No, flat light hides the surface |
+| Staff phone photos | Yes | Rough | No |
+| A collector's own photos | Yes | Rough | No |
+
+A collector's own photos open up one more use: a quick check of what a card is and roughly what it is worth before it is ever mailed in.
+
 ## Payments: keeping the fees low
 
 A card payment costs about 3%, and most of that goes to the customer's bank and the card network. That part is hard to avoid. The fees stacked on top of it are not. This is the direction to build toward when the billing work starts.
@@ -358,10 +400,13 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `docs(capture): shot list, lighting, camera settings, file formats and file naming`
 - `feat(capture): tethered script that fires the lights in order and names the files`
 - `feat(eval): manifest of 300 labelled cards checked by staff, 200 for prompt work and 100 held back`
-- `feat(ai): model-sized copy and small-print crops of each flat shot, with a version`
+- `feat(ingest): one intake for any image source and format, original kept, source and format recorded`
+- `feat(ingest): find, straighten and crop the card into a standard working copy, with a quality score`
+- `feat(ai): model-sized copy and small-print crops of each working copy, with a version`
 - `feat(identify): catalog check that rejects set and number pairs that do not exist`
 - `feat(eval): run the same set against any provider, with accuracy next to cost per card and the run-to-run spread`
 - `feat(match): look-alike matcher from an open image model, scored on the same set`
+- `feat(eval): accuracy reported separately for each image source`
 - `docs(capture): test shoot results for shiny cards, aperture, background, file sizes and upload speed`
 - `docs(eval): first accuracy report and the go or no-go call`
 
@@ -399,6 +444,8 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(portal): card page reading real data, with Recorded, Market now and the sales behind them`
 - `feat(portal): updates in place, the Live marker and the reconnecting message`
 - `feat(obs): save-to-screen delay metric, dashboard and alarm`
+- `feat(ai): background guesses for grade and value on every card, recorded and never shown`
+- `feat(ai): link each guess to the real answer when it arrives, with a scoreboard per model`
 - `feat(train): export confirmed cards and corrections as a training set, with the test cards held out`
 - `ci: eval gate that blocks a prompt or model change if accuracy drops by more than the margin`
 - `ci: two-browser test that a change made in one appears in the other, and that nothing is missed after a dropped connection`
@@ -418,6 +465,7 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(capture): surface maps computed from the low-angle shots, and where that job runs`
 - `feat(portal): collection totals and the activity feed, read from account_live`
 - `feat(staff): live intake and grading boards`
+- `feat(ingest): phone photos from the staff app, with a retake prompt when quality is low`
 - `feat(train): first trained identifier, shipped only under the ship rule`
 
 ## CI and CD
