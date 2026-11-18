@@ -372,13 +372,24 @@ A value is only as good as the sales behind it. Every source plugs into the same
 | My CC's own sales | Every consignment sale, matched to the exact card. The most exact source there is, and free | Starts with the first sale and grows |
 | A licensed feed of individual sales | Dated sales across the market | The owner's choice. A quote is on the list of outside items |
 | eBay's official tools for developers | Current asking prices, and sold items for developers eBay has approved | Apply once the developer account exists |
+| Public websites that allow automated collection | Auction results and sold prices published on the open web | Each site is checked first, as described below |
 | A price guide with its own connection | One price per card and grade. A cross-check, not individual sales | Optional |
 | Staff entry and file import | Anything the others miss | In the proposal |
 
-Two rules:
+The goal is the best information a collector can get, so every source that is allowed gets used. Three rules keep it honest:
 
-- **No scraping.** Copying sales off websites breaks their terms. eBay is also where My CC sells, so losing that account over data would cost far more than the data is worth. The proposal already rules it out.
+- **Collect from the web wherever it is allowed, and only there.** Before a collector is built for a site, its terms and its robots file are read, and a dated note of what they allow is saved in the repo. If the terms forbid automated collection, the options are to ask for written permission or to use the site's official connection. The collector identifies itself, goes slowly, and stops if a site asks it to.
+- **eBay is not collected this way.** eBay's terms forbid it, and eBay is where My CC sells, so losing that account would cost far more than the data is worth. eBay's sold prices come through its official developer tools, which need eBay's approval.
 - **An asking price is not a sale.** Asking prices are stored apart from sales and shown as "listed for". They help suggest a listing price. They never go into Market now.
+
+How several sources become one good number:
+
+- The same sale often appears on more than one source. It is counted once.
+- A sale that is far from the others is set aside for staff to look at, not averaged in.
+- Recent sales count for more than old ones.
+- The card page shows which sources a value came from, so a collector can judge it.
+
+The proposal says "no scraping". This plan narrows that to "no collection that breaks a site's terms", which is a change for the owner to approve.
 
 ## Listing prices that follow the market
 
@@ -494,6 +505,8 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(listing): eBay listing drafts from the card record`
 - `feat(listing): auto-publish under a value limit, one tap above it`
 - `feat(pricing): asking prices from eBay's listing search, stored apart from sales`
+- `feat(pricing): web collector for sites whose terms allow it, with the terms check saved for each site`
+- `feat(pricing): count a sale once across sources, set outliers aside, and weight recent sales higher`
 - `feat(listing): price suggestions that follow the market, inside the limits the collector approved`
 - `feat(capture): surface maps computed from the low-angle shots, and where that job runs`
 - `feat(portal): collection totals and the activity feed, read from account_live`
