@@ -363,6 +363,36 @@ What each source can support:
 
 A collector's own photos open up one more use: a quick check of what a card is and roughly what it is worth before it is ever mailed in.
 
+## Where sales data comes from
+
+A value is only as good as the sales behind it. Every source plugs into the same `PricingSource` interface, and every sale is tagged with where it came from, so adding or dropping a source is one adapter.
+
+| Source | What it gives | Status |
+|---|---|---|
+| My CC's own sales | Every consignment sale, matched to the exact card. The most exact source there is, and free | Starts with the first sale and grows |
+| A licensed feed of individual sales | Dated sales across the market | The owner's choice. A quote is on the list of outside items |
+| eBay's official tools for developers | Current asking prices, and sold items for developers eBay has approved | Apply once the developer account exists |
+| A price guide with its own connection | One price per card and grade. A cross-check, not individual sales | Optional |
+| Staff entry and file import | Anything the others miss | In the proposal |
+
+Two rules:
+
+- **No scraping.** Copying sales off websites breaks their terms. eBay is also where My CC sells, so losing that account over data would cost far more than the data is worth. The proposal already rules it out.
+- **An asking price is not a sale.** Asking prices are stored apart from sales and shown as "listed for". They help suggest a listing price. They never go into Market now.
+
+## Listing prices that follow the market
+
+A listing is not priced once and left alone.
+
+- When a card is listed, the suggested price comes from Market now and what similar cards are listed for.
+- While it is listed, a market move past a set threshold produces a new suggested price.
+- A price never goes below the minimum the collector agreed to. Inside a range the collector approved, the change is applied automatically. Outside it, staff approve it with one tap.
+- Every price change is an event on the card's timeline, with the sales that caused it.
+
+## Ideas for later
+
+- **A zoom tool for the model.** Today a model gets a fixed set of close-ups. A model could instead ask for a close-up of any part of the full-quality photo, look, and ask again. It would be offered to models as a tool. It is worth trying on the test set against the fixed close-ups before building on it.
+
 ## Payments: keeping the fees low
 
 A card payment costs about 3%, and most of that goes to the customer's bank and the card network. That part is hard to avoid. The fees stacked on top of it are not. This is the direction to build toward when the billing work starts.
@@ -435,6 +465,7 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(pricing): sales table with a source tag on every sale`
 - `feat(pricing): PricingSource interface and the first licensed feed adapter` (starts once a feed is signed. Until then the pipeline is tested with staff-entered sales)
 - `feat(pricing): match sales to cards on exact identity fields, send the rest to staff review, value is the median of recent comps`
+- `feat(pricing): My CC's own sales recorded as a pricing source`
 - `feat(pricing): rework only the cards a new sale touches, and write the result to card_live`
 - `feat(live): spike to confirm both Cognito pools and a WAF web ACL work on one Event API`
 - `feat(live): LiveChannel interface and the AppSync Events adapter`
@@ -462,6 +493,8 @@ Each line is one commit, small enough to review in a few minutes. Commit message
 - `feat(grading): log pregrade against the PSA result for the grade model`
 - `feat(listing): eBay listing drafts from the card record`
 - `feat(listing): auto-publish under a value limit, one tap above it`
+- `feat(pricing): asking prices from eBay's listing search, stored apart from sales`
+- `feat(listing): price suggestions that follow the market, inside the limits the collector approved`
 - `feat(capture): surface maps computed from the low-angle shots, and where that job runs`
 - `feat(portal): collection totals and the activity feed, read from account_live`
 - `feat(staff): live intake and grading boards`
