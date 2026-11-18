@@ -1,0 +1,59 @@
+name: CI
+
+# Runs on every pull request and on every push to main.
+# The jobs run at the same time, so a broken page, broken script
+# or missing scan shows up within about a minute.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A new push to the same branch cancels the older run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  site-check:
+    name: Links, data and scans
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-site.mjs
+
+  js-syntax:
+    name: JavaScript syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check every script the site ships
+        run: |
+          for f in assets/*.js scripts/*.mjs; do
+            echo "checking $f"
+            node --check "$f"
+          done
+
+  pages-smoke:
+    name: Pages load
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Serve the site and request each page
+        run: |
+          python3 -m http.server 8000 >/dev/null 2>&1 &
+          sleep 2
+          for path in / /portal.html /jb/ /data/collection.json /assets/site.css; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8000$path")
+            echo "$code $path"
+            test "$code" = "200"
+          done
